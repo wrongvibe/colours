@@ -1,0 +1,363 @@
+/* =============================================
+   COLOUR
+   Minimal · Monospace · Accent-tinted
+   ============================================= */
+
+/* --- Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+
+body {
+  --font-interface: 'IBM Plex Mono', monospace;
+  --font-text:      'IBM Plex Mono', monospace;
+  --font-monospace: 'IBM Plex Mono', monospace;
+  --font-header:    'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif;
+
+  --triadic-2-h:   calc(var(--accent-h) + 240); /* triadic 2 */
+  --complement-h:  calc(var(--accent-h) + 180); /* opposite */
+  --split-comp-h:  calc(var(--accent-h) + 150); /* split complementary */
+  --triadic-h:     calc(var(--accent-h) + 120); /* triadic */
+  --analogous-h:   calc(var(--accent-h) + 30);  /* analogous */
+  --analogous-2-h: calc(var(--accent-h) + 10);
+  --analogous-3-h: calc(var(--accent-h) - 30);
+}
+
+/* --- Light mode: stark white tinted to accent hue --- */
+body {
+  --complement:                  hsl(var(--complement-h), var(--accent-s), var(--accent-l));
+  --background-primary:          hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --background-secondary:        hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --background-secondary-alt:    hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) * 0.8));
+  --background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.65), clamp(30%, var(--accent-l) * 1.5, 90%));
+  --background-modifier-hover:   hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) * 0.9));
+  --background-modifier-form-field:             hsl(var(--accent-h), var(--accent-s), 100%);
+  --background-modifier-form-field-highlighted: hsl(var(--accent-h), var(--accent-s), 100%);
+
+  --titlebar-background:         hsl(var(--accent-h), var(--accent-s), clamp(15%, var(--accent-l), 30%));
+  --titlebar-background-focused: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+
+  --text-normal:       hsl(var(--accent-h), var(--accent-s), 95%);
+  --text-muted:        hsl(var(--accent-h), calc(var(--accent-s) * 0.8), 85%);
+  --text-faint:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), 70%);
+  --text-accent:       hsl(var(--accent-h), var(--accent-s), 100%);
+  --text-on-accent:    hsl(var(--accent-h), var(--accent-s), 90%);
+  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), 92%);
+
+  --text-highlight-bg: hsla(var(--complement-h), var(--accent-s), 50% , 80%);
+
+/* Clears default straight underline */
+  --link-decoration: none !important;
+  --link-decoration-hover: none !important;
+  --link-unresolved-color: none;
+  --link-unresolved-opacity: 60%;
+
+  --interactive-accent:       hsl(var(--accent-h), var(--accent-s), 100%);
+  --interactive-accent-hover: hsl(var(--accent-h), var(--accent-s), 50%);
+
+  --code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(22%, var(--accent-l) * 0.6, 30%), 60%);
+
+  --h1-size: 2.5em;
+  --h2-size: 2.1em;
+  --h3-size: 1.7em;
+  --h4-size: 1.4em;
+  --h5-size: 1.2em;
+  --h6-size: 1.1em;
+
+/*  --h1-color: hsl(var(--triadic-2-h), 90%, 80%);
+  --h2-color: hsl(var(--complement-h), 80%, 85%);
+  --h3-color: hsl(var(--split-comp-h), 75%, 80%);
+  --h4-color: hsl(var(--triadic-h), 65%, 75%);
+  --h5-color: hsl(var(--analogous-h), 50%, 75%);
+  --h6-color: hsl(var(--analogous-2-h), 40%, 75%);*/
+
+  --h1-color: hsl(var(--accent-h), 90%, 98%);
+  --h2-color: hsl(var(--accent-h), 80%, 88%);
+  --h3-color: hsl(var(--accent-h), 75%, 80%);
+  --h4-color: hsl(var(--accent-h), 70%, 75%);
+  --h5-color: hsl(var(--accent-h), 65%, 70%);
+  --h6-color: hsl(var(--accent-h), 60%, 65%);
+}
+
+body.theme-dark {
+  --background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.6), calc(var(--accent-l) * 0.8));
+
+  --titlebar-background:         hsl(var(--accent-h), calc(var(--accent-s) * 0.5), calc(var(--accent-l) * 0.8));
+
+  --text-normal:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--accent-l) * 0.1, 20%));
+  --text-muted:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(30%, var(--accent-l) * 0.3, 50%));
+  --text-faint:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--accent-l) * 0.5, 60%));
+  --text-accent:       hsl(var(--accent-h), var(--accent-s), 10%);
+  --text-on-accent:    hsl(var(--accent-h), var(--accent-s), 20%);
+  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), 8%);
+
+  --text-highlight-bg: hsla(var(--complement-h), var(--accent-s), 30% , 80%);
+
+  --code-background:   hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.9), clamp(max(var(--accent-l) * 1.05), var(--accent-l)*1.2, 100%), 80%);
+  --code-border:       hsla(var(--analogous-2-h), calc(var(--accent-s) * 1), calc(var(--accent-l) * 0.92));
+
+  --h1-color: hsl(var(--accent-h), 80%, 20%);
+  --h2-color: hsl(var(--accent-h), 70%, 25%);
+  --h3-color: hsl(var(--accent-h), 60%, 30%);
+  --h4-color: hsl(var(--accent-h), 50%, 35%);
+  --h5-color: hsl(var(--accent-h), 40%, 40%);
+  --h6-color: hsl(var(--accent-h), 30%, 45%);
+}
+
+body.theme-dark .HyperMD-codeblock-begin {
+  border-top: 1px solid var(--code-border) !important;
+}
+body.theme-dark .HyperMD-codeblock-end {
+  border-bottom: 1px solid var(--code-border) !important;
+}
+body.theme-dark .cm-line.HyperMD-codeblock {
+  border-left: 1px solid var(--code-border) !important;
+  border-right: 1px solid var(--code-border) !important;
+}
+
+body.theme-dark .cm-inline-code {
+  border: 1px solid var(--code-border) !important;
+}
+
+/* --- Title --- */
+.inline-title {
+  font-size: 4em !important;
+  font-weight: 700;
+  font-family: var(--font-header) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* --- Dropdown --- */
+.dropdown {
+  background-color: var(--text-normal);
+  color: var(--background-primary);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.modal {
+  border-bottom: 1px solid var(--background-modifier-border) !important;
+}
+
+.modal-bg {
+  background: hsl(var(--accent-h), calc(var(--accent-s)*0.7), calc(var(--accent-l) * 0.6)) !important;
+}
+
+/* Settings sidebar nav */
+.vertical-tab-nav-item.is-active,
+.vertical-tab-nav-item:hover {
+  background: var(--text-normal) !important;
+  color: var(--background-primary) !important;
+}
+.vertical-tab-nav-item.is-active .vertical-tab-nav-item-icon,
+.vertical-tab-nav-item:hover .vertical-tab-nav-item-icon{
+  color: var(--background-primary);
+}
+
+.setting-items {
+  background: var(--background-primary) !important;
+  border-bottom: 1px solid var(--background-modifier-border) !important;
+}
+
+/* --- White Padding fix --- */
+.setting-item,
+.setting-group-search {
+  background: var(--background-primary) !important;
+}
+
+/* --- Strip all rounded corners — sharp edges --- */
+*, *::before, *::after {
+  border-radius: 0 !important;
+}
+
+/* --- Hard borders --- */
+.modal,
+.menu,
+.suggestion-container {
+  border: 1px solid var(--background-modifier-border) !important;
+}
+
+/* --- Code block markdown fix --- */
+.HyperMD-codeblock .cm-header-1,
+.HyperMD-codeblock .cm-header-2,
+.HyperMD-codeblock .cm-header-3,
+pre .cm-header-1,
+pre .cm-header-2,
+pre .cm-header-3 {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+/* --- Links --- */
+/*
+a:hover, .internal-link:hover, .external-link:hover {
+  background: var(--text-normal) !important;
+  color: var(--background-primary) !important;
+  text-decoration: none !important;
+}*/
+
+/* --- WAVY INTERNAL LINKS --- */
+/* 1. Editing View (Live Preview & Source Mode) */
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link, 
+.markdown-source-view.mod-cm6 .is-unresolved,
+/* 2. Reading Mode */
+.markdown-rendered .internal-link,
+.markdown-rendered .internal-link.is-unresolved {
+  text-decoration: underline wavy !important;
+  text-underline-offset: 4px;
+}
+.markdown-source-view.mod-cm6 .is-unresolved,
+.markdown-rendered .internal-link.is-unresolved {
+  text-decoration-color: red !important;
+}
+
+/* 3. Ensure consistent hover state across all views */
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
+.markdown-source-view.mod-cm6 .is-unresolved:hover,
+.markdown-rendered .internal-link:hover,
+.markdown-rendered .internal-link.is-unresolved:hover {
+  background: var(--text-muted)    !important;
+  color: var(--background-primary) !important;
+  text-decoration: underline wavy  !important;
+  text-decoration-color: var(--text-muted) !important;
+  text-underline-offset: 4px;
+}
+
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6,
+.markdown-reading-view h1,
+.markdown-reading-view h2,
+.markdown-reading-view h3,
+.markdown-reading-view h4,
+.markdown-reading-view h5,
+.markdown-reading-view h6 {
+  font-family: var(--font-header) !important;
+}
+
+body.theme-dark mark,
+body.theme-dark .cm-highlight {
+  color: hsl(var(--accent-h), var(--accent-s), 80%) !important;
+}
+
+/* --- Tables --- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.85em;
+}
+th, td {
+  border: 1px solid var(--text-normal);
+  padding: 4px 8px;
+  text-align: left;
+}
+th {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+tr:hover td {
+  background: var(--background-modifier-hover) !important;
+}
+
+/* --- Scrollbar: thin and monochrome --- */
+::-webkit-scrollbar {
+  width: 4px;
+  opacity: 0;
+}
+::-webkit-scrollbar:hover { opacity: 1;}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-muted); }
+
+/* --- Cursor line highlight --- */
+.cm-active.cm-line {
+  background: var(--background-modifier-hover) !important;
+}
+
+/* --- Selected text --- */
+.cm-editor ::selection {
+  background: var(--text-on-accent) !important;
+  color: var(--background-primary) !important;
+}
+
+/* --- Tags --- */
+.cm-hashtag, a.tag {
+  background: var(--text-normal) !important;
+  color: var(--background-primary) !important;
+  padding: 1px 5px;
+  font-size: 0.8em;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.05em;
+  text-decoration: none !important;
+}
+
+/* --- Code blocks --- */
+code, .cm-inline-code {
+  background: var(--code-background) !important;
+  border: 1px solid var(--background-modifier-border);
+  padding: 1px 4px;
+  font-size: 0.9em;
+}
+
+/* --- Buttons: inverted, uppercase --- */
+.modal button,
+.modal .mod-cta,
+.setting-item button,
+.setting-item .mod-cta,
+.workspace-ribbon button,
+.titlebar button,
+.view-header button,
+.view-actions button,
+.view-action {
+  background: var(--text-normal) !important;
+  color: var(--background-primary) !important;
+  border: 1px solid var(--text-normal) !important;
+  font-family: var(--font-interface);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8em;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.modal button:hover,
+.modal .mod-cta:hover,
+.setting-item button:hover,
+.setting-item .mod-cta:hover,
+.view-header button:hover,
+.view-actions button:hover,
+.view-action:hover {
+  background: var(--background-primary) !important;
+  color: var(--text-accent) !important;
+}
+
+/* --- Toggles --- */
+.modal .checkbox-container {
+  background-color: var(--background-modifier-border);
+  --toggle-thumb-color: var(--text-faint);
+}
+.modal .checkbox-container:hover {
+  --toggle-thumb-color: var(--text-normal);
+}
+.modal .checkbox-container.is-enabled {
+  background-color: var(--code-background);
+  --toggle-thumb-color: var(--text-normal);
+}
+.modal .checkbox-container.is-enabled:hover {
+  --toggle-thumb-color: var(--text-accent);
+}
+
+/* --- Accent colour picker --- */
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  border-radius: 50%;
+  padding: 0;
+  border: 2px solid var(--text-faint) !important;
+  transform: scaleY(0.97);
+}
