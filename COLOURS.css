@@ -12,43 +12,77 @@ body {
   --font-monospace: 'IBM Plex Mono', monospace;
   --font-header:    'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif;
 
+  --complement:    oklch(from var(--color-accent) l c calc(h + 180));
   --triadic-2-h:   calc(var(--accent-h) + 240); /* triadic 2 */
   --complement-h:  calc(var(--accent-h) + 180); /* opposite */
   --split-comp-h:  calc(var(--accent-h) + 150); /* split complementary */
   --triadic-h:     calc(var(--accent-h) + 120); /* triadic */
   --analogous-h:   calc(var(--accent-h) + 30);  /* analogous */
-  --analogous-2-h: calc(var(--accent-h) + 10);
-  --analogous-3-h: calc(var(--accent-h) - 30);
+  --analogous-2:   oklch(from var(--color-accent) l c calc(h + 10));
+  --analogous-3:   oklch(from var(--color-accent) l c calc(h - 20));
+
+
+    /* 1. Grab the hue from the user's color picker */
+    --h: oklch(from var(--color-accent) h);
+
+    /* 2. Remap the hue from digital (RGB) to physical (RYB) 
+       This custom curve smoothly bends the opposing colors:
+       - Red (20deg) now opposes Green (140deg) instead of Cyan! */
+    --ryb-complement-hue: calc(
+        var(--h) + 180 + 
+        (30 * sin(var(--h) * 2deg))
+    );
+
+    /* 3. Output the final, balanced complementary color */
+    --color-accent-complement: oklch(
+        from var(--color-accent) 
+        l 
+        c 
+        var(--ryb-complement-hue)
+    ) !important;
 
 /* --- Accent lightness detection --------------------------------------------------------------------- */
   /* 1. Identify a threshold (60% is usually best for readability) */
-  --contrast-threshold: 45%;
+  --contrast-threshold: 1.1;
+  /*--lightness-offset: calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);*/
   /* 2. Apply the lightness switching formula */
   /* If L > 60%, result is negative (clamped to 0% = Black); L < 60%, result is positive (clamped to 100% = White) */
-  --dynamic-switch: calc(calc(var(--accent-l) - var(--contrast-threshold)) * -1000);
+  /*--dynamic-switch: calc(calc(var(--accent-l) - var(--contrast-threshold)) * -1000);*/
+  /*--dynamic-switch: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold)) * -1000);*/
+  --dynamic-switch: round(calc(var(--contrast-threshold) - l));
 
 /* --- Light mode: stark white tinted to accent hue --- */
-  --background-primary:          hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+
+  --background-primary:          oklch(from var(--color-accent) l c h);
   --background-secondary:        var(--background-primary);
-  --background-secondary-alt:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 80%));
-  --background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(40%, var(--dynamic-switch), 50%));
+  --background-secondary-alt:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch) * -1, 80%)) !important;
   --background-modifier-hover:   hsla(var(--accent-h), calc(var(--accent-s) * 0.9), clamp(30%, var(--dynamic-switch) * -1, 75%), 80%);
+  /*--background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(40%, var(--dynamic-switch), 50%));*/
+  --background-modifier-border:  oklch(from var(--color-accent) clamp(0.50, var(--dynamic-switch), 0.60) c h / 0.8);
+  --background-modifier-border-hover: var(--text-muted);
+  --background-modifier-border-focus: var(--text-normal);
   --background-modifier-form-field:             hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
   --background-modifier-form-field-highlighted: hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
 
   --titlebar-background:         var(--background-modifier-hover);
   --titlebar-background-focused: var(--background-primary);
 
-
-  /* 3. Define the final text color */
-  --text-normal:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 98%));
+/*  --text-normal:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 98%));
   --text-muted:        hsl(var(--accent-h), calc(var(--accent-s) * 0.8), clamp(25%, var(--dynamic-switch), 85%));
   --text-faint:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--dynamic-switch), 70%));
   --text-accent:       hsl(var(--accent-h), var(--accent-s), clamp(10%, var(--dynamic-switch), 100%));
   --text-on-accent:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 90%));
-  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(8%, var(--dynamic-switch), 92%));
+  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(8%, var(--dynamic-switch), 92%));*/
+  --text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 0.1) h);
+  --text-muted:        oklch(from var(--color-accent) clamp(0.25, var(--dynamic-switch), 0.85)  calc(c * 0.5) h);
+  --text-faint:        oklch(from var(--color-accent) clamp(0.40, var(--dynamic-switch), 0.70)  calc(c * 0.5) h);
+  --text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 1.00)  calc(c * 0.1) h);
+  --text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 0.1) h);
+  --text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90)  calc(c * 0.1) h);
+  
 
-  --text-highlight-bg: hsla(var(--complement-h), calc(var(--accent-s) * 0.8), clamp(40%, var(--dynamic-switch), 50%) , 80%);
+  /*--text-highlight-bg: hsla(var(--complement-h), calc(var(--accent-s) * 0.8), clamp(40%, var(--dynamic-switch), 50%) , 80%);*/
+  --text-highlight-bg: oklch(from var(--complement) l calc(c * 1) h / 0.9);
 
 /* Clears default straight underline for links */
   --link-decoration: none !important;
@@ -56,11 +90,19 @@ body {
   --link-unresolved-color: none;
   --link-unresolved-opacity: 60%;
 
+  --input-border-width: 1px ;
+
   --interactive-accent:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 99%));
   --interactive-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 50%));
 
-  --code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(30%, var(--dynamic-switch) * -1, 85%), 50%);
-  --code-border:     hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.7), clamp(50%, var(--dynamic-switch) * -1, 70%), 50%);
+/*  
+  --code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(15%, var(--dynamic-switch) * -1, 85%), 50%);
+  --code-border:     hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.7), clamp(40%, var(--dynamic-switch) * -1, 70%), 50%);
+*/  
+  /*--code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(15%, var(--dynamic-switch) * -1, 85%), 50%);*/
+  --code-background:  oklch(from var(--analogous-3) clamp(0.2, calc(var(--dynamic-switch)), 0.9)  calc(c * 0.8) h / 0.5);
+  /*--code-border:     hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.7), clamp(40%, var(--dynamic-switch) * -1, 70%), 50%);*/
+  --code-border:      oklch(from var(--analogous-2) clamp(0.3, calc(var(--dynamic-switch)), 0.9)  calc(c * 1) h / 0.8);
 
   --h1-size: 2.5em;
   --h2-size: 2.1em;
@@ -76,12 +118,21 @@ body {
   --h5-color: hsl(var(--analogous-h), 50%, 75%);
   --h6-color: hsl(var(--analogous-2-h), 40%, 75%);*/
 
+/*  
   --h1-color: hsl(var(--accent-h), clamp(80%, var(--dynamic-switch), 90%), clamp(15%, var(--dynamic-switch), 99%));
   --h2-color: hsl(var(--accent-h), clamp(70%, var(--dynamic-switch), 80%), clamp(20%, var(--dynamic-switch), 90%));
   --h3-color: hsl(var(--accent-h), clamp(60%, var(--dynamic-switch), 75%), clamp(25%, var(--dynamic-switch), 85%));
   --h4-color: hsl(var(--accent-h), clamp(50%, var(--dynamic-switch), 70%), clamp(30%, var(--dynamic-switch), 80%));
   --h5-color: hsl(var(--accent-h), clamp(45%, var(--dynamic-switch), 65%), clamp(35%, var(--dynamic-switch), 75%));
   --h6-color: hsl(var(--accent-h), clamp(40%, var(--dynamic-switch), 60%), clamp(40%, var(--dynamic-switch), 70%));
+*/
+  --h1-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 1.0);
+  --h2-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.9);
+  --h3-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.8);
+  --h4-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.75);
+  --h5-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.65);
+  --h6-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.6);
+
 }
 
 body.theme-dark {
@@ -232,17 +283,6 @@ body.theme-dark {
   border-bottom: 1px solid var(--background-modifier-border) !important;
 }
 
-/* --- Accent colour picker --- */
-input[type="color"]::-webkit-color-swatch {
-  border: none;
-}
-input[type="color"]::-webkit-color-swatch-wrapper {
-  border-radius: 50%;
-  padding: 0;
-  border: 2px solid var(--text-faint) !important;
-  transform: scaleY(0.97);
-}
-
 /* --- Dropdown --- */
 .dropdown {
   background-color: var(--text-normal) !important;
@@ -262,25 +302,47 @@ input[type="color"]::-webkit-color-swatch-wrapper {
   background: var(--background-primary) !important;
 }
 
+/* --- Inputs --- */
+.setting-item input[type="text"]  {
+  background-color: var(--background-primary);
+  outline: none;
+}
+.setting-item input[type="text"]:hover  {
+  background-color: var(--background-secondary-alt);
+  border-color: var(--text-normal);
+  outline: none;
+}
+.setting-item input[type="text"]:focus  {
+  background-color: var(--background-modifier-hover);
+  border-color: var(--text-normal);
+  box-shadow: none;
+}
+
+/* --- Accent colour picker --- */
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  border-radius: 50%;
+  padding: 0;
+  border: 2px solid var(--text-faint) !important;
+  transform: scaleY(0.97);
+}
 
 /* --- Toggles --- */
-.modal .checkbox-container {
-  background-color: var(--background-modifier-border);
-  --toggle-thumb-color: var(--text-faint);
-}
-.modal .checkbox-container:hover {
-  --toggle-thumb-color: var(--text-normal);
-}
-.theme-dark .modal .checkbox-container {
-  background-color: var(--text-faint);
-  --toggle-thumb-color: var(--text-muted);
-}
 .modal .checkbox-container.is-enabled {
   background-color: var(--code-background);
   --toggle-thumb-color: var(--text-normal);
 }
 .modal .checkbox-container.is-enabled:hover {
   --toggle-thumb-color: var(--text-accent);
+}
+.modal .checkbox-container {
+  background-color: var(--background-modifier-hover);
+  --toggle-thumb-color: var(--text-faint);
+}
+.modal .checkbox-container:hover {
+  --toggle-thumb-color: var(--text-normal);
 }
 
 /* --- Code blocks --------------------------------------------------------------------- */
