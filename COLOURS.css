@@ -12,77 +12,86 @@ body {
   --font-monospace: 'IBM Plex Mono', monospace;
   --font-header:    'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif;
 
-  --complement:    oklch(from var(--color-accent) l c calc(h + 180));
-  --triadic-2-h:   calc(var(--accent-h) + 240); /* triadic 2 */
-  --complement-h:  calc(var(--accent-h) + 180); /* opposite */
-  --split-comp-h:  calc(var(--accent-h) + 150); /* split complementary */
-  --triadic-h:     calc(var(--accent-h) + 120); /* triadic */
-  --analogous-h:   calc(var(--accent-h) + 30);  /* analogous */
+/* --- Hue shift --------------------------------------------------------------------- */
+
+  --triadic-2:     oklch(from var(--color-accent) l c calc(h + 240)); /* triadic 2 */
+  --complement:    oklch(from var(--color-accent) l c calc(h + 180)); /* opposite */
+  --split-comp:    oklch(from var(--color-accent) l c calc(h + 150)); /* split complementary */
+  --triadic:       oklch(from var(--color-accent) l c calc(h + 120)); /* triadic */
+  --analogous:     oklch(from var(--color-accent) l c calc(h + 30));  /* analogous */
   --analogous-2:   oklch(from var(--color-accent) l c calc(h + 10));
   --analogous-3:   oklch(from var(--color-accent) l c calc(h - 20));
 
 
-    /* 1. Grab the hue from the user's color picker */
-    --h: oklch(from var(--color-accent) h);
-
-    /* 2. Remap the hue from digital (RGB) to physical (RYB) 
-       This custom curve smoothly bends the opposing colors:
-       - Red (20deg) now opposes Green (140deg) instead of Cyan! */
-    --ryb-complement-hue: calc(
-        var(--h) + 180 + 
-        (30 * sin(var(--h) * 2deg))
-    );
-
-    /* 3. Output the final, balanced complementary color */
-    --color-accent-complement: oklch(
-        from var(--color-accent) 
-        l 
-        c 
-        var(--ryb-complement-hue)
-    ) !important;
-
 /* --- Accent lightness detection --------------------------------------------------------------------- */
   /* 1. Identify a threshold (60% is usually best for readability) */
-  --contrast-threshold: 1.1;
+  /*--contrast-threshold: 45%;*/
   /*--lightness-offset: calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);*/
   /* 2. Apply the lightness switching formula */
   /* If L > 60%, result is negative (clamped to 0% = Black); L < 60%, result is positive (clamped to 100% = White) */
   /*--dynamic-switch: calc(calc(var(--accent-l) - var(--contrast-threshold)) * -1000);*/
   /*--dynamic-switch: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold)) * -1000);*/
+  
+  --contrast-threshold: 1.12;
   --dynamic-switch: round(calc(var(--contrast-threshold) - l));
+ 
+/* --- Highlight system --- */
+  --highlight-text-bias: 3; /* 0 = auto-contrast. Positive = stronger contrast. Negative = weaker/more gray */
+  
+  /* Background: complement at 90% opacity */
+  --text-highlight-bg: oklch(from var(--complement) l c h / 0.75);
+  
+  /* Text: auto-contrast with directional bias */
+  --highlight-text: oklch(from var(--complement) 
+    clamp(0.1, calc(0.5 + (0.5 - l) * (1 + var(--highlight-text-bias))), 0.9)
+    calc(c * 0.5) 
+    h
+  );
+
 
 /* --- Light mode: stark white tinted to accent hue --- */
 
   --background-primary:          oklch(from var(--color-accent) l c h);
   --background-secondary:        var(--background-primary);
-  --background-secondary-alt:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch) * -1, 80%)) !important;
-  --background-modifier-hover:   hsla(var(--accent-h), calc(var(--accent-s) * 0.9), clamp(30%, var(--dynamic-switch) * -1, 75%), 80%);
+  /*--background-secondary-alt:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch) * -1, 80%)) !important;*/
+  --background-secondary-alt:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.80) c h / 0.2);
+  /*--background-modifier-hover:   hsla(var(--accent-h), calc(var(--accent-s) * 0.9), clamp(30%, var(--dynamic-switch) * -1, 75%), 80%);*/
+  --background-modifier-hover:   oklch(from var(--color-accent) clamp(0.25, l * 0.1, 0.75) calc(c * 0.75) h / 0.2);
   /*--background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(40%, var(--dynamic-switch), 50%));*/
-  --background-modifier-border:  oklch(from var(--color-accent) clamp(0.50, var(--dynamic-switch), 0.60) c h / 0.8);
+  --background-modifier-border:  oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) c h / 0.2);
   --background-modifier-border-hover: var(--text-muted);
   --background-modifier-border-focus: var(--text-normal);
   --background-modifier-form-field:             hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
   --background-modifier-form-field-highlighted: hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
 
+  /*  
+  --code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(15%, var(--dynamic-switch) * -1, 85%), 50%);
+  --code-border:     hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.7), clamp(40%, var(--dynamic-switch) * -1, 70%), 50%);
+*/  
+  --code-background:  oklch(from var(--analogous-3) clamp(0.1, l * 0.6, 0.9) calc(c * 0.5) h / 0.2);
+  --code-normal:      var(--text-muted);
+  --code-comment:     var(--text-faint);
+  --code-border:      oklch(from var(--analogous-2) clamp(0.5, l , 0.9) calc(c * 0.8) h / 0.3);
+
+
   --titlebar-background:         var(--background-modifier-hover);
   --titlebar-background-focused: var(--background-primary);
 
-/*  --text-normal:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 98%));
+/*  
+  --text-normal:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 98%));
   --text-muted:        hsl(var(--accent-h), calc(var(--accent-s) * 0.8), clamp(25%, var(--dynamic-switch), 85%));
   --text-faint:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--dynamic-switch), 70%));
   --text-accent:       hsl(var(--accent-h), var(--accent-s), clamp(10%, var(--dynamic-switch), 100%));
   --text-on-accent:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 90%));
-  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(8%, var(--dynamic-switch), 92%));*/
+  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(8%, var(--dynamic-switch), 92%));
+*/
+
   --text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 0.1) h);
-  --text-muted:        oklch(from var(--color-accent) clamp(0.25, var(--dynamic-switch), 0.85)  calc(c * 0.5) h);
+  --text-muted:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80)  calc(c * 0.5) h);
   --text-faint:        oklch(from var(--color-accent) clamp(0.40, var(--dynamic-switch), 0.70)  calc(c * 0.5) h);
-  --text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 1.00)  calc(c * 0.1) h);
+  --text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95)  calc(c * 0.1) h);
   --text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 0.1) h);
   --text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90)  calc(c * 0.1) h);
-  
-
-  /*--text-highlight-bg: hsla(var(--complement-h), calc(var(--accent-s) * 0.8), clamp(40%, var(--dynamic-switch), 50%) , 80%);*/
-  --text-highlight-bg: oklch(from var(--complement) l calc(c * 1) h / 0.9);
 
 /* Clears default straight underline for links */
   --link-decoration: none !important;
@@ -95,14 +104,6 @@ body {
   --interactive-accent:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 99%));
   --interactive-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 50%));
 
-/*  
-  --code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(15%, var(--dynamic-switch) * -1, 85%), 50%);
-  --code-border:     hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.7), clamp(40%, var(--dynamic-switch) * -1, 70%), 50%);
-*/  
-  /*--code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(15%, var(--dynamic-switch) * -1, 85%), 50%);*/
-  --code-background:  oklch(from var(--analogous-3) clamp(0.2, calc(var(--dynamic-switch)), 0.9)  calc(c * 0.8) h / 0.5);
-  /*--code-border:     hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.7), clamp(40%, var(--dynamic-switch) * -1, 70%), 50%);*/
-  --code-border:      oklch(from var(--analogous-2) clamp(0.3, calc(var(--dynamic-switch)), 0.9)  calc(c * 1) h / 0.8);
 
   --h1-size: 2.5em;
   --h2-size: 2.1em;
@@ -111,27 +112,28 @@ body {
   --h5-size: 1.2em;
   --h6-size: 1.1em;
 
-/*  --h1-color: hsl(var(--triadic-2-h), 90%, 80%);
-  --h2-color: hsl(var(--complement-h), 80%, 85%);
-  --h3-color: hsl(var(--split-comp-h), 75%, 80%);
-  --h4-color: hsl(var(--triadic-h), 65%, 75%);
-  --h5-color: hsl(var(--analogous-h), 50%, 75%);
-  --h6-color: hsl(var(--analogous-2-h), 40%, 75%);*/
+  --h-l-min:   0.5;
+  --h-l-max:   0.8;
+  --h-c:       1.5;
+  --h-c-min:   0.2;
+  --h-c-max:   0.2;
 
-/*  
-  --h1-color: hsl(var(--accent-h), clamp(80%, var(--dynamic-switch), 90%), clamp(15%, var(--dynamic-switch), 99%));
-  --h2-color: hsl(var(--accent-h), clamp(70%, var(--dynamic-switch), 80%), clamp(20%, var(--dynamic-switch), 90%));
-  --h3-color: hsl(var(--accent-h), clamp(60%, var(--dynamic-switch), 75%), clamp(25%, var(--dynamic-switch), 85%));
-  --h4-color: hsl(var(--accent-h), clamp(50%, var(--dynamic-switch), 70%), clamp(30%, var(--dynamic-switch), 80%));
-  --h5-color: hsl(var(--accent-h), clamp(45%, var(--dynamic-switch), 65%), clamp(35%, var(--dynamic-switch), 75%));
-  --h6-color: hsl(var(--accent-h), clamp(40%, var(--dynamic-switch), 60%), clamp(40%, var(--dynamic-switch), 70%));
+  /*--title:    oklch(from var(--complement)  clamp(var(--h-l-min) * 1.5, var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.9 ); /* I want it vibrant when the l is in the middle range */
+/* 
+  --h1-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 1.0);
+  --h2-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.95);
+  --h3-color: oklch(from var(--split-comp)  clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.90);
+  --h4-color: oklch(from var(--triadic)     clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.85);
+  --h5-color: oklch(from var(--analogous)   clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.80);
+  --h6-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.75);
 */
-  --h1-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 1.0);
-  --h2-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.9);
-  --h3-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.8);
-  --h4-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.75);
-  --h5-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.65);
-  --h6-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.99) calc(c * 0.3) h / 0.6);
+
+  --h1-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.9);
+  --h2-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.9);
+  --h3-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.8);
+  --h4-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.75);
+  --h5-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.65);
+  --h6-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.6);
 
 }
 
@@ -143,15 +145,6 @@ body.theme-dark {
   /*--background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.6), calc(var(--accent-l) * 0.8));*/
 
   /*--titlebar-background:         hsl(var(--accent-h), calc(var(--accent-s) * 0.5), calc(var(--accent-l) * 0.8));*/
-
-  /*--text-normal:       hsl(var(--accent-h), var(--accent-s), clamp(15%, var(--accent-l) * 0.1, 20%));*/
-  /*--text-muted:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(25%, var(--accent-l) * 0.3, 50%));*/
-  /*--text-faint:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--accent-l) * 0.5, 60%));*/
-  /*--text-accent:       hsl(var(--accent-h), var(--accent-s), 10%);*/
-  /*--text-on-accent:    hsl(var(--accent-h), var(--accent-s), 20%);*/
-  /*--text-accent-hover: hsl(var(--accent-h), var(--accent-s), 8%);*/
-
-  /*--text-highlight-bg: hsla(var(--complement-h), var(--accent-s), 30% , 80%);*/
 
   /*--code-background:   hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.9), clamp(max(var(--accent-l) * 1.05), var(--accent-l) * 1.2, 100%), 80%);*/
   /*--code-border:       hsla(var(--analogous-2-h), calc(var(--accent-s) * 1), calc(var(--accent-l) * 0.92));*/
@@ -181,6 +174,7 @@ body.theme-dark {
 
 /* --- Title --- */
 .inline-title {
+  color: var(--title);
   font-size: 4em !important;
   font-weight: 700;
   font-family: var(--font-header) !important;
@@ -249,12 +243,12 @@ body.theme-dark {
 
 /* --- Cursor line highlight --- */
 .cm-active.cm-line {
-  background: var(--background-modifier-hover) !important;
+  background: oklch(from var(--analogous-2) clamp(0.1, l*0.8, 0.8) c h / 0.5) !important;
 }
 
 /* --- Selected text --- */
 .cm-editor ::selection {
-  background: var(--text-normal) !important;
+  background: var(--h6-color) !important;
   color: var(--background-primary) !important;
 }
 
@@ -357,13 +351,10 @@ input[type="color"]::-webkit-color-swatch-wrapper {
   border-left: 1px solid var(--code-border) !important;
   border-right: 1px solid var(--code-border) !important;
 }
-.cm-inline-code {
-  border: 1px solid var(--code-border) !important;
-}
 
 /* --- Inline code --- */
-code, .cm-inline-code {
-  background: var(--code-background) !important;
+.cm-inline-code {
+  border: 1px solid var(--code-border) !important;
   padding: 1px 4px;
   font-size: 0.9em;
 }
@@ -379,6 +370,12 @@ pre .cm-header-3 {
   font-weight: inherit !important;
   text-transform: none !important;
   letter-spacing: normal !important;
+}
+
+/* --- Highlighted text --------------------------------------------------------------------- */
+mark, .cm-highlight {
+  background: var(--text-highlight-bg) !important;
+  color: var(--highlight-text) !important;
 }
 
 /* --- Links --------------------------------------------------------------------- */
@@ -406,11 +403,7 @@ pre .cm-header-3 {
   text-decoration-color: var(--text-muted) !important;
   text-underline-offset: 4px;
 }
-/* --- Highlighted text --- */
-mark, .cm-highlight {
-  color: hsl(var(--accent-h), var(--accent-s), 90%) !important;
-  
-}
+
 
 /* --- Tables --------------------------------------------------------------------- */
 table {
