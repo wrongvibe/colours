@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COLOURS Theme Preview</title>
+  <style>
+    /* =============================================
+       APP SHELL (outside the iframe — not themed)
+       ============================================= */
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1e1e1e;
+      color: #e0e0e0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .app {
+      display: flex;
+      height: 100vh;
+    }
+    
+    /* --- Sidebar --- */
+    .sidebar {
+      width: 300px;
+      background: #252526;
+      border-right: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid #333;
+    }
+    
+    .sidebar-header h1 {
+      margin: 0 0 4px 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    
+    .sidebar-header p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #888;
+    }
+    
+    .sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 24px;
+    }
+    
+    .sidebar-section h3 {
+      margin: 0 0 10px 0;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      font-weight: 600;
+    }
+    
+    /* --- File Loader --- */
+    .file-input-wrapper {
+      position: relative;
+    }
+    
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    
+    .file-input-button {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      background: #0e639c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .file-input-button:hover {
+      background: #1177bb;
+    }
+    
+    .file-name {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #888;
+      font-family: 'SF Mono', Monaco, monospace;
+      word-break: break-all;
+    }
+    
+    /* --- Presets --- */
+    .preset-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .preset-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: #2d2d30;
+      border: 1px solid #3e3e42;
+      border-radius: 4px;
+      color: #e0e0e0;
+      font-size: 0.8rem;
+      font-family: 'SF Mono', Monaco, monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: left;
+    }
+    
+    .preset-btn:hover {
+      background: #3e3e42;
+      border-color: #555;
+    }
+    
+    .preset-btn.active {
+      border-color: #0e639c;
+      background: #0e639c22;
+    }
+    
+    .preset-swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #555;
+      flex-shrink: 0;
+    }
+    
+    /* --- Color Picker --- */
+    .color-picker-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    input[type="color"] {
+      width: 50px;
+      height: 36px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      padding: 2px;
+    }
+    
+    .color-value {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+    
+    /* --- Mode Toggle --- */
+    .mode-options {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .mode-btn {
+      flex: 1;
+      padding: 8px;
+      background: #2d2d30;
+      border: 1px solid #3e3e42;
+      border-radius: 4px;
+      color: #888;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .mode-btn:hover {
+      background: #3e3e42;
+    }
+    
+    .mode-btn.active {
+      background: #0e639c22;
+      border-color: #0e639c;
+      color: #e0e0e0;
+    }
+    
+    /* --- Action Buttons --- */
+    .action-btn {
+      width: 100%;
+      padding: 10px 12px;
+      background: #2d2d30;
+      border: 1px solid #3e3e42;
+      border-radius: 4px;
+      color: #e0e0e0;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .action-btn:hover {
+      background: #3e3e42;
+      border-color: #555;
+    }
+    
+    .action-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    
+    /* --- Inspector --- */
+    .inspector-panel {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 10px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .inspector-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 0;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    
+    .inspector-row:last-child {
+      border-bottom: none;
+    }
+    
+    .inspector-var {
+      color: #9cdcfe;
+    }
+    
+    .inspector-val {
+      color: #ce9178;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .inspector-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      border: 1px solid #555;
+      flex-shrink: 0;
+      margin-left: 6px;
+    }
+    
+    .inspector-hint {
+      color: #666;
+      font-style: italic;
+      text-align: center;
+      padding: 10px 0;
+    }
+    
+    /* --- Preview Frame --- */
+    .preview-frame {
+      flex: 1;
+      border: none;
+      background: white;
+    }
+    
+    /* --- Toast --- */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #323232;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>COLOURS Preview</h1>
+        <p>Test accent colors without opening Obsidian</p>
+      </div>
+      
+      <div class="sidebar-content">
+        <!-- Load CSS -->
+        <div class="sidebar-section">
+          <h3>1. Load Theme CSS</h3>
+          <div class="file-input-wrapper">
+            <input type="file" id="css-loader" accept=".css">
+            <div class="file-input-button">Load COLOURS.css</div>
+          </div>
+          <div class="file-name" id="file-name">No file loaded</div>
+        </div>
+        
+        <!-- Presets -->
+        <div class="sidebar-section">
+          <h3>2. Stress-Test Presets</h3>
+          <div class="preset-list" id="preset-list">
+            <button class="preset-btn" data-color="#B51A00" data-label="Bug red">
+              <span class="preset-swatch" style="background:#B51A00"></span>
+              <span>#B51A00 (Bug red)</span>
+            </button>
+            <button class="preset-btn" data-color="#FFFFFF" data-label="Pure white">
+              <span class="preset-swatch" style="background:#FFFFFF"></span>
+              <span>#FFFFFF (White)</span>
+            </button>
+            <button class="preset-btn" data-color="#000000" data-label="Pure black">
+              <span class="preset-swatch" style="background:#000000"></span>
+              <span>#000000 (Black)</span>
+            </button>
+            <button class="preset-btn" data-color="#808080" data-label="Mid grey">
+              <span class="preset-swatch" style="background:#808080"></span>
+              <span>#808080 (Grey)</span>
+            </button>
+            <button class="preset-btn" data-color="#FFD700" data-label="Vivid yellow">
+              <span class="preset-swatch" style="background:#FFD700"></span>
+              <span>#FFD700 (Yellow)</span>
+            </button>
+            <button class="preset-btn" data-color="#00008B" data-label="Deep blue">
+              <span class="preset-swatch" style="background:#00008B"></span>
+              <span>#00008B (Blue)</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Custom Color -->
+        <div class="sidebar-section">
+          <h3>3. Custom Color</h3>
+          <div class="color-picker-wrapper">
+            <input type="color" id="color-picker" value="#B51A00" disabled>
+            <span class="color-value" id="color-value">#B51A00</span>
+          </div>
+        </div>
+        
+        <!-- Mode -->
+        <div class="sidebar-section">
+          <h3>4. Mode</h3>
+          <div class="mode-options">
+            <button class="mode-btn active" data-mode="light">Light</button>
+            <button class="mode-btn" data-mode="dark">Dark</button>
+          </div>
+        </div>
+        
+        <!-- Copy -->
+        <div class="sidebar-section">
+          <button class="action-btn" id="copy-btn" disabled>Copy Computed Values</button>
+        </div>
+        
+        <!-- Inspector -->
+        <div class="sidebar-section">
+          <h3>5. Inspector</h3>
+          <div class="inspector-panel" id="inspector">
+            <div class="inspector-hint">Load CSS to inspect values</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Preview -->
+    <iframe id="preview-frame" class="preview-frame"></iframe>
+  </div>
+  
+  <!-- Toast -->
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <script>
+    // =============================================
+    // STATE
+    // =============================================
+    let loadedCSS = '';
+    let currentColor = '#B51A00';
+    let currentMode = 'light';
+    
+    // =============================================
+    // DOM REFS
+    // =============================================
+    const cssLoader = document.getElementById('css-loader');
+    const fileName = document.getElementById('file-name');
+    const presetList = document.getElementById('preset-list');
+    const colorPicker = document.getElementById('color-picker');
+    const colorValue = document.getElementById('color-value');
+    const modeBtns = document.querySelectorAll('.mode-btn');
+    const copyBtn = document.getElementById('copy-btn');
+    const inspector = document.getElementById('inspector');
+    const previewFrame = document.getElementById('preview-frame');
+    const toast = document.getElementById('toast');
+    
+    // =============================================
+    // UTILS: RGB <-> HSL (for legacy --accent-h/s/l)
+    // =============================================
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : { r: 0, g: 0, b: 0 };
+    }
+    
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+      return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100)
+      };
+    }
+    
+    // =============================================
+    // IFRAME CONTENT GENERATOR
+    // =============================================
+    function generatePreviewHTML(css) {
+      return `<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style id="theme-css">${css}</style>
+  <style>
+    /* --- Preview scaffolding (not part of theme) --- */
+    body {
+      font-family: var(--font-text, 'IBM Plex Mono', monospace);
+      background: var(--background-primary);
+      color: var(--text-normal);
+    }
+    .preview-container { padding: 2rem; max-width: 800px; margin: 0 auto; }
+    .section { margin-bottom: 2.5rem; }
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted, #888);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid var(--background-modifier-border, #ddd);
+    }
+    
+    /* --- Callout base (Obsidian-like) --- */
+    .callout {
+      background: var(--background-secondary-alt, rgba(0,0,0,0.05));
+      border-left: 4px solid var(--text-accent, #0066cc);
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 1rem 0;
+    }
+    .callout-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-normal, #333);
+    }
+    .callout-icon { font-size: 1.1rem; }
+    .callout-content { color: var(--text-normal, #333); }
+    .callout-content p { margin: 0; }
+    
+    /* --- Quote --- */
+    blockquote {
+      border-left: 3px solid var(--text-accent, #0066cc);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted, #666);
+      font-style: italic;
+    }
+    
+    /* --- Checkbox mockup --- */
+    .checkbox-demo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-container">
+    
+    <!-- Headers -->
+    <div class="section">
+      <div class="section-label">Headers (H1-H6)</div>
+      <h1 style="margin:0 0 0.5rem; font-family:var(--font-header,serif); font-size:var(--h1-size); color:var(--h1-color)">Heading One</h1>
+      <h2 style="margin:0 0 0.5rem; font-family:var(--font-header,serif); font-size:var(--h2-size); color:var(--h2-color)">Heading Two</h2>
+      <h3 style="margin:0 0 0.5rem; font-family:var(--font-header,serif); font-size:var(--h3-size); color:var(--h3-color)">Heading Three</h3>
+      <h4 style="margin:0 0 0.5rem; font-family:var(--font-header,serif); font-size:var(--h4-size); color:var(--h4-color)">Heading Four</h4>
+      <h5 style="margin:0 0 0.5rem; font-family:var(--font-header,serif); font-size:var(--h5-size); color:var(--h5-color)">Heading Five</h5>
+      <h6 style="margin:0; font-family:var(--font-header,serif); font-size:var(--h6-size); color:var(--h6-color)">Heading Six</h6>
+    </div>
+    
+    <!-- Text & Inline Code -->
+    <div class="section">
+      <div class="section-label">Text & Inline Code</div>
+      <p style="margin:0 0 0.75rem; line-height:1.6">
+        This is normal paragraph text. Here is some <code class="cm-inline-code">inline code</code> 
+        and some <span style="color:var(--text-muted)">muted text</span> 
+        and <span style="color:var(--text-faint)">faint text</span>.
+      </p>
+      <p style="margin:0; line-height:1.6">
+        An <a class="internal-link" href="#" style="color:var(--text-accent); text-decoration:underline wavy; text-underline-offset:4px;">internal link</a>, 
+        an <a class="internal-link is-unresolved" href="#" style="color:var(--text-accent); text-decoration:underline wavy; text-decoration-color:red; text-underline-offset:4px;">unresolved link</a>, 
+        and an <a class="external-link" href="https://example.com" style="color:var(--text-accent); text-decoration:underline wavy; text-underline-offset:4px;">external link</a>.
+      </p>
+    </div>
+    
+    <!-- Highlight -->
+    <div class="section">
+      <div class="section-label">Highlighted Text (mark)</div>
+      <p style="margin:0; line-height:1.6; font-size:1.1rem">
+        This sentence contains <mark>highlighted text</mark> that should stand out 
+        clearly against the page background.
+      </p>
+    </div>
+    
+    <!-- Code Block -->
+    <div class="section">
+      <div class="section-label">Code Block</div>
+      <div class="HyperMD-codeblock-begin" style="padding:4px 8px; font-family:var(--font-monospace,monospace); font-size:0.85rem; border-top:1px solid var(--code-border); border-left:1px solid var(--code-border); border-right:1px solid var(--code-border);">\`\`\`javascript</div>
+      <div class="cm-line HyperMD-codeblock" style="padding:4px 8px; font-family:var(--font-monospace,monospace); font-size:0.85rem; background:var(--code-background); border-left:1px solid var(--code-border); border-right:1px solid var(--code-border); color:var(--code-normal);">
+        const theme = "COLOURS"; <span class="cm-comment" style="color:var(--code-comment)">// dynamic palette</span>
+      </div>
+      <div class="cm-line HyperMD-codeblock" style="padding:4px 8px; font-family:var(--font-monospace,monospace); font-size:0.85rem; background:var(--code-background); border-left:1px solid var(--code-border); border-right:1px solid var(--code-border); color:var(--code-normal);">
+        console.log(<span style="color:var(--code-string, var(--code-normal))">"Hello world"</span>);
+      </div>
+      <div class="HyperMD-codeblock-end" style="padding:4px 8px; font-family:var(--font-monospace,monospace); font-size:0.85rem; border-bottom:1px solid var(--code-border); border-left:1px solid var(--code-border); border-right:1px solid var(--code-border);">\`\`\`</div>
+    </div>
+    
+    <!-- Quote -->
+    <div class="section">
+      <div class="section-label">Quote Block</div>
+      <blockquote>
+        <p style="margin:0">This is a quote block. It should have a left border and readable contrast.</p>
+      </blockquote>
+    </div>
+    
+    <!-- Callout -->
+    <div class="section">
+      <div class="section-label">Callout (info)</div>
+      <div class="callout" data-callout="info">
+        <div class="callout-title">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-title-inner">Info Callout</div>
+        </div>
+        <div class="callout-content">
+          <p>Your theme does not style callouts yet. This shows if they look broken!</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Buttons & Tags -->
+    <div class="section">
+      <div class="section-label">Buttons & Tags</div>
+      <p style="margin:0 0 0.75rem">
+        <span class="modal" style="display:inline-block; padding:8px 16px; margin-right:8px;">
+          <button class="mod-cta">Primary Button</button>
+        </span>
+        <span class="modal" style="display:inline-block; padding:8px 16px;">
+          <button>Secondary Button</button>
+        </span>
+      </p>
+      <p style="margin:0">
+        <a class="tag" href="#" style="display:inline-block; padding:2px 8px; text-decoration:none;">#example-tag</a>
+        <span class="cm-hashtag" style="display:inline-block; padding:2px 8px; margin-left:6px;">#another-tag</span>
+      </p>
+    </div>
+    
+    <!-- Checkboxes -->
+    <div class="section">
+      <div class="section-label">Checkboxes</div>
+      <div class="checkbox-demo">
+        <div class="checkbox-container is-enabled" style="width:20px; height:20px; position:relative;">
+          <input type="checkbox" checked style="position:absolute; opacity:0; width:100%; height:100%;">
+        </div>
+        <span>Checked</span>
+      </div>
+      <div class="checkbox-demo">
+        <div class="checkbox-container" style="width:20px; height:20px; position:relative;">
+          <input type="checkbox" style="position:absolute; opacity:0; width:100%; height:100%;">
+        </div>
+        <span>Unchecked</span>
+      </div>
+    </div>
+    
+    <!-- Table -->
+    <div class="section">
+      <div class="section-label">Table</div>
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="padding:6px 10px; text-align:left; text-transform:uppercase; letter-spacing:0.03em;">Name</th>
+            <th style="padding:6px 10px; text-align:left; text-transform:uppercase; letter-spacing:0.03em;">Value</th>
+            <th style="padding:6px 10px; text-align:left; text-transform:uppercase; letter-spacing:0.03em;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:6px 10px;">--code-background</td>
+            <td style="padding:6px 10px;">Step function</td>
+            <td style="padding:6px 10px;">Active</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 10px;">--text-highlight</td>
+            <td style="padding:6px 10px;">Auto-contrast</td>
+            <td style="padding:6px 10px;">Active</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</body>
+</html>`;
+    }
+    
+    // =============================================
+    // UPDATE PREVIEW
+    // =============================================
+    function updatePreview() {
+      if (!loadedCSS) return;
+      
+      const doc = previewFrame.contentDocument;
+      if (!doc || !doc.body) return;
+      
+      // Set accent color
+      doc.body.style.setProperty('--color-accent', currentColor);
+      
+      // Set legacy HSL variables (for rules still using hsl())
+      const rgb = hexToRgb(currentColor);
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      doc.body.style.setProperty('--accent-h', hsl.h);
+      doc.body.style.setProperty('--accent-s', hsl.s + '%');
+      doc.body.style.setProperty('--accent-l', hsl.l + '%');
+      
+      // Toggle dark mode
+      if (currentMode === 'dark') {
+        doc.body.classList.add('theme-dark');
+      } else {
+        doc.body.classList.remove('theme-dark');
+      }
+      
+      // Update inspector
+      updateInspector(doc);
+    }
+    
+    // =============================================
+    // INSPECTOR
+    // =============================================
+    function updateInspector(doc) {
+      if (!doc || !loadedCSS) {
+        inspector.innerHTML = '<div class="inspector-hint">Load CSS to inspect values</div>';
+        return;
+      }
+      
+      // Parse all --* variable definitions from the loaded CSS
+      const varRegex = /(--[\w-]+)\s*:/g;
+      const foundVars = new Set();
+      let match;
+      while ((match = varRegex.exec(loadedCSS)) !== null) {
+        foundVars.add(match[1]);
+      }
+      const varsToInspect = Array.from(foundVars).sort();
+      
+      // Create a temporary element to resolve colors
+      const testEl = doc.createElement('div');
+      doc.body.appendChild(testEl);
+      
+      let html = '';
+      
+      // Show OKLCH l value (computed from accent)
+      testEl.style.backgroundColor = 'var(--color-accent)';
+      const accentComputed = doc.defaultView.getComputedStyle(testEl).backgroundColor;
+      html += makeInspectorRow('accent RGB', '--color-accent', accentComputed);
+      
+      // Inspect each variable found in CSS
+      for (const varName of varsToInspect) {
+        if (varName === '--color-accent') continue; // already shown above
+        testEl.style.backgroundColor = 'var(' + varName + ')';
+        const computed = doc.defaultView.getComputedStyle(testEl).backgroundColor;
+        html += makeInspectorRow(varName, varName, computed);
+      }
+      
+      doc.body.removeChild(testEl);
+      inspector.innerHTML = html;
+    }
+    
+    function makeInspectorRow(label, varName, computedColor) {
+      // Try to show a swatch
+      const swatch = computedColor && computedColor !== 'rgba(0, 0, 0, 0)' 
+        ? '<span class="inspector-swatch" style="background:' + computedColor + '"></span>' 
+        : '<span class="inspector-swatch" style="background:transparent"></span>';
+      
+      return '<div class="inspector-row">' +
+        '<span class="inspector-var" title="' + varName + '">' + label + '</span>' +
+        '<span style="display:flex;align-items:center">' +
+          '<span class="inspector-val" title="' + computedColor + '">' + computedColor + '</span>' +
+          swatch +
+        '</span>' +
+      '</div>';
+    }
+    
+    // =============================================
+    // EVENT HANDLERS
+    // =============================================
+    
+    // Load CSS file
+    cssLoader.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        loadedCSS = event.target.result;
+        fileName.textContent = file.name;
+        
+        // Enable controls
+        colorPicker.disabled = false;
+        copyBtn.disabled = false;
+        
+        // Initialize iframe
+        const doc = previewFrame.contentDocument;
+        doc.open();
+        doc.write(generatePreviewHTML(loadedCSS));
+        doc.close();
+        
+        // Apply current color
+        updatePreview();
+      };
+      reader.readAsText(file);
+    });
+    
+    // Preset buttons
+    presetList.addEventListener('click', (e) => {
+      const btn = e.target.closest('.preset-btn');
+      if (!btn) return;
+      
+      // Update active state
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Update color
+      currentColor = btn.dataset.color;
+      colorPicker.value = currentColor;
+      colorValue.textContent = currentColor;
+      
+      updatePreview();
+    });
+    
+    // Color picker
+    colorPicker.addEventListener('input', (e) => {
+      currentColor = e.target.value;
+      colorValue.textContent = currentColor;
+      
+      // Remove preset active states
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      
+      updatePreview();
+    });
+    
+    // Mode toggle
+    modeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.dataset.mode;
+        updatePreview();
+      });
+    });
+    
+    // Copy computed values
+    copyBtn.addEventListener('click', () => {
+      if (!loadedCSS) return;
+      
+      const doc = previewFrame.contentDocument;
+      const testEl = doc.createElement('div');
+      doc.body.appendChild(testEl);
+      
+      // Parse all --* variables from loaded CSS (same as inspector)
+      const varRegex = /(--[\w-]+)\s*:/g;
+      const foundVars = new Set();
+      let m;
+      while ((m = varRegex.exec(loadedCSS)) !== null) {
+        foundVars.add(m[1]);
+      }
+      const varsToCopy = Array.from(foundVars).sort();
+      
+      let text = '/* Computed values for ' + currentColor + ' (' + currentMode + ' mode) */\n';
+      text += '/* Generated by COLOURS Preview */\n\n';
+      
+      for (const v of varsToCopy) {
+        testEl.style.backgroundColor = 'var(' + v + ')';
+        const computed = doc.defaultView.getComputedStyle(testEl).backgroundColor;
+        text += v + ': ' + computed + ';\n';
+      }
+      
+      doc.body.removeChild(testEl);
+      
+      navigator.clipboard.writeText(text).then(() => {
+        toast.textContent = 'Copied computed values!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    });
+    
+    // =============================================
+    // INIT
+    // =============================================
+    // Auto-select the bug red preset visually
+    document.querySelector('[data-color="#B51A00"]').classList.add('active');
+  </script>
+</body>
+</html>

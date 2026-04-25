@@ -39,26 +39,35 @@ body {
   --text-highlight-bias: 3; /* 0 = auto-contrast. Positive = stronger contrast. Negative = weaker/more gray */
   
   /* Background: complement at 90% opacity */
-  --text-highlight-bg: oklch(from var(--complement) clamp(0.5, l, 0.9) c h / 0.75);
+  /*--text-highlight-bg: oklch(from var(--complement) clamp(0.5, l, 0.9) c h / 0.75);*/
   
   /* Text: auto-contrast with directional bias */
-  --text-highlight: oklch(from var(--complement) 
+/*  --text-highlight: oklch(from var(--complement) 
     clamp(0.1, calc(0.5 + (0.5 - l) * (1 + var(--text-highlight-bias))), 0.9)
     calc(c * 0.5) 
     h
-  );
+  );*/
+
+  --text-highlight-bg: oklch(from var(--complement) 
+  clamp(0.2, calc(var(--dynamic-switch) * 0.7 + 0.1), 0.9) 
+  c 
+  h 
+  / 0.7
+);
+--text-highlight: oklch(from var(--complement) 
+  clamp(0.2, calc((1 - var(--dynamic-switch)) * 0.7 + 0.1), 0.9) 
+  calc(c * 0.5) 
+  h
+);
 
 
 /* --- Light mode: stark white tinted to accent hue --- */
 
-  --background-primary:          oklch(from var(--color-accent) l c h);
-  --background-secondary:        var(--background-primary);
-  /*--background-secondary-alt:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch) * -1, 80%)) !important;*/
-  --background-secondary-alt:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.80) c h / 0.2);
-  /*--background-modifier-hover:   hsla(var(--accent-h), calc(var(--accent-s) * 0.9), clamp(30%, var(--dynamic-switch) * -1, 75%), 80%);*/
-  --background-modifier-hover:   oklch(from var(--color-accent) clamp(0.25, l * 0.1, 0.75) calc(c * 0.75) h / 0.2);
-  /*--background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(40%, var(--dynamic-switch), 50%));*/
-  --background-modifier-border:  oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) c h / 0.2);
+  --background-primary:               oklch(from var(--color-accent) l c h);
+  --background-secondary:             var(--background-primary);
+  --background-secondary-alt:         oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.80) c h / 0.2);
+  --background-modifier-hover:        oklch(from var(--color-accent) clamp(0.25, l * 0.1, 0.75) calc(c * 0.75) h / 0.2);
+  --background-modifier-border:       oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) c h / 0.2);
   --background-modifier-border-hover: var(--text-muted);
   --background-modifier-border-focus: var(--text-normal);
   --background-modifier-form-field:             hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
@@ -67,8 +76,8 @@ body {
   --titlebar-background:         var(--background-modifier-hover);
   --titlebar-background-focused: var(--background-primary);
 
-  --code-normal:      oklch(from var(--code-background) clamp(0.20, calc(1 - l), 0.9)  calc(c * 0.1) h);
-  --code-comment:     oklch(from var(--code-background) clamp(0.20, calc(1 - l), 0.9)  calc(c * 0.1) h);
+  --code-normal:      oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95)  calc(c * 0.3) h);
+  --code-comment:     oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95)  calc(c * 0.5) h);
 /*  --code-keyword:     oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 3) h);
   --code-operator:;
   --code-property:    blue;
@@ -80,20 +89,20 @@ body {
 
 /* --- Code block step system --- */
 --code-bg-bias:      0;     /* Shift result lighter (+) or darker (-) */
---code-bg-threshold: 0.8;   /* l above this = light bg, below = dark bg */
+--code-bg-threshold: 0.75;   /* l above this = light bg, below = dark bg */
 --code-bg-light:     0.95;  /* Lightness when accent is light */
 --code-bg-dark:      0.15;  /* Lightness when accent is dark/mid */
 --code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
 /*Replace --code-background and --code-border*/
---code-background: oklch(from var(--color-accent) 
+--code-background:   oklch(from var(--color-accent) 
   calc(
     var(--code-bg-dark) + 
-    clamp(0.1, calc((l - var(--code-bg-threshold)) * 1000), 0.98) * 
+    clamp(0.1, calc((l - var(--code-bg-threshold)) * 1000), 1) * 
     var(--code-bg-range) + 
     var(--code-bg-bias)
   ) 
-  calc(c * 0.9) 
-  h / 0.75
+  calc(c * 0.8) 
+  h / 0.8
 );
 --code-border: oklch(from var(--color-accent) 
   calc(
@@ -150,11 +159,11 @@ body {
   --h6-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.75);
 */
 
-  --h1-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.9);
-  --h2-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.9);
-  --h3-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.8);
-  --h4-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.75);
-  --h5-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.65);
+  --h1-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.95);
+  --h2-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.95);
+  --h3-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.9);
+  --h4-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.8);
+  --h5-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.7);
   --h6-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.6);
 
 }
