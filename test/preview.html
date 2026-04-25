@@ -326,6 +326,7 @@
             <input type="file" id="css-loader" accept=".css">
             <div class="file-input-button">Load COLOURS.css</div>
           </div>
+          <button class="action-btn" id="reload-btn" disabled style="margin-top:8px; font-size:0.75rem;">Reload CSS</button>
           <div class="file-name" id="file-name">No file loaded</div>
         </div>
         
@@ -418,6 +419,7 @@
     const colorValue = document.getElementById('color-value');
     const modeBtns = document.querySelectorAll('.mode-btn');
     const copyBtn = document.getElementById('copy-btn');
+    const reloadBtn = document.getElementById('reload-btn');
     const inspector = document.getElementById('inspector');
     const previewFrame = document.getElementById('preview-frame');
     const toast = document.getElementById('toast');
@@ -765,6 +767,7 @@
         // Enable controls
         colorPicker.disabled = false;
         copyBtn.disabled = false;
+        reloadBtn.disabled = false;
         
         // Initialize iframe
         const doc = previewFrame.contentDocument;
@@ -776,6 +779,37 @@
         updatePreview();
       };
       reader.readAsText(file);
+    });
+    
+    // Reload CSS button
+    reloadBtn.addEventListener('click', () => {
+      // Try fetching via HTTP (works with local servers)
+      fetch('../COLOURS.css?_=' + Date.now())
+        .then(r => {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        })
+        .then(css => {
+          loadedCSS = css;
+          const doc = previewFrame.contentDocument;
+          const styleTag = doc.getElementById('theme-css');
+          if (styleTag) {
+            styleTag.textContent = css;
+          } else {
+            // Fallback: regenerate whole iframe
+            doc.open();
+            doc.write(generatePreviewHTML(css));
+            doc.close();
+          }
+          updatePreview();
+          toast.textContent = 'CSS reloaded from disk!';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2000);
+        })
+        .catch(err => {
+          // file:// protocol — trigger file picker instead
+          cssLoader.click();
+        });
     });
     
     // Preset buttons
