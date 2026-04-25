@@ -93,7 +93,6 @@ body {
 --code-bg-light:     0.95;  /* Lightness when accent is light */
 --code-bg-dark:      0.15;  /* Lightness when accent is dark/mid */
 --code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
-/*Replace --code-background and --code-border*/
 --code-background:   oklch(from var(--color-accent) 
   calc(
     var(--code-bg-dark) + 
@@ -113,7 +112,7 @@ body {
     0.05
   ) 
   calc(c * 1) 
-  h / 0.8
+  h / 0.5
 );
 
 
@@ -132,10 +131,9 @@ body {
 
   --input-border-width: 1px ;
 
-  --interactive-accent:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 99%));
+/*  --interactive-accent:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 99%));
   --interactive-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 50%));
-
-
+*/
   --h1-size: 2.5em;
   --h2-size: 2.1em;
   --h3-size: 1.7em;
@@ -166,19 +164,21 @@ body {
   --h5-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.7);
   --h6-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.6);
 
+  --tag-size: 0.8em;
+  --tag-color: var(--background-primary);
+  --tag-background: var(--text-normal);
+  --tag-background-hover: var(--background-modifier-hover);
+  --tag-padding-x:8px;
+  --tag-padding-y:1px;
+
+  --slider-thumb-radius: none;
+
 }
 
 body.theme-dark {
   --dynamic-switch:              100%;
-  --background-primary:          hsl(calc(var(--accent-h) * 1), calc(var(--accent-s) * 1), calc(var(--accent-l)*0.3));
+  --background-primary:          oklch(from var(--color-accent) calc(l * 0.5) c h);
   --background-secondary:        var(--background-primary);
-  
-  /*--background-modifier-border:  hsl(var(--accent-h), calc(var(--accent-s) * 0.6), calc(var(--accent-l) * 0.8));*/
-
-  /*--titlebar-background:         hsl(var(--accent-h), calc(var(--accent-s) * 0.5), calc(var(--accent-l) * 0.8));*/
-
-  /*--code-background:   hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.9), clamp(max(var(--accent-l) * 1.05), var(--accent-l) * 1.2, 100%), 80%);*/
-  /*--code-border:       hsla(var(--analogous-2-h), calc(var(--accent-s) * 1), calc(var(--accent-l) * 0.92));*/
 }
 
 /* --- Style --------------------------------------------------------------------- */
@@ -229,6 +229,50 @@ body.theme-dark {
   font-family: var(--font-header) !important;
 }
 
+/* --- Task checkbox --- */
+.task-list-item-checkbox:hover,
+.task-list-item-checkbox:hover:checked,
+input[type="checkbox"]:checked:hover {
+  background-color: var(--background-modifier-border);
+  --checkbox-color-hover: var(--background-modifier-border);
+  --checkbox-marker-color: var(--text-normal);
+  --checkbox-border-color-hover: var(--background-modifier-border);
+}
+.task-list-item-checkbox:checked,
+input[type="checkbox"]:checked {
+  --checkbox-color: var(--text-normal);
+  --checkbox-marker-color: var(--color-accent);
+  border-color: var(--background-modifier-border);
+}
+
+/* --- Blockquote --- */
+.markdown-rendered blockquote,
+.markdown-source-view blockquote {
+  background: var(--background-secondary-alt);
+  border-left: 3px solid var(--text-accent);
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+}
+/* Live Preview — quote lines */
+.cm-line.HyperMD-quote {
+  background: var(--background-secondary-alt);
+  border-left: 3px solid var(--text-accent);
+  color: var(--text-muted);
+}
+/* The > marker in Live Preview */
+.cm-line.HyperMD-quote .cm-formatting-quote {
+  color: var(--text-accent);
+}
+
+/* --- Slider --- */
+input[type="range"]::-webkit-slider-thumb {
+  background: var(--text-normal);   /* <-- change this */
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--text-muted);   /* <-- change this */
+}
+
 /* --- Buttons: inverted, uppercase --- */
 .modal button,
 .modal .mod-cta,
@@ -262,19 +306,15 @@ body.theme-dark {
 }
 
 /* --- Tags --- */
-.cm-hashtag, a.tag {
-  background: var(--text-normal) !important;
-  color: var(--background-primary) !important;
-  padding: 1px 5px;
-  font-size: 0.8em;
-  /* text-transform: uppercase; */
+.cm-hashtag.cm-hashtag-end {
   letter-spacing: 0.05em;
-  text-decoration: none !important;
 }
-
+.cm-hashtag.cm-hashtag-end:hover {
+  color: var(--complement);
+}
 /* --- Cursor line highlight --- */
 .cm-active.cm-line {
-  background: oklch(from var(--analogous-2) clamp(0.1, l*0.8, 0.8) c h / 0.5) !important;
+  background: oklch(from var(--analogous-2) clamp(0.1, l * 0.8, 0.8) c h / 0.5) !important;
 }
 
 /* --- Selected text --- */
@@ -355,19 +395,24 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 }
 
 /* --- Toggles --- */
-.modal .checkbox-container.is-enabled {
+.checkbox-container.is-enabled {
   background-color: var(--code-background);
   --toggle-thumb-color: var(--text-normal);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+
 }
-.modal .checkbox-container.is-enabled:hover {
+.checkbox-container.is-enabled:hover {
   --toggle-thumb-color: var(--text-accent);
+  box-shadow: inset 0 0 0 1px var(--text-faint);
 }
-.modal .checkbox-container {
+.checkbox-container {
   background-color: var(--background-modifier-hover);
   --toggle-thumb-color: var(--text-faint);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
 }
-.modal .checkbox-container:hover {
+.checkbox-container:hover {
   --toggle-thumb-color: var(--text-normal);
+  box-shadow: inset 0 0 0 1px var(--text-faint);
 }
 
 /* --- Code blocks --------------------------------------------------------------------- */
