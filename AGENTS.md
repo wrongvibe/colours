@@ -13,10 +13,27 @@ This is intended to become a full Obsidian theme plugin in the future. For now, 
 ## File Overview
 - `COLOURS.css` — The entire theme. Derives a full palette from the user's single accent color (`--color-accent`).
   - Light mode: fully implemented inside `body {}`
-  - Dark mode: incomplete. `body.theme-dark` exists but most rules are commented out or placeholders.
+  - Dark mode: actively being converted from HSL to `oklch()`. `body.theme-dark` exists but is minimal.
   - Auto-contrast logic uses `--dynamic-switch` based on `round(calc(var(--contrast-threshold) - l))`.
+
+## Test Tool
+- `test/preview.html` — Standalone browser preview tool for rapid color testing without opening Obsidian.
+  - Load `COLOURS.css` via file picker
+  - Stress-test presets (`#B51A00`, `#FFFFFF`, `#000000`, `#808080`, `#FFD700`, `#00008B`)
+  - Live color picker + Light/Dark mode toggle
+  - Dynamic CSS variable inspector (parses `--*` from loaded CSS)
+  - Copy computed values to clipboard
+  - **Reload button** fetches `../COLOURS.css` (works with local servers; falls back to file picker on `file://`)
+
+## Recently Added Styling
+- **Blockquotes**: `.markdown-rendered blockquote` + `.cm-line.HyperMD-quote` (Live Preview)
+- **Task checkboxes**: `.task-list-item-checkbox` + generic `input[type="checkbox"]`
+- **Toggles**: `.checkbox-container` (removed `.modal` restriction for sidebar coverage). Uses `inset box-shadow` for borders to avoid thumb layout shift.
+- **Sliders**: `input[type="range"]::-webkit-slider-thumb`
+- **Tags**: Refactored to use CSS variables (`--tag-size`, `--tag-background`, `--tag-color`, etc.)
 
 ## Workflow
 - No build, test, lint, or package tools. Edit `COLOURS.css` directly.
-- To verify: place the file in any Obsidian vault's `.obsidian/snippets/` folder and enable it in **Settings → Appearance → CSS snippets**.
+- To verify in Obsidian: place the file in `.obsidian/snippets/` and enable in **Settings → Appearance → CSS snippets**.
 - Changes take effect immediately on save (Obsidian hot-reloads snippets).
+- For faster iteration: open `test/preview.html` in a browser with a local server (`python3 -m http.server`) to use the Reload button.
