@@ -712,39 +712,73 @@
       }
       const varsToInspect = Array.from(foundVars).sort();
       
+      // Read computed styles from body (where variables are defined)
+      const bodyStyle = doc.defaultView.getComputedStyle(doc.body);
+      
       // Create a temporary element to resolve colors
       const testEl = doc.createElement('div');
+      testEl.style.width = '1px';
+      testEl.style.height = '1px';
       doc.body.appendChild(testEl);
       
       let html = '';
+      let resolvedCount = 0;
       
-      // Show OKLCH l value (computed from accent)
-      testEl.style.backgroundColor = 'var(--color-accent)';
-      const accentComputed = doc.defaultView.getComputedStyle(testEl).backgroundColor;
-      html += makeInspectorRow('accent RGB', '--color-accent', accentComputed);
+      // Show accent first
+      const accentRaw = bodyStyle.getPropertyValue('--color-accent').trim() || currentColor;
+      const accentResolved = resolveColor(doc, testEl, '--color-accent');
+      html += makeInspectorRow('--color-accent', accentRaw, accentResolved);
+      if (accentResolved) resolvedCount++;
       
       // Inspect each variable found in CSS
       for (const varName of varsToInspect) {
-        if (varName === '--color-accent') continue; // already shown above
-        testEl.style.backgroundColor = 'var(' + varName + ')';
-        const computed = doc.defaultView.getComputedStyle(testEl).backgroundColor;
-        html += makeInspectorRow(varName, varName, computed);
+        if (varName === '--color-accent') continue;
+        
+        const rawValue = bodyStyle.getPropertyValue(varName).trim();
+        if (!rawValue) continue; // skip if not defined
+        
+        const resolvedColor = resolveColor(doc, testEl, varName);
+        html += makeInspectorRow(varName, rawValue, resolvedColor);
+        if (resolvedColor) resolvedCount++;
       }
       
       doc.body.removeChild(testEl);
+      
+      if (resolvedCount === 0) {
+        html += '<div class="inspector-hint" style="color:#ff6b6b">No colors resolved. Browser may not support oklch() yet.</div>';
+      }
+      
       inspector.innerHTML = html;
     }
     
-    function makeInspectorRow(label, varName, computedColor) {
-      // Try to show a swatch
-      const swatch = computedColor && computedColor !== 'rgba(0, 0, 0, 0)' 
-        ? '<span class="inspector-swatch" style="background:' + computedColor + '"></span>' 
-        : '<span class="inspector-swatch" style="background:transparent"></span>';
+    // Helper: apply variable as background and read resolved color
+    function resolveColor(doc, testEl, varName) {
+      testEl.style.backgroundColor = '';
+      testEl.style.backgroundColor = 'var(' + varName + ')';
+      void testEl.offsetHeight; // force layout
+      const computed = doc.defaultView.getComputedStyle(testEl).backgroundColor;
+      // Return null if unresolved/transparent
+      if (!computed || computed === 'rgba(0, 0, 0, 0)' || computed === 'transparent') {
+        return null;
+      }
+      return computed;
+    }
+    
+    function makeInspectorRow(varName, rawValue, resolvedColor) {
+      // Truncate long raw values
+      const displayRaw = rawValue.length > 40 ? rawValue.substring(0, 37) + '...' : rawValue;
+      
+      // Show swatch only if we resolved a real color
+      const swatch = resolvedColor 
+        ? '<span class="inspector-swatch" style="background:' + resolvedColor + '"></span>' 
+        : '<span class="inspector-swatch" style="background:transparent;border-style:dashed"></span>';
+      
+      const resolvedText = resolvedColor || '(unresolved)';
       
       return '<div class="inspector-row">' +
-        '<span class="inspector-var" title="' + varName + '">' + label + '</span>' +
+        '<span class="inspector-var" title="' + varName + ': ' + rawValue + '">' + varName + '</span>' +
         '<span style="display:flex;align-items:center">' +
-          '<span class="inspector-val" title="' + computedColor + '">' + computedColor + '</span>' +
+          '<span class="inspector-val" title="Raw: ' + rawValue + '\nResolved: ' + resolvedText + '">' + displayRaw + '</span>' +
           swatch +
         '</span>' +
       '</div>';
