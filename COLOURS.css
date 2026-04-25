@@ -32,18 +32,18 @@ body {
   /*--dynamic-switch: calc(calc(var(--accent-l) - var(--contrast-threshold)) * -1000);*/
   /*--dynamic-switch: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold)) * -1000);*/
   
-  --contrast-threshold: 1.12;
-  --dynamic-switch: round(calc(var(--contrast-threshold) - l));
- 
-/* --- Highlight system --- */
-  --highlight-text-bias: 3; /* 0 = auto-contrast. Positive = stronger contrast. Negative = weaker/more gray */
+  --contrast-threshold:      1.11;
+  --dynamic-switch:          round(calc(var(--contrast-threshold) - l));
+
+/* --- Highlight system --------------------------------------------------------------------- */
+  --text-highlight-bias: 3; /* 0 = auto-contrast. Positive = stronger contrast. Negative = weaker/more gray */
   
   /* Background: complement at 90% opacity */
-  --text-highlight-bg: oklch(from var(--complement) l c h / 0.75);
+  --text-highlight-bg: oklch(from var(--complement) clamp(0.5, l, 0.9) c h / 0.75);
   
   /* Text: auto-contrast with directional bias */
-  --highlight-text: oklch(from var(--complement) 
-    clamp(0.1, calc(0.5 + (0.5 - l) * (1 + var(--highlight-text-bias))), 0.9)
+  --text-highlight: oklch(from var(--complement) 
+    clamp(0.1, calc(0.5 + (0.5 - l) * (1 + var(--text-highlight-bias))), 0.9)
     calc(c * 0.5) 
     h
   );
@@ -64,27 +64,49 @@ body {
   --background-modifier-form-field:             hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
   --background-modifier-form-field-highlighted: hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
 
-  /*  
-  --code-background: hsla(var(--analogous-3-h), var(--accent-s), clamp(15%, var(--dynamic-switch) * -1, 85%), 50%);
-  --code-border:     hsla(var(--analogous-2-h), calc(var(--accent-s) * 0.7), clamp(40%, var(--dynamic-switch) * -1, 70%), 50%);
-*/  
-  --code-background:  oklch(from var(--analogous-3) clamp(0.1, l * 0.6, 0.9) calc(c * 0.5) h / 0.2);
-  --code-normal:      var(--text-muted);
-  --code-comment:     var(--text-faint);
-  --code-border:      oklch(from var(--analogous-2) clamp(0.5, l , 0.9) calc(c * 0.8) h / 0.3);
-
-
   --titlebar-background:         var(--background-modifier-hover);
   --titlebar-background-focused: var(--background-primary);
 
-/*  
-  --text-normal:       hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 98%));
-  --text-muted:        hsl(var(--accent-h), calc(var(--accent-s) * 0.8), clamp(25%, var(--dynamic-switch), 85%));
-  --text-faint:        hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--dynamic-switch), 70%));
-  --text-accent:       hsl(var(--accent-h), var(--accent-s), clamp(10%, var(--dynamic-switch), 100%));
-  --text-on-accent:    hsl(var(--accent-h), var(--accent-s), clamp(20%, var(--dynamic-switch), 90%));
-  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), clamp(8%, var(--dynamic-switch), 92%));
+  --code-normal:      oklch(from var(--code-background) clamp(0.20, calc(1 - l), 0.9)  calc(c * 0.1) h);
+  --code-comment:     oklch(from var(--code-background) clamp(0.20, calc(1 - l), 0.9)  calc(c * 0.1) h);
+/*  --code-keyword:     oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 3) h);
+  --code-operator:;
+  --code-property:    blue;
+  --code-punctuation: green;
+  --code-string:      oklch(from var(--triadic) clamp(0.20, var(--dynamic-switch), 0.90)  c h);
+  --code-tag:         green;
+  --code-value:       oklch(from var(--split-comp) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 3) h);;;
 */
+
+/* --- Code block step system --- */
+--code-bg-bias:      0;     /* Shift result lighter (+) or darker (-) */
+--code-bg-threshold: 0.8;   /* l above this = light bg, below = dark bg */
+--code-bg-light:     0.95;  /* Lightness when accent is light */
+--code-bg-dark:      0.15;  /* Lightness when accent is dark/mid */
+--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
+/*Replace --code-background and --code-border*/
+--code-background: oklch(from var(--color-accent) 
+  calc(
+    var(--code-bg-dark) + 
+    clamp(0.1, calc((l - var(--code-bg-threshold)) * 1000), 0.98) * 
+    var(--code-bg-range) + 
+    var(--code-bg-bias)
+  ) 
+  calc(c * 0.9) 
+  h / 0.75
+);
+--code-border: oklch(from var(--color-accent) 
+  calc(
+    var(--code-bg-dark) + 
+    clamp(0.5, calc((l - var(--code-bg-threshold)) * 1000), 0.85) * 
+    var(--code-bg-range) + 
+    var(--code-bg-bias) + 
+    0.05
+  ) 
+  calc(c * 1) 
+  h / 0.8
+);
+
 
   --text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90)  calc(c * 0.1) h);
   --text-muted:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80)  calc(c * 0.5) h);
@@ -375,7 +397,7 @@ pre .cm-header-3 {
 /* --- Highlighted text --------------------------------------------------------------------- */
 mark, .cm-highlight {
   background: var(--text-highlight-bg) !important;
-  color: var(--highlight-text) !important;
+  color: var(--text-highlight) !important;
 }
 
 /* --- Links --------------------------------------------------------------------- */
