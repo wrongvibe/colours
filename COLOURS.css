@@ -157,12 +157,12 @@ body {
   --h6-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.75);
 */
 
-  --h1-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.95);
-  --h2-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.95);
-  --h3-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.9);
-  --h4-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.8);
-  --h5-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.7);
-  --h6-color: oklch(from var(--color-accent) clamp(0.15, round(calc(var(--contrast-threshold) - l)), 0.95) calc(c * 0.3) h / 0.6);
+  --h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
+  --h2-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
+  --h3-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.9);
+  --h4-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.8);
+  --h5-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.7);
+  --h6-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.6);
 
   --tag-size: 0.8em;
   --tag-color: var(--background-primary);
@@ -176,9 +176,27 @@ body {
 }
 
 body.theme-dark {
-  --dynamic-switch:              100%;
-  --background-primary:          oklch(from var(--color-accent) calc(l * 0.5) c h);
+  /* Force light text across the board */
+  --dynamic-switch: 1;
+
+  /* Core backgrounds — darker tint of accent */
+  --background-primary:          oklch(from var(--color-accent) calc(l * 0.4 + 0.06) c h);
   --background-secondary:        var(--background-primary);
+  --background-secondary-alt:    oklch(from var(--color-accent) calc(l * 0.3 + 0.05) c h / 0.2);
+
+  /* Interactive surfaces */
+  --background-modifier-hover:        oklch(from var(--color-accent) calc(l * 0.5) calc(c * 0.75) h / 0.2);
+  --background-modifier-border:       oklch(from var(--color-accent) calc(l * 0.5 + 0.40) c h / 0.2);
+  --background-modifier-form-field:             oklch(from var(--color-accent) calc(l * 0.5 + 0.05) c h);
+  --background-modifier-form-field-highlighted: oklch(from var(--color-accent) calc(l * 0.6 + 0.05) c h);
+
+  /* Title bar */
+  --titlebar-background:         var(--background-modifier-hover);
+  --titlebar-background-focused: var(--background-primary);
+
+  /* Code blocks — always dark in dark mode */
+  --code-background: oklch(from var(--color-accent) calc(l * 0.25 + 0.02) calc(c * 0.8) h / 0.8);
+  --code-border:     oklch(from var(--color-accent) calc(l * 0.35 + 0.02) calc(c * 1)   h / 0.5);
 }
 
 /* --- Style --------------------------------------------------------------------- */

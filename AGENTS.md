@@ -1,39 +1,68 @@
 # AGENTS.md
 
 ## Project
-Single-file Obsidian CSS theme snippet (`COLOURS.css`) stored in a vault's `.obsidian/snippets/` folder.
+Official Obsidian theme (`COLOURS`) stored in `.obsidian/themes/COLOURS/`.
 
 ## Long-term Goal
-This is intended to become a full Obsidian theme plugin in the future. For now, it is developed and iterated as a pure CSS snippet.
+Published to the Obsidian Community Theme Gallery.
 
 ## Key Constraints
-- **Pure CSS only.** No JavaScript. The snippet must remain distributable as a single `.css` file.
-- Uses `oklch()` relative color syntax (`oklch(from var(--color-accent) ...)`). Requires a modern Obsidian version with up-to-date Chromium.
+- **Pure CSS only.** No JavaScript.
+- Uses `oklch()` relative color syntax. Requires Obsidian 1.5.0+ (modern Chromium).
+- **No remote assets.** All fonts are system/local only per [Theme guidelines](https://docs.obsidian.md/Themes/App+themes/Theme+guidelines).
+- Follows official selector convention: `body` for shared, `.theme-light`/`.theme-dark` for palettes.
 
 ## File Overview
-- `COLOURS.css` — The entire theme. Derives a full palette from the user's single accent color (`--color-accent`).
-  - Light mode: fully implemented inside `body {}`
-  - Dark mode: actively being converted from HSL to `oklch()`. `body.theme-dark` exists but is minimal.
-  - Auto-contrast logic uses `--dynamic-switch` based on `round(calc(var(--contrast-threshold) - l))`.
+- `theme.css` — The entire theme stylesheet.
+  - `body {}` — Shared structural variables (fonts, radius, heading sizes, tag padding).
+  - `.theme-light {}` — Full light mode palette derived from `--color-accent`.
+  - `.theme-dark {}` — Full dark mode palette with inverted backgrounds and fixed dark code blocks.
+  - Component styles follow the mode blocks (shared across both modes).
+- `manifest.json` — Theme metadata (name, version, author, minAppVersion).
+- `versions.json` — Version-to-minAppVersion compatibility map.
+- `package.json` + `version-bump.mjs` — Release automation (optional, for GitHub publishing).
+- `COLOURS.css` — Archived original snippet (for reference).
+- `test/preview.html` — Standalone browser preview tool.
+
+## CSS Architecture
+```css
+body {          /* fonts, radius, structural vars */ }
+.theme-light {  /* light palette */ }
+.theme-dark {   /* dark palette */ }
+/* component selectors follow */
+```
 
 ## Test Tool
-- `test/preview.html` — Standalone browser preview tool for rapid color testing without opening Obsidian.
-  - Load `COLOURS.css` via file picker
+- `test/preview.html` — Standalone browser preview tool.
+  - Load `theme.css` via file picker
   - Stress-test presets (`#B51A00`, `#FFFFFF`, `#000000`, `#808080`, `#FFD700`, `#00008B`)
   - Live color picker + Light/Dark mode toggle
-  - Dynamic CSS variable inspector (parses `--*` from loaded CSS)
+  - Dynamic CSS variable inspector
   - Copy computed values to clipboard
-  - **Reload button** fetches `../COLOURS.css` (works with local servers; falls back to file picker on `file://`)
+  - **Reload button** fetches `../../themes/COLOURS/theme.css` (requires local server)
 
 ## Recently Added Styling
-- **Blockquotes**: `.markdown-rendered blockquote` + `.cm-line.HyperMD-quote` (Live Preview)
+- **Full dark mode** — complete palette override in `.theme-dark`
+- **Blockquotes**: `.markdown-rendered blockquote` + `.cm-line.HyperMD-quote`
 - **Task checkboxes**: `.task-list-item-checkbox` + generic `input[type="checkbox"]`
-- **Toggles**: `.checkbox-container` (removed `.modal` restriction for sidebar coverage). Uses `inset box-shadow` for borders to avoid thumb layout shift.
+- **Toggles**: `.checkbox-container` with inset `box-shadow` borders
 - **Sliders**: `input[type="range"]::-webkit-slider-thumb`
-- **Tags**: Refactored to use CSS variables (`--tag-size`, `--tag-background`, `--tag-color`, etc.)
+- **Tags**: CSS variable-driven (`--tag-size`, `--tag-background`, `--tag-color`)
+- **Unresolved links**: Fixed color and hover state
+- **Empty state**: Themed `.empty-state` and `.empty-state-action`
+- **Mobile toolbar**: Themed `.mobile-toolbar-option`
 
 ## Workflow
-- No build, test, lint, or package tools. Edit `COLOURS.css` directly.
-- To verify in Obsidian: place the file in `.obsidian/snippets/` and enable in **Settings → Appearance → CSS snippets**.
-- Changes take effect immediately on save (Obsidian hot-reloads snippets).
+- No build tools. Edit `theme.css` directly in `.obsidian/themes/COLOURS/`.
+- To verify in Obsidian:
+  1. **Settings → Appearance → Themes** → Select **COLOURS**
+  2. Changes take effect immediately on save (Obsidian hot-reloads themes)
+  3. Toggle **Base color scheme** between Light/Dark to test both palettes
 - For faster iteration: open `test/preview.html` in a browser with a local server (`python3 -m http.server`) to use the Reload button.
+- **Restart Obsidian** if you edit `manifest.json`.
+
+## Migration Notes (from snippet)
+- Moved from `.obsidian/snippets/COLOURS.css` → `.obsidian/themes/COLOURS/theme.css`
+- Removed Google Fonts `@import`; font stack now prefers local `IBM Plex Mono` with system fallbacks
+- Selector refactor: `body.theme-dark` → `.theme-dark` (matches Obsidian convention)
+- Git repo moved from `.obsidian/snippets/` to `.obsidian/themes/COLOURS/`

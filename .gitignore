@@ -1,12 +1,15 @@
-# macOS
+# vscode
+.vscode 
+
+# Intellij
+*.iml
+.idea
+
+# npm
+node_modules
+
+# Exclude sourcemaps
+*.map
+
+# Exclude macOS Finder (System Explorer) View States
 .DS_Store
-._*
-
-# Editor
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-Thumbs.db

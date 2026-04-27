@@ -324,7 +324,7 @@
           <h3>1. Load Theme CSS</h3>
           <div class="file-input-wrapper">
             <input type="file" id="css-loader" accept=".css">
-            <div class="file-input-button">Load COLOURS.css</div>
+            <div class="file-input-button">Load theme.css</div>
           </div>
           <button class="action-btn" id="reload-btn" disabled style="margin-top:8px; font-size:0.75rem;">Reload CSS</button>
           <div class="file-name" id="file-name">No file loaded</div>
@@ -685,9 +685,11 @@
       
       // Toggle dark mode
       if (currentMode === 'dark') {
+        doc.body.classList.remove('theme-light');
         doc.body.classList.add('theme-dark');
       } else {
         doc.body.classList.remove('theme-dark');
+        doc.body.classList.add('theme-light');
       }
       
       // Update inspector
@@ -818,7 +820,7 @@
     // Reload CSS button
     reloadBtn.addEventListener('click', () => {
       // Try fetching via HTTP (works with local servers)
-      fetch('../COLOURS.css?_=' + Date.now())
+      fetch('../../themes/COLOURS/theme.css?_=' + Date.now())
         .then(r => {
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.text();
