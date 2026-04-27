@@ -1,95 +1,85 @@
-This is a sample theme for Obsidian ([https://obsidian.md](https://obsidian.md/)).
+# COLOURS
 
-## First Time publishing a theme?
+A minimal, monospace, accent-tinted Obsidian theme that derives its entire palette from your single chosen accent color.
 
-### Quick start
+## Features
 
-<img width="244" alt="Pasted image 20220822135601" src="https://user-images.githubusercontent.com/693981/186000386-4f4da987-fcaf-4aa5-aed4-e34b5901255d.png">
+- **Dynamic palette** — Every color is derived from `--color-accent` using `oklch()` relative color syntax
+- **Auto-contrast** — Text automatically switches between light and dark based on your accent color's lightness
+- **Sharp edges** — Zero border radius everywhere for a crisp, technical feel
+- **Monospace-first** — IBM Plex Mono preferred, with system monospace fallbacks
+- **Full dark mode** — Complete dark palette with inverted backgrounds and fixed dark code blocks
+- **Light & dark stress-tested** — Works with extreme accent colors (white, black, gold, pure red)
 
-First, choose **Use this template**. That will create a copy of this repository (repo) under your Github profile. Then, you will want to _clone_ your new repository to your computer.
+## Requirements
 
-Once you have the repo locally on your computer, there are a couple of placeholder fields you will need to fill in.
+- Obsidian **1.5.0+** (required for `oklch(from ...)` relative color syntax)
 
-1. Inside the `manifest.json` file, change the "name" field to whatever you want the name of your theme to be. For example:
+## Installation
 
-  ```json
-  {
-    "name": "Moonstone",
-    "version": "0.0.0",
-    "minAppVersion": "1.0.0"
-  }
-  ```
+### From Obsidian Community Themes (when published)
 
-2. Also inside the manifest.json file, you can include your name under next to the "author" field.
+1. Open **Settings → Appearance → Themes**
+2. Click **Browse**
+3. Search for **COLOURS**
+4. Click **Install**
 
-After you have those fields configured, all that's left to do is add your styles! All of your CSS needs to be inside the file `theme.css` which is located at root of your repository.
+### Manual Installation
 
-## Adding your theme to the Theme Gallery
+1. Download `theme.css` and `manifest.json`
+2. Create a folder `.obsidian/themes/COLOURS/` in your vault
+3. Place both files in that folder
+4. Open **Settings → Appearance → Themes** and select **COLOURS**
 
-### Add a screenshot thumbnail
+## How It Works
 
-Inside the repository, include a screenshot thumbnail of your theme. You can name the file anything, for example `screenshot.png`. This image will be used for the small preview in the theme list.
+The theme uses CSS `oklch()` relative color syntax to mathematically derive every hue, saturation, and lightness value from your chosen accent color:
 
-Your screenshot file should be `16:9` aspect ratio.
-The recommended size is 512x288.
+- **Backgrounds** — Tinted with your accent hue, lightness varies by layer
+- **Text** — Auto-contrasts using `--dynamic-switch` (reads accent lightness)
+- **Headings** — Gradually fading opacity from H1 to H6
+- **Code blocks** — Step function flips between light/dark based on accent
+- **Highlights** — Complementary hue with guaranteed readable contrast
 
-### Submit your theme for review
+### Color Relationships
 
-To have your theme included in the Theme Gallery, you will need to submit a Pull Request to [`obsidianmd/obsidian-releases`](https://github.com/obsidianmd/obsidian-releases#community-theme).
+| Variable | Derivation |
+|----------|-----------|
+| `--complement` | Accent hue + 180° |
+| `--triadic` | Accent hue + 120° |
+| `--split-comp` | Accent hue + 150° |
+| `--analogous` | Accent hue + 30° |
 
-## Releasing Versions _(Optional)_
+## Browser Preview Tool
 
-If your theme is getting more and more complex, you might want to start thinking about how your theme will stay compatible with different versions of Obsidian. Introduced in v0.16 of Obsidian, themes support [Github Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository). This means that you can specify which versions of your theme are compatible with which versions of Obsidian.
+A standalone preview tool is included for rapid testing without opening Obsidian:
 
-### Steps for releasing the initial version of your theme (1.0.0)
+1. Open `test/preview.html` in a modern browser
+2. Load `theme.css` via the file picker
+3. Try stress-test presets or pick any custom color
+4. Toggle between Light and Dark modes
+5. Inspect computed CSS variable values in real-time
 
-1. From your theme's repository, click on "Releases".
-   
-<img width="235" alt="Pasted image 20220822145001" src="https://user-images.githubusercontent.com/693981/186000441-287a1a97-65f6-4b5f-ba66-810ceae91cd3.png">
+For the **Reload** button to work, serve the directory with a local server:
+```bash
+python3 -m http.server
+```
 
-2. On the Releases page, there should be a button to **Draft a new Release**. Press it.
+## Customisation
 
-<img width="202" alt="Pasted image 20220822145048" src="https://user-images.githubusercontent.com/693981/186000664-6c63ae14-f685-4d39-bfe6-324f95cd9669.png">
+All variables are CSS custom properties — override them in a snippet if needed:
 
-3. Fill out the Release information form.
-	- **Choose a Tag**: Type in the name of the version number here. At the bottom of the dropdown should be a button to create a new tag with your latest theme changes. Choose this option.
-		<img width="340" alt="Pasted image 20220822145648" src="https://user-images.githubusercontent.com/693981/186000848-bd1c2619-ea09-4e70-a886-40769cda6921.png">
-	- **Release Title**: This can be the version number.
-	- **Description** _Optional_: Anything that changed
-	- **Files:** The most important part of this form is uploading the files. You can do this by dragging 'n dropping the `manifest.json` file and the `theme.css` file your for theme inside the file upload field.
+```css
+.theme-light, .theme-dark {
+  --tag-size: 1em;
+  --code-bg-threshold: 0.8;
+}
+```
 
-<img width="946" alt="Pasted image 20220822145356" src="https://user-images.githubusercontent.com/693981/186000772-e689ecea-c3b7-4e9d-9204-7ad62c0123aa.png">
+## Contributing
 
-4. Click "Publish Release."
-5. Make sure that `versions.json` is set up correctly. This file is a map.
-  ```json
-  {
-    "1.0.0": "0.16.0"
-  }
-  ```
-  
-  This means that version 1.0.0 of your theme is compatible with version 0.16.0 of Obsidian. For the initial release of your theme, you shouldn't need to make any changes to this file.
- 
-### Steps for releasing new versions
+This theme is pure CSS. Edit `theme.css` directly — no build step required.
 
-Releasing a new version of your theme is the same as releasing the initial version.
+## License
 
-1. From your theme's repository, click on "Releases."
-2. On the Releases page, there should be a button to **Draft a new Release**. Press it.
-3. Fill out the Release information form.
-	- **Choose a Tag**: Type in the name of the version number here. At the bottom of the dropdown should be a button to create a new tag with your latest theme changes. Choose this option.
-		<img width="333" alt="Pasted image 20220822145812" src="https://user-images.githubusercontent.com/693981/186000912-f494def9-0f67-4662-92bf-bd278082455f.png">
-	- **Release Title**: This can be the version number.
-	- **Description** _Optional_: Anything that changed
-	- **Files:** The most important part of this form is uploading the files. You can do this by dragging 'n dropping the `manifest.json` file and the `theme.css` file your for theme inside the file upload field.
-
-4. Click "Publish Release."
-5. Update the `versions.json` file in your repository. For the initial release of your theme, you probably didn't need to make any changes to the `versions.json` file. When you release subsequent versions of your theme; however, it's best practice to include the new version as entry in the versions.json file. So this might look like:
-  ```json
-  {  
-		"1.0.0": "0.16.0",
-		"1.0.1": "0.16.0"
-  }
-  ```
-
-  What's important to note here is: the new version is included as the "key" and the "value" is the minimum version of Obsidian that your theme compatible with. So if the new version of your theme is only compatible with an Insider version of Obsidian, it's important to set this value accordingly. This will prevent users on older versions of Obsidian from updating to the newer version of your theme.
+[Your license here]
