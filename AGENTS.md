@@ -3,9 +3,6 @@
 ## Project
 Official Obsidian theme (`COLOURS`) stored in `.obsidian/themes/COLOURS/`.
 
-## Long-term Goal
-Published to the Obsidian Community Theme Gallery.
-
 ## Key Constraints
 - **Pure CSS only.** No JavaScript.
 - Uses `oklch()` relative color syntax. Requires Obsidian 1.5.0+ (modern Chromium).
