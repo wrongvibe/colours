@@ -112,6 +112,8 @@ svg * {
 
 	--titlebar-background:         var(--background-modifier-hover);
 	--titlebar-background-focused: var(--background-primary);
+	--workspace-background-translucent: oklch(from var(--color-accent) calc(l*1.2) c h / 0.5);
+	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* --- Code blocks: step function -------------------------------------------- */
 	--code-bg-bias:      0;
@@ -210,6 +212,8 @@ svg * {
 
 	--titlebar-background:         var(--background-modifier-hover);
 	--titlebar-background-focused: var(--background-primary);
+	--workspace-background-translucent: oklch(from var(--color-accent) calc(l * 0.4 + 0.08) calc(c) calc(h) / 0.3);
+	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* --- Code blocks: always dark ---------------------------------------------- */
 	--code-bg-bias:      0;
@@ -610,4 +614,38 @@ tr:hover td {
 	color: var(--text-accent);
 	background: var(--background-modifier-hover);
 	border-color: var(--text-accent);
+}
+
+/* =============================================
+   TRANSLUCENT WINDOW SUPPORT
+   Uses official --workspace-background-translucent
+   defined in .theme-light and .theme-dark above.
+   ============================================= */
+
+   body.is-translucent {
+	--nn-theme-nav-bg: var(--workspace-background-translucent);
+	--nn-theme-list-bg: var(--workspace-background-translucent);
+	--nn-theme-mobile-bg: var(--workspace-background-translucent);
+}
+/* Outer containers get the translucent tint */
+
+/* --- Notebook Navigator plugin --- */
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .notebook-navigator,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-list-pane,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-pane-header{
+	background-color: var(--workspace-background-translucent-nn) !important;
+}
+
+/* Inner containers must be fully transparent so they don't stack */
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane-chrome,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane-panel,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane-scroller,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-list-pane-chrome,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-list-pane-panel,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-list-pane-scroller,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-shortcut-pinned,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-overlay,
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-header *  {
+	background-color: transparent !important;
 }
