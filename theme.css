@@ -35,10 +35,10 @@ body {
 	--tag-padding-y: 1px;
 
 	/* Link decoration */
-	--link-decoration: none !important;
-	--link-decoration-hover: none !important;
-	--link-unresolved-color: var(--text-muted);
-	--link-unresolved-opacity: 80%;
+	--link-decoration: none;
+	--link-decoration-hover: none;
+	--link-unresolved-color: none;
+	--link-unresolved-opacity: 60%;
 
 	--input-border-width: 1px;
 }
@@ -87,16 +87,17 @@ svg * {
 
 	/* --- Highlight system ------------------------------------------------------ */
 	--text-highlight-bias: 3;
+	--accent-l: oklch(from var(--color-accent) l c h);
 	--text-highlight-bg: oklch(from var(--complement)
-		clamp(0.2, calc(var(--dynamic-switch) * 0.7 + 0.1), 0.9)
-		c
+		clamp(0.2, calc((0.9 - calc(var(--dynamic-switch) - var(--dynamic-switch))) * 0.7 + 0.1), 0.9)
+		calc(c * 0.6)
 		h
-		/ 0.7
 	);
 	--text-highlight: oklch(from var(--complement)
-		clamp(0.2, calc((1 - var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
-		calc(c * 0.5)
+		clamp(0.2, calc(calc(var(--dynamic-switch) - var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
+		c
 		h
+		/ 0.8
 	);
 
 	/* --- Backgrounds ----------------------------------------------------------- */
@@ -134,7 +135,7 @@ svg * {
 	--code-border: oklch(from var(--color-accent)
 		calc(
 			var(--code-bg-dark) +
-			clamp(0.5, calc((l - var(--code-bg-threshold)) * 1000), 0.85) *
+			clamp(0.4, calc((l - var(--code-bg-threshold)) * 1000), 0.85) *
 			var(--code-bg-range) +
 			var(--code-bg-bias) +
 			0.05
@@ -166,6 +167,16 @@ svg * {
 	--tag-color:            var(--background-primary);
 	--tag-background:       var(--text-normal);
 	--tag-background-hover: var(--background-modifier-hover);
+
+	/* --- Graph view (hsl only, oklch breaks rendering) --- */
+	--graph-text:                hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(20%, var(--dynamic-switch), 90%));
+	--graph-node:                hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(30%, var(--dynamic-switch), 80%));
+	--graph-node-unresolved:     hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(40%, var(--dynamic-switch), 70%));
+	--graph-node-tag:            hsl(calc(var(--accent-h) + 30),  calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
+	--graph-node-attachment:     hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
+	--graph-node-focused:        hsl(var(--accent-h), calc(var(--accent-s) * 1.0), clamp(40%, var(--dynamic-switch), 90%));
+	--graph-line:                hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(35%, var(--dynamic-switch), 75%));
+	--graph-line-highlight:      hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--dynamic-switch), 85%));
 }
 
 /* =============================================
@@ -188,14 +199,14 @@ svg * {
 	/* --- Highlight system ------------------------------------------------------ */
 	--text-highlight-bias: 3;
 	--text-highlight-bg: oklch(from var(--complement)
-		clamp(0.2, calc(var(--dynamic-switch) * 0.7 + 0.1), 0.9)
-		c
+		clamp(0.2, calc((var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
+		calc(c * 0.9)
 		h
-		/ 0.7
+		/ 0.8
 	);
 	--text-highlight: oklch(from var(--complement)
-		clamp(0.2, calc((1 - var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
-		calc(c * 0.5)
+		clamp(0.2, calc(1 - var(--dynamic-switch) * 0.7 + 0.1), 0.9)
+		c
 		h
 	);
 
@@ -221,8 +232,8 @@ svg * {
 	--code-bg-light:     0.95;
 	--code-bg-dark:      0.15;
 	--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
-	--code-background: oklch(from var(--color-accent) calc(l * 0.25 + 0.02) calc(c * 0.8) h / 0.8);
-	--code-border:     oklch(from var(--color-accent) calc(l * 0.35 + 0.02) calc(c * 1)   h / 0.5);
+	--code-background: oklch(from var(--color-accent) clamp(0.1, l * 0.25 + 0.02, 1.00) calc(c * 0.8) h / 0.8);
+	--code-border:     oklch(from var(--color-accent) clamp(0.4, l * 0.35 + 0.02, 0.85) calc(c * 1.0) h / 0.5);
 
 	--code-normal:  oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
@@ -247,6 +258,26 @@ svg * {
 	--tag-color:            var(--background-primary);
 	--tag-background:       var(--text-normal);
 	--tag-background-hover: var(--background-modifier-hover);
+
+	/* --- Graph view (hsl only, oklch breaks rendering) --- */
+	--graph-text:                hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(20%, var(--dynamic-switch), 90%));
+	--graph-node:                hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(30%, var(--dynamic-switch), 80%));
+	--graph-node-unresolved:     hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(40%, var(--dynamic-switch), 70%));
+	--graph-node-tag:            hsl(calc(var(--accent-h) + 30),  calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
+	--graph-node-attachment:     hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
+	--graph-node-focused:        hsl(var(--accent-h), calc(var(--accent-s) * 1.0), clamp(40%, var(--dynamic-switch), 90%));
+	--graph-line:                hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(35%, var(--dynamic-switch), 75%));
+	--graph-line-highlight:      hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--dynamic-switch), 85%));
+
+	/* Hover state — unresolved links */
+	.markdown-source-view.mod-cm6 .is-unresolved:hover,
+	.markdown-rendered .internal-link.is-unresolved:hover {
+		background: var(--background-modifier-hover) ;
+		color: var(--background-primary) !important;
+		text-decoration: underline wavy !important;
+		text-decoration-color: red !important;
+	}
+
 }
 
 /* =============================================
@@ -312,7 +343,7 @@ input[type="checkbox"]:checked:hover {
 .task-list-item-checkbox:checked,
 input[type="checkbox"]:checked {
 	--checkbox-color: var(--text-normal);
-	--checkbox-marker-color: var(--color-accent);
+	--checkbox-marker-color: var(--background-primary);
 	border-color: var(--background-modifier-border);
 }
 
@@ -386,7 +417,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* --- Cursor line highlight --------------------------------------------------- */
 .cm-active.cm-line {
-	background: oklch(from var(--analogous-2) clamp(0.1, l * 0.8, 0.8) c h / 0.5) !important;
+	background: oklch(from var(--analogous-2) clamp(0.25, l * 0.8, 0.8) c h / 0.5) !important;
 }
 
 /* --- Selected text ----------------------------------------------------------- */
@@ -530,30 +561,30 @@ mark, .cm-highlight {
 .markdown-source-view.mod-cm6 .is-unresolved,
 .markdown-rendered .internal-link,
 .markdown-rendered .internal-link.is-unresolved {
-	text-decoration: underline wavy !important;
+	text-decoration: underline wavy ;
 	text-underline-offset: 4px;
 }
 .markdown-source-view.mod-cm6 .is-unresolved,
 .markdown-rendered .internal-link.is-unresolved {
 	color: var(--link-unresolved-color);
-	text-decoration-color: red !important;
+	text-decoration-color: red ;
 }
 /* Hover state — resolved links */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
 .markdown-rendered .internal-link:hover {
-	background: var(--text-muted) !important;
-	color: var(--background-primary) !important;
-	text-decoration: underline wavy !important;
+	background: var(--text-muted) ;
+	color: var(--background-primary) ;
+	text-decoration: underline wavy ;
 	text-decoration-color: var(--text-muted) !important;
 	text-underline-offset: 4px;
 }
 /* Hover state — unresolved links */
 .markdown-source-view.mod-cm6 .is-unresolved:hover,
 .markdown-rendered .internal-link.is-unresolved:hover {
-	background: var(--background-modifier-hover) !important;
-	color: var(--text-normal) !important;
-	text-decoration: underline wavy !important;
-	text-decoration-color: red !important;
+	background: var(--background-modifier-hover);
+	color: var(--text-normal) ;
+	text-decoration: underline wavy ;
+	text-decoration-color: red ;
 	text-underline-offset: 4px;
 }
 
@@ -627,7 +658,6 @@ tr:hover td {
 	--nn-theme-list-bg: var(--workspace-background-translucent);
 	--nn-theme-mobile-bg: var(--workspace-background-translucent);
 }
-/* Outer containers get the translucent tint */
 
 /* --- Notebook Navigator plugin --- */
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .notebook-navigator,
