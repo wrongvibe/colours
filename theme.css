@@ -41,6 +41,18 @@ body {
 	--link-unresolved-opacity: 60%;
 
 	--input-border-width: 1px;
+
+	--divider-color-hover: var(--complement);
+	--divider-width: 1px;
+
+	/* Hue shift */
+	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
+	--complement:  oklch(from var(--color-accent) l c calc(h + 180));
+	--split-comp:  oklch(from var(--color-accent) l c calc(h + 150));
+	--triadic:     oklch(from var(--color-accent) l c calc(h + 120));
+	--analogous:   oklch(from var(--color-accent) l c calc(h + 30));
+	--analogous-2: oklch(from var(--color-accent) l c calc(h + 10));
+	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
 }
 
 /* --- Tab header cleanup (from template) --- */
@@ -72,22 +84,15 @@ svg * {
    LIGHT MODE PALETTE
    ============================================= */
 .theme-light {
-	/* --- Hue shift ------------------------------------------------------------- */
-	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
-	--complement:  oklch(from var(--color-accent) l c calc(h + 180));
-	--split-comp:  oklch(from var(--color-accent) l c calc(h + 150));
-	--triadic:     oklch(from var(--color-accent) l c calc(h + 120));
-	--analogous:   oklch(from var(--color-accent) l c calc(h + 30));
-	--analogous-2: oklch(from var(--color-accent) l c calc(h + 10));
-	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
+
 
 	/* --- Accent lightness detection -------------------------------------------- */
 	--contrast-threshold: 1.11;
 	--dynamic-switch:     round(calc(var(--contrast-threshold) - l));
 
+
 	/* --- Highlight system ------------------------------------------------------ */
 	--text-highlight-bias: 3;
-	--accent-l: oklch(from var(--color-accent) l c h);
 	--text-highlight-bg: oklch(from var(--complement)
 		clamp(0.2, calc((0.9 - calc(var(--dynamic-switch) - var(--dynamic-switch))) * 0.7 + 0.1), 0.9)
 		calc(c * 0.6)
@@ -118,14 +123,14 @@ svg * {
 
 	/* --- Code blocks: step function -------------------------------------------- */
 	--code-bg-bias:      0;
-	--code-bg-threshold: 0.75;
+	--code-bg-threshold: 0.72;
 	--code-bg-light:     0.95;
 	--code-bg-dark:      0.15;
 	--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
 	--code-background: oklch(from var(--color-accent)
 		calc(
 			var(--code-bg-dark) +
-			clamp(0.1, calc((l - var(--code-bg-threshold)) * 1000), 1) *
+			clamp(0.1, calc((l - var(--code-bg-threshold)) * 1000), 0.99) *
 			var(--code-bg-range) +
 			var(--code-bg-bias)
 		)
@@ -168,32 +173,30 @@ svg * {
 	--tag-background:       var(--text-normal);
 	--tag-background-hover: var(--background-modifier-hover);
 
-	/* --- Graph view (hsl only, oklch breaks rendering) --- */
-	--graph-text:                hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(20%, var(--dynamic-switch), 90%));
-	--graph-node:                hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(30%, var(--dynamic-switch), 80%));
-	--graph-node-unresolved:     hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(40%, var(--dynamic-switch), 70%));
-	--graph-node-tag:            hsl(calc(var(--accent-h) + 30),  calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
-	--graph-node-attachment:     hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
-	--graph-node-focused:        hsl(var(--accent-h), calc(var(--accent-s) * 1.0), clamp(40%, var(--dynamic-switch), 90%));
-	--graph-line:                hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(35%, var(--dynamic-switch), 75%));
-	--graph-line-highlight:      hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--dynamic-switch), 85%));
+	/* --- Graph view ------------------------------------------------------------------ */
+
+   /* 1. Identify a threshold (60% is usually best for readability) */
+	--contrast-threshold-graph: 45%;
+  	--lightness-offset: calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);
+   /* 2. Apply the lightness switching formula */
+   /* If L > 60%, result is negative (clamped to 0% = Black); L < 60%, result is positive (clamped to 100% = White) */
+  	--dynamic-switch-graph: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold-graph)) * -1000);
+	/*--dynamic-switch-graph:  calc(calc(var(--accent-l) - var(--contrast-threshold-graph)) * -1000);*/
+	--graph-text:                hsl(var(--accent-h), 				  calc(var(--accent-s) * 0.5), clamp(10%, var(--dynamic-switch-graph), 90%), 90%);
+	--graph-line:                hsl(var(--accent-h),  			  calc(var(--accent-s) * 0.2), clamp(20%, var(--dynamic-switch-graph), 80%), 30%);
+	--graph-node:                hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 1.0), clamp(30%, var(--accent-l) * 1.8      , 70%), 60%);
+	--graph-node-unresolved:     hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.5), clamp(50%, var(--accent-l)            , 90%), 80%);
+	--graph-node-focused:        hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 1.0), clamp(20%, var(--accent-l)            , 80%), 90%);
+	--graph-node-tag:            hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
+	--graph-node-attachment:     hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
 }
 
 /* =============================================
    DARK MODE PALETTE
    ============================================= */
 .theme-dark {
-	/* --- Hue shift (same as light) --------------------------------------------- */
-	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
-	--complement:  oklch(from var(--color-accent) l c calc(h + 180));
-	--split-comp:  oklch(from var(--color-accent) l c calc(h + 150));
-	--triadic:     oklch(from var(--color-accent) l c calc(h + 120));
-	--analogous:   oklch(from var(--color-accent) l c calc(h + 30));
-	--analogous-2: oklch(from var(--color-accent) l c calc(h + 10));
-	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
 
 	/* --- Accent lightness detection -------------------------------------------- */
-	--contrast-threshold: 1.11;
 	--dynamic-switch:     1;
 
 	/* --- Highlight system ------------------------------------------------------ */
@@ -260,14 +263,13 @@ svg * {
 	--tag-background-hover: var(--background-modifier-hover);
 
 	/* --- Graph view (hsl only, oklch breaks rendering) --- */
-	--graph-text:                hsl(var(--accent-h), calc(var(--accent-s) * 0.5), clamp(20%, var(--dynamic-switch), 90%));
-	--graph-node:                hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(30%, var(--dynamic-switch), 80%));
-	--graph-node-unresolved:     hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(40%, var(--dynamic-switch), 70%));
-	--graph-node-tag:            hsl(calc(var(--accent-h) + 30),  calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
-	--graph-node-attachment:     hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--dynamic-switch), 80%));
-	--graph-node-focused:        hsl(var(--accent-h), calc(var(--accent-s) * 1.0), clamp(40%, var(--dynamic-switch), 90%));
-	--graph-line:                hsl(var(--accent-h), calc(var(--accent-s) * 0.3), clamp(35%, var(--dynamic-switch), 75%));
-	--graph-line-highlight:      hsl(var(--accent-h), calc(var(--accent-s) * 0.6), clamp(40%, var(--dynamic-switch), 85%));
+	--graph-text:              hsl(var(--accent-h), 				calc(var(--accent-s) * 0.5), clamp(20%, var(--dynamic-switch-graph), 90%), 90%);
+	--graph-line:              hsl(var(--accent-h),  			   calc(var(--accent-s) * 0.2), clamp(20%, var(--accent-l) * 1.5      , 70%), 70%);
+	--graph-node:              hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(20%, var(--accent-l) * 2.0      , 90%), 80%);
+	--graph-node-unresolved:   hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.2), clamp(50%, var(--accent-l) * 1.0      , 80%), 70%);
+	--graph-node-focused:      hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(20%, var(--accent-l)            , 90%), 90%);
+	--graph-node-tag:          hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
+	--graph-node-attachment:   hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
 
 	/* Hover state — unresolved links */
 	.markdown-source-view.mod-cm6 .is-unresolved:hover,
@@ -297,11 +299,8 @@ svg * {
 }
 
 /* --- Scrollbar: thin and monochrome ------------------------------------------ */
-::-webkit-scrollbar {
-	width: 4px;
-	opacity: 0;
-}
-::-webkit-scrollbar:hover { opacity: 1; }
+::-webkit-scrollbar { width: 8px;}
+::-webkit-scrollbar:hover { opacity: 0.8; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-muted); }
 
