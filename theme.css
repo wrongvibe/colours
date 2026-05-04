@@ -10,6 +10,15 @@ body {
 	--font-monospace: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-header:    'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif;
 
+	/* Hue shift */
+	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
+	--complement:  oklch(from var(--color-accent) l c calc(h + 180));
+	--split-comp:  oklch(from var(--color-accent) l c calc(h + 150));
+	--triadic:     oklch(from var(--color-accent) l c calc(h + 120));
+	--analogous:   oklch(from var(--color-accent) l c calc(h + 30));
+	--analogous-2: oklch(from var(--color-accent) l c calc(h + 10));
+	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
+
 	/* Radius overrides */
 	--radius-s: 0px;
 	--radius-m: 0px;
@@ -20,6 +29,11 @@ body {
 	--toggle-radius: 0px;
 	--toggle-thumb-radius: 0px;
 	--slider-thumb-radius: 0px;
+
+	--input-border-width: 1px;
+
+	--divider-color-hover: var(--complement);
+	--divider-width: 1px;
 
 	/* Heading sizes */
 	--h1-size: 2.5em;
@@ -34,25 +48,17 @@ body {
 	--tag-padding-x: 8px;
 	--tag-padding-y: 1px;
 
-	/* Link decoration */
+	/* Link decoration remove default setting*/
 	--link-decoration: none;
 	--link-decoration-hover: none;
 	--link-unresolved-color: none;
+	--link-unresolved-decoration-color: none;
 	--link-unresolved-opacity: 60%;
+	--link-external-decoration: underline;
+	--link-external-decoration-hover: none;
 
-	--input-border-width: 1px;
-
-	--divider-color-hover: var(--complement);
-	--divider-width: 1px;
-
-	/* Hue shift */
-	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
-	--complement:  oklch(from var(--color-accent) l c calc(h + 180));
-	--split-comp:  oklch(from var(--color-accent) l c calc(h + 150));
-	--triadic:     oklch(from var(--color-accent) l c calc(h + 120));
-	--analogous:   oklch(from var(--color-accent) l c calc(h + 30));
-	--analogous-2: oklch(from var(--color-accent) l c calc(h + 10));
-	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
+	/* Canvas */
+	--canvas-dot-pattern: var(--text-faint);
 }
 
 /* --- Tab header cleanup (from template) --- */
@@ -83,13 +89,11 @@ svg * {
 /* =============================================
    LIGHT MODE PALETTE
    ============================================= */
+
 .theme-light {
-
-
 	/* --- Accent lightness detection -------------------------------------------- */
 	--contrast-threshold: 1.11;
 	--dynamic-switch:     round(calc(var(--contrast-threshold) - l));
-
 
 	/* --- Highlight system ------------------------------------------------------ */
 	--text-highlight-bias: 3;
@@ -118,7 +122,7 @@ svg * {
 
 	--titlebar-background:         var(--background-modifier-hover);
 	--titlebar-background-focused: var(--background-primary);
-	--workspace-background-translucent: oklch(from var(--color-accent) calc(l*1.2) c h / 0.5);
+	--workspace-background-translucent:    oklch(from var(--color-accent) calc(l * 1.2) c h / 0.5);
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* --- Code blocks: step function -------------------------------------------- */
@@ -217,8 +221,8 @@ svg * {
 	--background-primary:               oklch(from var(--color-accent) calc(l * 0.4 + 0.06) c h);
 	--background-secondary:             var(--background-primary);
 	--background-secondary-alt:         oklch(from var(--color-accent) calc(l * 0.3 + 0.05) c h / 0.2);
-	--background-modifier-hover:        oklch(from var(--color-accent) calc(l * 0.5) calc(c * 0.75) h / 0.2);
-	--background-modifier-border:       oklch(from var(--color-accent) calc(l * 0.5 + 0.40) c h / 0.2);
+	--background-modifier-hover:        oklch(from var(--color-accent) clamp(0.3, l * 0.4, 0.8) calc(c * 0.75) h / 0.5);
+	--background-modifier-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.8, 0.8) c h / 0.5);
 	--background-modifier-border-hover: var(--text-muted);
 	--background-modifier-border-focus: var(--text-normal);
 	--background-modifier-form-field:             oklch(from var(--color-accent) calc(l * 0.5 + 0.05) c h);
@@ -263,22 +267,13 @@ svg * {
 	--tag-background-hover: var(--background-modifier-hover);
 
 	/* --- Graph view (hsl only, oklch breaks rendering) --- */
-	--graph-text:              hsl(var(--accent-h), 				calc(var(--accent-s) * 0.5), clamp(20%, var(--dynamic-switch-graph), 90%), 90%);
-	--graph-line:              hsl(var(--accent-h),  			   calc(var(--accent-s) * 0.2), clamp(20%, var(--accent-l) * 1.5      , 70%), 70%);
+	--graph-text:              hsl(var(--accent-h),             calc(var(--accent-s) * 0.5), clamp(70%, var(--accent-l) * 1.8      , 90%), 90%);
+	--graph-line:              hsl(var(--accent-h),  			   calc(var(--accent-s) * 0.2), clamp(20%, var(--accent-l) * 1.5      , 70%), 50%);
 	--graph-node:              hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(20%, var(--accent-l) * 2.0      , 90%), 80%);
 	--graph-node-unresolved:   hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.2), clamp(50%, var(--accent-l) * 1.0      , 80%), 70%);
 	--graph-node-focused:      hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(20%, var(--accent-l)            , 90%), 90%);
 	--graph-node-tag:          hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
 	--graph-node-attachment:   hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
-
-	/* Hover state — unresolved links */
-	.markdown-source-view.mod-cm6 .is-unresolved:hover,
-	.markdown-rendered .internal-link.is-unresolved:hover {
-		background: var(--background-modifier-hover) ;
-		color: var(--background-primary) !important;
-		text-decoration: underline wavy !important;
-		text-decoration-color: red !important;
-	}
 
 }
 
@@ -299,10 +294,19 @@ svg * {
 }
 
 /* --- Scrollbar: thin and monochrome ------------------------------------------ */
-::-webkit-scrollbar { width: 8px;}
+::-webkit-scrollbar { width: 6px;}
 ::-webkit-scrollbar:hover { opacity: 0.8; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-muted); }
+
+.workspace-leaf-resize-handle {
+  width: 2px !important; /* was 3px */
+}
+
+.mod-left-split .workspace-leaf-content,
+.mod-right-split .workspace-leaf-content {
+  padding-inline-end: 1px;
+}
 
 /* --- Title ------------------------------------------------------------------- */
 .inline-title {
@@ -555,17 +559,20 @@ mark, .cm-highlight {
 }
 
 /* --- Links ------------------------------------------------------------------- */
-/* Editing View + Reading Mode */
+/* Editing View + Reading Mode: resolved links */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link,
-.markdown-source-view.mod-cm6 .is-unresolved,
-.markdown-rendered .internal-link,
-.markdown-rendered .internal-link.is-unresolved {
-	text-decoration: underline wavy ;
+.markdown-rendered .internal-link {
+	text-decoration: underline wavy;
 	text-underline-offset: 4px;
+	text-decoration-color: var(--text-faint);
 }
+
+/* Editing View + Reading Mode: unresolved links */
 .markdown-source-view.mod-cm6 .is-unresolved,
 .markdown-rendered .internal-link.is-unresolved {
 	color: var(--link-unresolved-color);
+	text-decoration: underline wavy;
+	text-underline-offset: 4px;
 	text-decoration-color: red ;
 }
 /* Hover state — resolved links */
@@ -574,17 +581,17 @@ mark, .cm-highlight {
 	background: var(--text-muted) ;
 	color: var(--background-primary) ;
 	text-decoration: underline wavy ;
-	text-decoration-color: var(--text-muted) !important;
 	text-underline-offset: 4px;
+	text-decoration-color: var(--text-muted) !important;
 }
 /* Hover state — unresolved links */
 .markdown-source-view.mod-cm6 .is-unresolved:hover,
 .markdown-rendered .internal-link.is-unresolved:hover {
 	background: var(--background-modifier-hover);
-	color: var(--text-normal) ;
+	color: var(--background-primary) ;
 	text-decoration: underline wavy ;
-	text-decoration-color: red ;
 	text-underline-offset: 4px;
+	text-decoration-color: red !important;
 }
 
 /* --- Tables ------------------------------------------------------------------ */
@@ -608,42 +615,145 @@ tr:hover td {
 }
 
 /* =============================================
-   EMPTY STATE & MOBILE
+   EMPTY STATE
    ============================================= */
 
 /* --- Empty state (desktop: no file open) --- */
-.empty-state {
-	background: var(--background-primary);
-	color: var(--text-normal);
-}
 
-.empty-state-title {
-	color: var(--text-normal);
+.empty-state-action,
+.is-mobile .empty-state-action {
+	background: var(--text-normal);
+	color: var(--background-primary);
+	border: 1px solid var(--background-primary);
+	padding-left: 30px;
+	padding-right: 30px;
 }
-
-.empty-state-action {
-	background: var(--background-secondary-alt);
-	color: var(--text-normal);
-	border: 1px solid var(--background-modifier-border);
-}
-
-.empty-state-action:hover {
+.empty-state-action:hover,
+.is-mobile .empty-state-action:hover {
 	background: var(--background-modifier-hover);
 	color: var(--text-accent);
 	border-color: var(--text-accent);
 }
 
-/* --- Mobile toolbar (create new note, etc.) --- */
-.mobile-toolbar-option {
-	color: var(--text-normal);
-	background: var(--background-secondary-alt);
-	border: 1px solid var(--background-modifier-border);
+/* =============================================
+   MOBILE
+   ============================================= */
+
+/* Navigation bar */
+.is-mobile .mobile-navbar,
+.is-mobile .mobile-navbar.mod-raised,
+.is-mobile .mobile-navbar-actions,
+.is-mobile .mobile-navbar-action {
+     background-color: var(--text-normal) !important;
+     background-image: none !important;
+     /*backdrop-filter: none !important;*/
+     /*-webkit-backdrop-filter: none !important;*/
+     box-shadow: none !important;
+   }
+.is-mobile .mobile-navbar-action .svg-icon,
+.is-mobile .mobile-navbar-actions .clickable-icon {
+    color: var(--background-primary) !important;
+    stroke: var(--background-primary) !important;
+    fill: none !important;
 }
 
-.mobile-toolbar-option:hover {
-	color: var(--text-accent);
-	background: var(--background-modifier-hover);
-	border-color: var(--text-accent);
+.is-mobile .mobile-navbar-action:hover .svg-icon,
+.is-mobile .mobile-navbar-action:active .svg-icon,
+.is-mobile .mobile-navbar-actions .clickable-icon:hover svg {
+    color: var(--background-primary) !important;
+    stroke: var(--background-primary) !important;
+}
+
+
+
+/* Toolbar */
+.mobile-toolbar-options-list {
+    background-color: var(--text-normal) !important;
+    border: 1px solid var(--text-normal) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+/* The floating buttons (keyboard) */
+.mobile-toolbar-floating-options {
+	 background-color: var(--text-normal) !important;
+    border: 1px solid var(--text-normal) !important;
+	 background-image: none !important;
+	 box-shadow: none !important;
+}
+
+.mobile-toolbar-option .svg-icon,
+.mobile-toolbar-option svg {
+    color: var(--background-primary) !important;
+    stroke: var(--background-primary) !important;
+    fill: none !important;
+}
+
+
+
+/* Mobile properties — match desktop (transparent) */
+.is-mobile .metadata-content {
+	background-color: transparent;
+}
+
+/* --- Canvas --- */
+
+/* Node borders (default uncolored nodes) */
+.canvas-node:not(.is-themed) .canvas-node-container {
+	border-color: var(--background-modifier-border) !important;
+}
+.canvas-node.is-selected:not(.is-themed) .canvas-node-container,
+.canvas-node.is-focused:not(.is-themed) .canvas-node-container {
+	border-color: var(--text-accent) !important;
+}
+
+/* Edges & arrows (default uncolored edges) */
+.canvas-edges path.canvas-display-path {
+	stroke: var(--text-muted) !important;
+}
+.canvas-edges polygon.canvas-path-end {
+	fill: var(--text-muted) !important;
+	stroke: var(--text-muted) !important;
+}
+
+/* Arrow labels */
+.canvas-path-label {
+	color: var(--text-muted);
+}
+
+/* Focused/hovered edge */
+.canvas-edges g.is-focused path.canvas-display-path,
+.canvas:not(.is-connecting) .canvas-edges g:hover path.canvas-display-path {
+	stroke: var(--text-accent) !important;
+}
+
+/* Alignment guideline */
+.canvas-snaps line {
+  stroke-width: 1px;
+  stroke: var(--text-muted);
+}
+
+/* Controls - top right*/
+.canvas-control-group {
+	background-color: var(--text-normal);
+}
+.canvas-control-item:hover {
+	background-color: var(--text-normal);
+	color: var(--background-primary);
+}
+
+/* Bottom floating buttons (Add card, note, media) */
+.canvas-card-menu .canvas-card-menu-button:hover {
+    color: var(--text-normal) !important;
+}
+/* Optional: make the button background stand out on hover */
+.canvas-card-menu .canvas-card-menu-button:hover {
+    background-color: var(--background-modifier-hover);
+}
+
+/* --- Callouts -------------------------------------------------------------- */
+.callout {
+    background-color: rgba(var(--callout-color), 0.2) !important;
+    border-color: rgba(var(--callout-color), 0.4) !important;
 }
 
 /* =============================================
@@ -652,7 +762,7 @@ tr:hover td {
    defined in .theme-light and .theme-dark above.
    ============================================= */
 
-   body.is-translucent {
+body.is-translucent {
 	--nn-theme-nav-bg: var(--workspace-background-translucent);
 	--nn-theme-list-bg: var(--workspace-background-translucent);
 	--nn-theme-mobile-bg: var(--workspace-background-translucent);

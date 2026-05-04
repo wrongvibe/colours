@@ -58,6 +58,64 @@ body {          /* fonts, radius, structural vars */ }
 - For faster iteration: open `test/preview.html` in a browser with a local server (`python3 -m http.server`) to use the Reload button.
 - **Restart Obsidian** if you edit `manifest.json`.
 
+## Reverse-Engineering Obsidian's Built-in CSS
+Obsidian bundles its UI CSS inside `.asar` archives. To find the **real class names** (e.g. `.canvas-display-path` vs `.canvas-edge-path`), pseudo-elements, and default rules, extract and grep the official stylesheet.
+
+### 1. Locate the asar files
+```bash
+# macOS
+/Applications/Obsidian.app/Contents/Resources/app.asar
+/Applications/Obsidian.app/Contents/Resources/obsidian.asar
+
+# Windows (typical)
+%LOCALAPPDATA%\Obsidian\app-*\resources\app.asar
+%LOCALAPPDATA%\Obsidian\app-*\resources\obsidian.asar
+
+# Linux (typical)
+/usr/lib/obsidian/resources/app.asar
+/usr/lib/obsidian/resources/obsidian.asar
+```
+
+### 2. Install asar extractor
+```bash
+npm install -g asar
+# or
+npx asar --version
+```
+
+### 3. Extract the UI CSS
+```bash
+mkdir -p /tmp/obsidian-ui
+npx asar extract /Applications/Obsidian.app/Contents/Resources/obsidian.asar /tmp/obsidian-ui
+```
+The main stylesheet is at `/tmp/obsidian-ui/app.css`.
+
+### 4. Search for selectors
+```bash
+# Example: find canvas edge classes
+grep -n "canvas-display-path\|canvas-path-end\|canvas-interaction-path" /tmp/obsidian-ui/app.css
+
+# Example: find mobile toolbar structure
+grep -n "mobile-toolbar-option\|mobile-toolbar-options-list" /tmp/obsidian-ui/app.css
+
+# Example: find pseudo-elements on navbar
+grep -n -A3 "\.mobile-navbar::" /tmp/obsidian-ui/app.css
+```
+
+### 5. What to look for
+- **Class names** — Obsidian often uses different names than community documentation (e.g. `.canvas-display-path` not `.canvas-edge-path`)
+- **`!important` conflicts** — Obsidian sets inline SVG attributes; `!important` is often needed to override
+- **Pseudo-elements** — `::before` and `::after` create borders, shadows, and gradients (e.g. the "white edge" on mobile toolbars)
+- **`background-image` gradients** — These create subtle depth effects that look like borders
+- **`var(--touch-background)`** — Mobile-specific background variable distinct from `--background-primary`
+- **Mode-specific overrides** — `.is-mobile` vs `.is-phone` vs `.is-tablet`
+
+### 6. Common gotchas
+- `.is-phone` ≠ `.is-mobile` — actual iPhones use `.is-phone`, desktop mobile emulation uses `.is-mobile`
+- `box-shadow` on parent containers creates visible "edges" even when `border` is removed
+- `backdrop-filter: blur()` creates frosted-glass effects that look like opacity/gradients
+- The `app.asar` contains Electron app code; `obsidian.asar` contains the actual Obsidian UI CSS
+
 ## Migration Notes (from snippet)
 - Moved from `.obsidian/snippets/COLOURS.css` → `.obsidian/themes/COLOURS/theme.css`
 - Removed Google Fonts `@import`; font stack now prefers local `IBM Plex Mono` with system fallbacks
