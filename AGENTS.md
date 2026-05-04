@@ -111,7 +111,7 @@ grep -n -A3 "\.mobile-navbar::" /tmp/obsidian-ui/app.css
 - **Mode-specific overrides** — `.is-mobile` vs `.is-phone` vs `.is-tablet`
 
 ### 6. Common gotchas
-- `.is-phone` ≠ `.is-mobile` — actual iPhones use `.is-phone`, desktop mobile emulation uses `.is-mobile`
+- For mobile: `.is-mobile`
 - `box-shadow` on parent containers creates visible "edges" even when `border` is removed
 - `backdrop-filter: blur()` creates frosted-glass effects that look like opacity/gradients
 - The `app.asar` contains Electron app code; `obsidian.asar` contains the actual Obsidian UI CSS
