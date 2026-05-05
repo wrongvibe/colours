@@ -1,3 +1,8 @@
+/* =============================================
+   COLOURS
+   Accent-tinted · Minimal · Monospace
+   ============================================= */
+
 /* @settings
 name: COLOURS
 id: colours-theme
@@ -11,14 +16,13 @@ settings:
           value: highlight-default
         - label: Subtle Colour
           value: highlight-subtle
-        - label: Monochrome
-          value: highlight-monochrome
+        - label: Monochrome (High contrast)
+          value: highlight-monochrome-high
+        - label: Monochrome (Low contrast)
+          value: highlight-monochrome-low
+
 */
 
-/* =============================================
-   COLOUR
-   Minimal · Monospace · Accent-tinted
-   ============================================= */
 
 /* --- Shared: fonts, radius, structural ---------------------------------------- */
 body {
@@ -37,9 +41,9 @@ body {
 	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
 
 	/* Theme default accent */
-    --accent-h: 240;
-    --accent-s: 100%;
-    --accent-l: 25%;
+  --accent-h: 240;
+  --accent-s: 100%;
+  --accent-l: 25%;
 
 	/* Radius overrides */
 	--radius-s: 0px;
@@ -82,19 +86,37 @@ body {
 	/* Canvas */
 	--canvas-dot-pattern: var(--text-faint);
 
+	/* Blockquote */
+	--blockquote-border-thickness: 6px;
+	--blockquote-border-color:	   oklch(from var(--analogous-2) clamp(0.3, var(--dynamic-switch), 0.8) calc(c * 1.5) h / 0.5);
+	--blockquote-font-style:       italic;
+	--blockquote-color: 					 var(--text-muted);
+
 }
 
 /* --- Highlight Presets (Style Settings) --- */
 body.highlight-subtle {
-	/* TODO: User to define subtle colour values */
-	--text-highlight-bg: oklch(0.9 0.05 200 / 0.4);
-	--text-highlight: var(--text-normal);
+	--text-highlight-bg: oklch(from var(--complement)
+		clamp(0.2, calc(var(--dynamic-switch) - var(--dynamic-switch)) * 0.7 + 0.1, 0.8)
+		c
+		h
+		/ 0.8
+	);
+	--text-highlight: oklch(from var(--complement)
+		clamp(0.5, calc((0.9 - calc(var(--dynamic-switch) - var(--dynamic-switch))) * 0.7 + 0.25), 0.9)
+		calc(c * 0.8)
+		h
+		/ 0.8
+	);
 }
 
-body.highlight-monochrome {
-	/* TODO: User to define monochrome values */
-	--text-highlight-bg: oklch(0.8 0 0 / 0.3);
-	--text-highlight: var(--text-normal);
+body.highlight-monochrome-high {
+	--text-highlight-bg: var(--text-muted);
+	--text-highlight:    var(--background-primary);
+}
+body.highlight-monochrome-low {
+	--text-highlight-bg: var(--background-modifier-border);
+	--text-highlight:    var(--text-muted);
 }
 
 /* --- Tab header cleanup (from template) --- */
@@ -132,7 +154,6 @@ svg * {
 	--dynamic-switch:     round(calc(var(--contrast-threshold) - l));
 
 	/* --- Highlight system ------------------------------------------------------ */
-	--text-highlight-bias: 3;
 	--text-highlight-bg: oklch(from var(--complement)
 		clamp(0.2, calc((0.9 - calc(var(--dynamic-switch) - var(--dynamic-switch))) * 0.7 + 0.1), 0.9)
 		calc(c * 0.6)
@@ -199,7 +220,7 @@ svg * {
 	--text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h);
 	--text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
-	--text-selection: 	var(--background-secondary-alt);
+	--text-selection: 	 var(--background-secondary-alt);
 
 	/* --- Headings -------------------------------------------------------------- */
 	--h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
@@ -241,7 +262,6 @@ svg * {
 	--dynamic-switch:     1;
 
 	/* --- Highlight system ------------------------------------------------------ */
-	--text-highlight-bias: 3;
 	--text-highlight-bg: oklch(from var(--complement)
 		clamp(0.2, calc((var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
 		calc(c * 0.9)
@@ -283,13 +303,13 @@ svg * {
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
 
 	/* --- Text colours ---------------------------------------------------------- */
-	--text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
+	--text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / 0.9);
 	--text-muted:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h);
 	--text-faint:        oklch(from var(--color-accent) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h);
 	--text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h);
 	--text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
-	--text-selection: 	var(--background-secondary-alt);
+	--text-selection: 	 var(--background-secondary-alt);
 
 	/* --- Headings -------------------------------------------------------------- */
 	--h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
@@ -407,20 +427,16 @@ input[type="checkbox"]:checked {
 .markdown-rendered blockquote,
 .markdown-source-view blockquote {
 	background: var(--background-secondary-alt);
-	border-left: 3px solid var(--text-accent);
-	color: var(--text-muted);
 	padding: 0.5rem 1rem;
-	margin: 1rem 0;
+	margin:  1rem 0;
 }
 /* Live Preview — quote lines */
 .cm-line.HyperMD-quote {
-	background: var(--background-secondary-alt);
-	border-left: 3px solid var(--text-accent);
-	color: var(--text-muted);
+	font-style: italic;
 }
 /* The > marker in Live Preview */
 .cm-line.HyperMD-quote .cm-formatting-quote {
-	color: var(--text-accent);
+	font-style: italic;
 }
 
 /* --- Slider ------------------------------------------------------------------ */
