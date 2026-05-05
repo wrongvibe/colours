@@ -12,7 +12,7 @@ settings:
       type: class-select
       default: highlight-default
       options:
-        - label: Default (Colourful)
+        - label: Colourful (Default)
           value: highlight-default
         - label: Subtle Colour
           value: highlight-subtle
@@ -42,6 +42,16 @@ settings:
           value: table-default
         - label: Tinted alternate rows
           value: table-alternate-rows
+
+    - id: folder-style
+      title: Folder Style
+      type: class-select
+      default: folder-default
+      options:
+        - label: Light Background (Default)
+          value: folder-default
+        - label: Inverted Background
+          value: folder-inverted
 */
 
 
@@ -80,7 +90,7 @@ body {
 
 	--input-border-width: 1px;
 
-	--divider-color-hover: var(--complement);
+	--divider-color-hover: var(--text-highlight-bg);
 	--divider-width: 1px;
 
 	/* Heading sizes */
@@ -110,10 +120,14 @@ body {
 
 	/* Blockquote */
 	--blockquote-border-thickness: 6px;
-	--blockquote-border-color:	   oklch(from var(--analogous-2) clamp(0.3, var(--dynamic-switch), 0.8) calc(c * 1.5) h / 0.5);
+	--blockquote-border-color:	   var(--background-modifier-border);
 	--blockquote-font-style:       italic;
 	--blockquote-color: 					 var(--text-muted);
 
+	/* Notebook Navigator */
+	--nn-theme-calendar-day-active-border-color: var(--cursor-line-color);
+	--nn-theme-calendar-day-today-bg: var(--text-highlight-bg);	
+	--nn-theme-calendar-day-today-color: var(--text-highlight);
 }
 
 /* --- Highlight Presets (Style Settings) --- */
@@ -344,7 +358,7 @@ svg * {
 	/* --- Backgrounds ----------------------------------------------------------- */
 	--background-primary:               oklch(from var(--color-accent) calc(l * 0.4 + 0.06) c h);
 	--background-secondary:             var(--background-primary);
-	--background-secondary-alt:         oklch(from var(--color-accent) clamp(0.3, l * 0.4, 0.8) c h / 0.5);
+	--background-secondary-alt:         oklch(from var(--color-accent) clamp(0.2, l * 0.4, 0.8) c h / 0.5);
 	--background-modifier-hover:        oklch(from var(--color-accent) clamp(0.3, l * 0.4, 0.8) calc(c * 0.75) h / 0.5);
 	--background-modifier-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.8, 0.8) c h / 0.5);
 	--background-modifier-border-hover: var(--text-muted);
@@ -358,7 +372,7 @@ svg * {
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* Cursor line colour */
-	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.3, l * 0.7, 0.8) c h / 0.5);
+	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.3, l * 0.7, 0.6) c h / 0.5);
 
 	/* --- Code blocks: always dark ---------------------------------------------- */
 	--code-bg-bias:      0;
@@ -366,11 +380,11 @@ svg * {
 	--code-bg-light:     0.95;
 	--code-bg-dark:      0.15;
 	--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
-	--code-background:   oklch(from var(--color-accent) clamp(0.1, l * 0.25 + 0.02, 1.00) calc(c * 0.8) h / 0.8);
-	--code-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.35 + 0.02, 0.85) calc(c * 1.0) h / 0.5);
+	--code-background:   oklch(from var(--color-accent) clamp(0.2, l * 0.25 + 0.02, 1.00) calc(c * 0.8) h / 0.9);
+	--code-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.35 + 0.02, 0.85) calc(c * 1.0) h / 0.6);
 
-	--code-normal:  oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
-	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
+	--code-normal: 	 	oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
+	--code-comment: 	oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
 
 	/* --- Text colours ---------------------------------------------------------- */
 	--text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / 0.9);
@@ -396,13 +410,12 @@ svg * {
 
 	/* --- Graph view (hsl only, oklch breaks rendering) --- */
 	--graph-text:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(70%, var(--accent-l) * 1.8, 95%), 90%);
-	--graph-line:            hsl(var(--accent-h),  			    calc(var(--accent-s) * 0.2), clamp(30%, var(--accent-l) * 1.5, 50%), 80%);
+	--graph-line:            hsl(var(--accent-h),  			      calc(var(--accent-s) * 0.2), clamp(30%, var(--accent-l) * 1.5, 50%), 80%);
 	--graph-node:            hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(30%, var(--accent-l) * 2.0, 90%), 80%);
 	--graph-node-unresolved: hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.2), clamp(50%, var(--accent-l) * 1.0, 80%), 70%);
 	--graph-node-focused:    hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(30%, var(--accent-l)      , 90%), 90%);
 	--graph-node-tag:        hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)      , 80%));
 	--graph-node-attachment: hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)      , 80%));
-
 }
 
 /* =============================================
@@ -436,6 +449,35 @@ svg * {
 .mod-right-split .workspace-leaf-content {
   padding-inline-end: 1px;
 }
+
+/* Flashing */
+.is-flashing {
+  background-color: var(--text-highlight-bg) !important;
+  color: var(--text-highlight) !important;
+  mix-blend-mode: normal !important;
+}
+
+/* --- Bold folder names in file explorer --- */
+/* Default: Light background */
+.nav-folder-title-content {
+  font-weight: 500;
+  font-size: 1.05em;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: var(--cursor-line-color);
+}
+/* Inverted preset */
+body.folder-inverted .nav-folder-title-content {
+  font-weight: 500;
+  font-size: 1.05em;
+  text-decoration: none;
+  background-color: var(--text-muted);
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: var(--background-primary);
+}
+
 
 /* --- Title ------------------------------------------------------------------- */
 .inline-title {
@@ -751,7 +793,7 @@ th, td {
 	text-align: left;
 }
 th {
-	background-color: var(--cursor-line-color) !important;
+	background-color: var(--code-background) !important;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
@@ -942,14 +984,9 @@ body.table-alternate-rows tr:nth-child(even) td {
   padding: 0px 5px;
 }
 
-.callout-title-inner {
-}
-
 .callout-content {
   padding: 0px 20px;
 }
-
-
 
 /* =============================================
    TRANSLUCENT WINDOW SUPPORT
