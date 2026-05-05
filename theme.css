@@ -20,7 +20,15 @@ settings:
           value: highlight-monochrome-high
         - label: Monochrome (Low contrast)
           value: highlight-monochrome-low
-
+    - id: heading-preset
+      title: Heading Style
+      type: class-select
+      default: heading-monochrome
+      options:
+        - label: Monochrome (Default)
+          value: heading-monochrome
+        - label: Colourful
+          value: heading-colourful
 */
 
 
@@ -117,6 +125,17 @@ body.highlight-monochrome-high {
 body.highlight-monochrome-low {
 	--text-highlight-bg: var(--background-modifier-border);
 	--text-highlight:    var(--text-muted);
+}
+
+/* --- Heading Presets (Style Settings) --- */
+body.heading-colourful {
+	/* TODO: User to define colourful heading values */
+	--h1-color: oklch(from var(--complement) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.95);
+	--h2-color: oklch(from var(--triadic) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.95);
+	--h3-color: oklch(from var(--analogous) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.9);
+	--h4-color: oklch(from var(--analogous-2) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.8);
+	--h5-color: oklch(from var(--analogous-3) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.7);
+	--h6-color: oklch(from var(--split-comp) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.6);
 }
 
 /* --- Tab header cleanup (from template) --- */
