@@ -20,6 +20,7 @@ settings:
           value: highlight-monochrome-high
         - label: Monochrome (Low contrast)
           value: highlight-monochrome-low
+
     - id: heading-preset
       title: Heading Style
       type: class-select
@@ -27,8 +28,20 @@ settings:
       options:
         - label: Monochrome (Default)
           value: heading-monochrome
-        - label: Colourful
+        - label: A little bit colour
+          value: heading-colour
+        - label: Go Crazy
           value: heading-colourful
+
+    - id: table-style
+      title: Table Style
+      type: class-select
+      default: table-default
+      options:
+        - label: Tinted header row (Default)
+          value: table-default
+        - label: Tinted alternate rows
+          value: table-alternate-rows
 */
 
 
@@ -44,6 +57,7 @@ body {
 	--complement:  oklch(from var(--color-accent) l c calc(h + 180));
 	--split-comp:  oklch(from var(--color-accent) l c calc(h + 150));
 	--triadic:     oklch(from var(--color-accent) l c calc(h + 120));
+	--analogous-4: oklch(from var(--color-accent) l c calc(h + 90));
 	--analogous:   oklch(from var(--color-accent) l c calc(h + 30));
 	--analogous-2: oklch(from var(--color-accent) l c calc(h + 10));
 	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
@@ -128,14 +142,45 @@ body.highlight-monochrome-low {
 }
 
 /* --- Heading Presets (Style Settings) --- */
+
+body.heading-colour {
+	--h-l-min:   0.4;
+  --h-l-max:   0.9;
+  --h-c:       1.0;
+  --h-c-min:   0.2;
+  --h-c-max:   0.7;
+
+  --h1-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 60) / 1.0);
+  --h2-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 50) / 0.95);
+  --h3-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 40) / 0.90);
+  --h4-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 30) / 0.85);
+  --h5-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 20) / 0.80);
+  --h6-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 10) / 0.75);
+}
+
+.theme-light.heading-colourful {
+	--h-l:       0.2;
+	--h-l-min:   0.45;
+  --h-l-max:   0.8;
+  --h-c:       1.3;
+  --h-c-min:   0.25;
+  --h-c-max:   0.8;
+}
+.theme-dark.heading-colourful {
+	--h-l:       0.0;
+	--h-l-min:   0.4;
+  --h-l-max:   0.75;
+  --h-c:       0.75;
+  --h-c-min:   0.1;
+  --h-c-max:   0.3;
+}
 body.heading-colourful {
-	/* TODO: User to define colourful heading values */
-	--h1-color: oklch(from var(--complement) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.95);
-	--h2-color: oklch(from var(--triadic) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.95);
-	--h3-color: oklch(from var(--analogous) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.9);
-	--h4-color: oklch(from var(--analogous-2) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.8);
-	--h5-color: oklch(from var(--analogous-3) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.7);
-	--h6-color: oklch(from var(--split-comp) clamp(0.15, var(--dynamic-switch), 0.95) c h / 0.6);
+  --h1-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 1.0);
+  --h2-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.95);
+  --h3-color: oklch(from var(--triadic)     clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.90);
+  --h4-color: oklch(from var(--analogous-4) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.85);
+  --h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.80);
+  --h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.75);
 }
 
 /* --- Tab header cleanup (from template) --- */
@@ -200,6 +245,9 @@ svg * {
 	--titlebar-background-focused: var(--background-primary);
 	--workspace-background-translucent:    oklch(from var(--color-accent) calc(l * 1.2) c h / 0.5);
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
+
+	/* Cursor line colour */
+	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.2, l * 0.5, 0.8) c h / 0.5);
 
 	/* --- Code blocks: step function -------------------------------------------- */
 	--code-bg-bias:      0;
@@ -309,6 +357,9 @@ svg * {
 	--workspace-background-translucent: oklch(from var(--color-accent) calc(l * 0.4 + 0.08) calc(c) calc(h) / 0.3);
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
+	/* Cursor line colour */
+	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.3, l * 0.7, 0.8) c h / 0.5);
+
 	/* --- Code blocks: always dark ---------------------------------------------- */
 	--code-bg-bias:      0;
 	--code-bg-threshold: 0.75;
@@ -388,7 +439,7 @@ svg * {
 
 /* --- Title ------------------------------------------------------------------- */
 .inline-title {
-	color: var(--title);
+	color: var(--text-accent);
 	font-size: 4em !important;
 	font-weight: 700;
 	font-family: var(--font-header) !important;
@@ -514,7 +565,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* --- Cursor line highlight --------------------------------------------------- */
 .cm-active.cm-line {
-	background: oklch(from var(--analogous-2) clamp(0.25, l * 0.8, 0.8) c h / 0.5) !important;
+	background: var(--cursor-line-color) !important;
 }
 
 /* --- Selected text ----------------------------------------------------------- */
@@ -700,12 +751,19 @@ th, td {
 	text-align: left;
 }
 th {
+	background-color: var(--cursor-line-color) !important;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
 }
+
 tr:hover td {
 	background: var(--background-modifier-hover) !important;
+}
+
+/* --- Table Presets (Style Settings) --- */
+body.table-alternate-rows tr:nth-child(even) td {
+	background: oklch(from var(--cursor-line-color) l c h / 0.2);
 }
 
 /* =============================================
