@@ -10,6 +10,7 @@ A minimal, monospace, accent-tinted Obsidian theme that derives its entire palet
 - **Monospace-first** — IBM Plex Mono preferred, with system monospace fallbacks
 - **Full dark mode** — Complete dark palette with inverted backgrounds and fixed dark code blocks
 - **Light & dark stress-tested** — Works with extreme accent colors (white, black, gold, pure red)
+- **Style Settings support** — Customise highlight, heading, and table styles via the Style Settings plugin
 
 ## Requirements
 
@@ -64,6 +65,40 @@ For the **Reload** button to work, serve the directory with a local server:
 ```bash
 python3 -m http.server
 ```
+
+## Style Settings
+
+Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to customise these theme options:
+
+### Highlight Style
+
+Choose how `==highlighted text==` appears:
+
+| Preset | Description |
+|--------|-------------|
+| **Default (Colourful)** | Complementary hue with full saturation |
+| **Subtle Colour** | Muted complementary tint |
+| **Monochrome (High contrast)** | Dark text on light background (or vice versa) |
+| **Monochrome (Low contrast)** | Subtle gray tones |
+
+### Heading Style
+
+Choose how markdown headings (`# H1` through `###### H6`) are coloured:
+
+| Preset | Description |
+|--------|-------------|
+| **Monochrome (Default)** | Low-saturation accent tint — nearly grayscale |
+| **A little bit colour** | Slightly more saturation |
+| **Go Crazy** | Full chroma with different hues per heading level |
+
+### Table Style
+
+Choose table row styling:
+
+| Preset | Description |
+|--------|-------------|
+| **Tinted header row** | Header row tinted with accent colour |
+| **Tinted alternate rows** | Every other data row gets a subtle accent tint |
 
 ## Customisation
 
