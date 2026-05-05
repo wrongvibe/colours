@@ -1,3 +1,20 @@
+/* @settings
+name: COLOURS
+id: colours-theme
+settings:
+    - id: highlight-preset
+      title: Highlight Style
+      type: class-select
+      default: highlight-default
+      options:
+        - label: Default (Colourful)
+          value: highlight-default
+        - label: Subtle Colour
+          value: highlight-subtle
+        - label: Monochrome
+          value: highlight-monochrome
+*/
+
 /* =============================================
    COLOUR
    Minimal · Monospace · Accent-tinted
@@ -64,6 +81,20 @@ body {
 
 	/* Canvas */
 	--canvas-dot-pattern: var(--text-faint);
+
+}
+
+/* --- Highlight Presets (Style Settings) --- */
+body.highlight-subtle {
+	/* TODO: User to define subtle colour values */
+	--text-highlight-bg: oklch(0.9 0.05 200 / 0.4);
+	--text-highlight: var(--text-normal);
+}
+
+body.highlight-monochrome {
+	/* TODO: User to define monochrome values */
+	--text-highlight-bg: oklch(0.8 0 0 / 0.3);
+	--text-highlight: var(--text-normal);
 }
 
 /* --- Tab header cleanup (from template) --- */
@@ -274,13 +305,13 @@ svg * {
 	--tag-background-hover: var(--background-modifier-hover) !important;
 
 	/* --- Graph view (hsl only, oklch breaks rendering) --- */
-	--graph-text:              hsl(var(--accent-h),             calc(var(--accent-s) * 0.5), clamp(70%, var(--accent-l) * 1.8      , 90%), 90%);
-	--graph-line:              hsl(var(--accent-h),  			   calc(var(--accent-s) * 0.2), clamp(20%, var(--accent-l) * 1.5      , 70%), 50%);
-	--graph-node:              hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(20%, var(--accent-l) * 2.0      , 90%), 80%);
-	--graph-node-unresolved:   hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.2), clamp(50%, var(--accent-l) * 1.0      , 80%), 70%);
-	--graph-node-focused:      hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(20%, var(--accent-l)            , 90%), 90%);
-	--graph-node-tag:          hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
-	--graph-node-attachment:   hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
+	--graph-text:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(70%, var(--accent-l) * 1.8, 95%), 90%);
+	--graph-line:            hsl(var(--accent-h),  			    calc(var(--accent-s) * 0.2), clamp(30%, var(--accent-l) * 1.5, 50%), 80%);
+	--graph-node:            hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(30%, var(--accent-l) * 2.0, 90%), 80%);
+	--graph-node-unresolved: hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.2), clamp(50%, var(--accent-l) * 1.0, 80%), 70%);
+	--graph-node-focused:    hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(30%, var(--accent-l)      , 90%), 90%);
+	--graph-node-tag:        hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)      , 80%));
+	--graph-node-attachment: hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)      , 80%));
 
 }
 
