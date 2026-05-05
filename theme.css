@@ -247,7 +247,7 @@ svg * {
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* Cursor line colour */
-	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.2, l * 0.5, 0.8) c h / 0.5);
+	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.2, l * 0.8, 0.8) c h / 0.5);
 
 	/* --- Code blocks: step function -------------------------------------------- */
 	--code-bg-bias:      0;
