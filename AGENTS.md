@@ -11,7 +11,7 @@ Official Obsidian theme (`COLOURS`) stored in `.obsidian/themes/COLOURS/`.
 
 ## File Overview
 - `theme.css` — The entire theme stylesheet.
-  - `body {}` — Shared structural variables (fonts, radius, heading sizes, tag padding).
+  - `body {}` — Shared structural variables (fonts, radius, heading sizes, tag padding, blockquote vars, Notebook Navigator vars).
   - `.theme-light {}` — Full light mode palette derived from `--color-accent`.
   - `.theme-dark {}` — Full dark mode palette with inverted backgrounds and fixed dark code blocks.
   - Component styles follow the mode blocks (shared across both modes).
@@ -40,7 +40,7 @@ body {          /* fonts, radius, structural vars */ }
 
 ## Recently Added Styling
 - **Full dark mode** — complete palette override in `.theme-dark`
-- **Blockquotes**: `.markdown-rendered blockquote` + `.cm-line.HyperMD-quote`
+- **Blockquotes**: `.markdown-rendered blockquote` + `.cm-line.HyperMD-quote` with custom border variables
 - **Task checkboxes**: `.task-list-item-checkbox` + generic `input[type="checkbox"]`
 - **Toggles**: `.checkbox-container` with inset `box-shadow` borders
 - **Sliders**: `input[type="range"]::-webkit-slider-thumb`
@@ -48,6 +48,12 @@ body {          /* fonts, radius, structural vars */ }
 - **Unresolved links**: Fixed color and hover state
 - **Empty state**: Themed `.empty-state` and `.empty-state-action`
 - **Mobile toolbar**: Themed `.mobile-toolbar-option`
+- **Canvas**: Node borders, edges (`canvas-display-path`), arrows, controls, card menu
+- **is-flashing fix**: Override with `--text-highlight-bg` and `mix-blend-mode: normal`
+- **Folder styles**: `.nav-folder-title-content` with default (light bg) and inverted preset
+- **Cursor line**: `--cursor-line-color` variable for `.cm-active.cm-line`
+- **Notebook Navigator**: Calendar theming (`--nn-theme-calendar-day-*`)
+- **Graph view**: Node/link colours with HSL variables (`--graph-node`, `--graph-line`)
 
 ## Workflow
 - No build tools. Edit `theme.css` directly in `.obsidian/themes/COLOURS/`.

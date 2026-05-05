@@ -10,7 +10,10 @@ A minimal, monospace, accent-tinted Obsidian theme that derives its entire palet
 - **Monospace-first** — IBM Plex Mono preferred, with system monospace fallbacks
 - **Full dark mode** — Complete dark palette with inverted backgrounds and fixed dark code blocks
 - **Light & dark stress-tested** — Works with extreme accent colors (white, black, gold, pure red)
-- **Style Settings support** — Customise highlight, heading, and table styles via the Style Settings plugin
+- **Style Settings support** — Customise highlight, heading, table, and folder styles via the Style Settings plugin
+- **Smart folder styling** — File explorer folders with optional inverted background treatment
+- **Canvas support** — Themed node borders, edges, arrows, and controls
+- **Notebook Navigator** — Calendar and list pane theming support
 
 ## Requirements
 
@@ -99,6 +102,15 @@ Choose table row styling:
 |--------|-------------|
 | **Tinted header row** | Header row tinted with accent colour |
 | **Tinted alternate rows** | Every other data row gets a subtle accent tint |
+
+### Folder Style
+
+Choose how folder names appear in the file explorer:
+
+| Preset | Description |
+|--------|-------------|
+| **Light Background (Default)** | Subtle tinted background behind folder names |
+| **Inverted Background** | High-contrast muted background with primary text colour |
 
 ## Customisation
 
