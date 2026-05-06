@@ -86,9 +86,9 @@ settings:
 
 /* --- Shared: fonts, radius, structural -------------------------- */
 body {
-	--font-interface: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-text:      'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-monospace: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
+	--font-interface: var(--user-font-ui,   'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace);
+	--font-text:      var(--user-font-body, 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace);
+	--font-monospace: var(--user-font-mono, 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace);
 	--font-heading:   var(--font-heading-custom, 'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif);
 
 	/* Hue shift */
