@@ -55,7 +55,7 @@ settings:
 */
 
 
-/* --- Shared: fonts, radius, structural ---------------------------------------- */
+/* --- Shared: fonts, radius, structural -------------------------- */
 body {
 	--font-interface: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-text:      'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
@@ -133,7 +133,7 @@ body {
 	--nn-theme-divider-resize-handle-hover-bg: var(--text-highlight-bg);
 }
 
-/* --- Highlight Presets (Style Settings) --- */
+/* --- Highlight Presets (Style Settings) ------------------------- */
 body.highlight-subtle {
 	--text-highlight-bg: oklch(from var(--complement)
 		clamp(0.2, calc(var(--dynamic-switch) - var(--dynamic-switch)) * 0.7 + 0.1, 0.8)
@@ -159,7 +159,7 @@ body.highlight-monochrome-low {
 	--text-highlight: var(--text-muted);
 }
 
-/* --- Heading Presets (Style Settings) --- */
+/* --- Heading Presets (Style Settings) --------------------------- */
 body.heading-colour {
 	--h-l-min: 0.4;
 	--h-l-max: 0.9;
@@ -197,13 +197,13 @@ body.heading-colourful {
 	--h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
 }
 
-/* --- Tab header cleanup (from template) --- */
+/* --- Tab header cleanup (from template) ------------------------- */
 .workspace-tab-header.is-active::before,
 .workspace-tab-header.is-active::after {
 	display: none;
 }
 
-/* --- SVG stroke cleanup (from template) --- */
+/* --- SVG stroke cleanup (from template) ------------------------- */
 svg * {
 	stroke-linecap: square;
 	stroke-linejoin: miter;
@@ -211,7 +211,7 @@ svg * {
 	ry: 0;
 }
 
-/* --- Menu padding (from template) --- */
+/* --- Menu padding (from template) ------------------------------- */
 .menu {
 	padding: var(--size-2-1);
 }
@@ -227,11 +227,11 @@ svg * {
    ============================================= */
 
 .theme-light {
-	/* --- Accent lightness detection -------------------------------------------- */
+	/* --- Accent lightness detection --------------------------------- */
 	--contrast-threshold: 1.11;
 	--dynamic-switch:     round(calc(var(--contrast-threshold) - l));
 
-	/* --- Highlight system ------------------------------------------------------ */
+	/* --- Highlight system ------------------------------------------- */
 	--text-highlight-bg: oklch(from var(--complement)
 		clamp(0.2, calc((0.9 - calc(var(--dynamic-switch) - var(--dynamic-switch))) * 0.7 + 0.1), 0.9)
 		calc(c * 0.6)
@@ -244,7 +244,7 @@ svg * {
 		/ 0.8
 	);
 
-	/* --- Backgrounds ----------------------------------------------------------- */
+	/* --- Backgrounds ------------------------------------------------ */
 	--background-primary:               oklch(from var(--color-accent) l c h);
 	--background-secondary:             var(--background-primary);
 	--background-secondary-alt:         oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.80) c h / 0.2);
@@ -260,10 +260,10 @@ svg * {
 	--workspace-background-translucent:    oklch(from var(--color-accent) calc(l * 1.2) c h / 0.5);
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
-	/* --- Cursor line bg colour ------------------------------------------------- */
+	/* --- Cursor line bg colour -------------------------------------- */
 	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.2, l * 0.8, 0.8) c h / 0.5);
 
-	/* --- Code blocks: step function -------------------------------------------- */
+	/* --- Code blocks: step function --------------------------------- */
 	--code-bg-bias:      0;
 	--code-bg-threshold: 0.72;
 	--code-bg-light:     0.95;
@@ -294,7 +294,7 @@ svg * {
 	--code-normal:  oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
 
-	/* --- Text colours ---------------------------------------------------------- */
+	/* --- Text colours ----------------------------------------------- */
 	--text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-muted:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h);
 	--text-faint:        oklch(from var(--color-accent) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h);
@@ -305,7 +305,7 @@ svg * {
 
 	--link-color: var(--text-muted);
 
-	/* --- Headings -------------------------------------------------------------- */
+	/* --- Headings --------------------------------------------------- */
 	--h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
 	--h2-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
 	--h3-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.9);
@@ -313,12 +313,12 @@ svg * {
 	--h5-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.7);
 	--h6-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.6);
 
-	/* --- Tags ------------------------------------------------------------------ */
+	/* --- Tags ------------------------------------------------------- */
 	--tag-color:            var(--background-primary);
 	--tag-background:       var(--text-normal);
 	--tag-background-hover: var(--background-modifier-hover);
 
-	/* --- Graph view --- */
+	/* --- Graph view ------------------------------------------------- */
 	--contrast-threshold-graph: 45%;
 	--lightness-offset: calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);
 	--dynamic-switch-graph: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold-graph)) * -1000);
@@ -336,10 +336,10 @@ svg * {
    ============================================= */
 .theme-dark {
 
-	/* --- Accent lightness detection -------------------------------------------- */
+	/* --- Accent lightness detection --------------------------------- */
 	--dynamic-switch:     1;
 
-	/* --- Highlight system ------------------------------------------------------ */
+	/* --- Highlight system ------------------------------------------- */
 	--text-highlight-bg: oklch(from var(--complement)
 		clamp(0.2, calc((var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
 		calc(c * 0.9)
@@ -352,7 +352,7 @@ svg * {
 		h
 	);
 
-	/* --- Backgrounds ----------------------------------------------------------- */
+	/* --- Backgrounds ------------------------------------------------ */
 	--background-primary:               oklch(from var(--color-accent) calc(l * 0.4 + 0.06) c h);
 	--background-secondary:             var(--background-primary);
 	--background-secondary-alt:         oklch(from var(--color-accent) clamp(0.2, l * 0.4, 0.8) c h / 0.5);
@@ -371,7 +371,7 @@ svg * {
 	/* Cursor line colour */
 	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.3, l * 0.7, 0.6) c h / 0.5);
 
-	/* --- Code blocks: always dark ---------------------------------------------- */
+	/* --- Code blocks: always dark ----------------------------------- */
 	--code-bg-bias:      0;
 	--code-bg-threshold: 0.75;
 	--code-bg-light:     0.95;
@@ -383,7 +383,7 @@ svg * {
 	--code-normal: oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
 
-	/* --- Text colours ---------------------------------------------------------- */
+	/* --- Text colours ----------------------------------------------- */
 	--text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / 0.9);
 	--text-muted:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h);
 	--text-faint:        oklch(from var(--color-accent) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h);
@@ -392,7 +392,7 @@ svg * {
 	--text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-selection: var(--background-secondary-alt);
 
-	/* --- Headings -------------------------------------------------------------- */
+	/* --- Headings --------------------------------------------------- */
 	--h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
 	--h2-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
 	--h3-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.9);
@@ -400,12 +400,12 @@ svg * {
 	--h5-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.7);
 	--h6-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.6);
 
-	/* --- Tags ------------------------------------------------------------------ */
+	/* --- Tags ------------------------------------------------------- */
 	--tag-color:            var(--background-primary) !important;
 	--tag-background:       var(--text-normal) !important;
 	--tag-background-hover: var(--background-modifier-hover) !important;
 
-	/* --- Graph view (hsl only, oklch breaks rendering) --- */
+	/* --- Graph view (hsl only, oklch breaks rendering) -------------- */
 	--graph-text:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(70%, var(--accent-l) * 1.8, 95%), 90%);
 	--graph-line:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(30%, var(--accent-l) * 1.5, 50%), 80%);
 	--graph-node:            hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(30%, var(--accent-l) * 2.0, 90%), 80%);
@@ -419,25 +419,25 @@ svg * {
    COMPONENT STYLES (shared across modes)
    ============================================= */
 
-/* --- Strip all rounded corners ----------------------------------------------- */
+/* --- Strip all rounded corners ---------------------------------- */
 *, *::before, *::after {
 	border-radius: 0 !important;
 }
 
-/* --- Hard borders ------------------------------------------------------------ */
+/* --- Hard borders ----------------------------------------------- */
 .modal,
 .menu,
 .suggestion-container {
 	border: 1px solid var(--background-modifier-border) !important;
 }
 
-/* --- Scrollbar: thin and monochrome ------------------------------------------ */
+/* --- Scrollbar: thin and monochrome ----------------------------- */
 ::-webkit-scrollbar { width: 6px;}
 ::-webkit-scrollbar:hover { opacity: 0.8; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-faint); }
 
-/* Dividers */
+/* --- Dividers --------------------------------------------------- */
 .workspace-leaf-resize-handle {
   width:  2px;
   height: 2px;
@@ -447,15 +447,15 @@ svg * {
   padding-inline-end: 1px;
 }
 
-/* Flashing */
+/* --- Flashing --------------------------------------------------- */
 .is-flashing {
   background-color: var(--text-highlight-bg) !important;
   color: var(--text-highlight) !important;
   mix-blend-mode: normal !important;
 }
 
-/* --- Bold folder names in file explorer --- */
-/* Default: Light background */
+/* --- Bold folder names in file explorer ------------------------- */
+/* --- Default: Light background ---------------------------------- */
 .nav-folder-title-content {
   font-weight: 500;
   font-size: 1.05em;
@@ -463,43 +463,43 @@ svg * {
   padding-right: 8px;
   background-color: var(--cursor-line-color);
 }
-/* Inverted preset */
+/* --- Inverted preset -------------------------------------------- */
 body.folder-inverted .nav-folder-title-content {
   text-decoration: none;
   background-color: var(--text-muted);
   color: var(--background-primary);
 }
 
-/* --- Outline Panel Headings -------------------------------------------------- */
-/* --- Outline Panel Headings (by nesting depth) ------------------------------- */
+/* --- Outline Panel Headings ------------------------------------- */
+/* --- Outline Panel Headings (by nesting depth) ------------------ */
 /* Obsidian outline has no data-level attribute. Level = how deep it's nested. */
-/* H1 */
+/* --- H1 --------------------------------------------------------- */
 .workspace-leaf-content[data-type="outline"] .view-content .tree-item:not(.tree-item-children *) > .tree-item-self .tree-item-inner {
 	text-decoration: underline dotted;
 	color: var(--h1-color);
 }
-/* H2 */
+/* --- H2 --------------------------------------------------------- */
 .workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item:not(.tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
 	color: var(--h2-color);
 }
-/* H3 */
+/* --- H3 --------------------------------------------------------- */
 .workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
 	color: var(--h3-color);
 }
-/* H4 */
+/* --- H4 --------------------------------------------------------- */
 .workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
 	color: var(--h4-color);
 }
-/* H5 */
+/* --- H5 --------------------------------------------------------- */
 .workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
 	color: var(--h5-color);
 }
-/* H6 */
+/* --- H6 --------------------------------------------------------- */
 .workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
 	color: var(--h6-color);
 }
 
-/* --- Title ------------------------------------------------------------------- */
+/* --- Title ------------------------------------------------------ */
 .inline-title {
 	color: var(--text-accent);
 	font-size: 4em !important;
@@ -509,7 +509,7 @@ body.folder-inverted .nav-folder-title-content {
 	letter-spacing: 0.1em;
 }
 
-/* --- Header Font ------------------------------------------------------------- */
+/* --- Header Font ------------------------------------------------ */
 .cm-header-1,
 .cm-header-2,
 .cm-header-3,
@@ -525,7 +525,7 @@ body.folder-inverted .nav-folder-title-content {
 	font-family: var(--font-header) !important;
 }
 
-/* Date icon */
+/* --- Date icon -------------------------------------------------- */
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     opacity: 0.8 !important;
@@ -539,7 +539,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     left: 7px !important;
 }
 
-/* --- Task checkbox ----------------------------------------------------------- */
+/* --- Task checkbox ---------------------------------------------- */
 .task-list-item-checkbox:hover,
 .task-list-item-checkbox:hover:checked,
 input[type="checkbox"]:checked:hover {
@@ -555,23 +555,23 @@ input[type="checkbox"]:checked {
 	border-color: var(--background-modifier-border);
 }
 
-/* --- Blockquote -------------------------------------------------------------- */
+/* --- Blockquote ------------------------------------------------- */
 .markdown-rendered blockquote,
 .markdown-source-view blockquote {
 	background: var(--background-secondary-alt);
 	padding: 0.5rem 1rem;
 	margin:  1rem 0;
 }
-/* Live Preview — quote lines */
+/* --- Live Preview — quote lines --------------------------------- */
 .cm-line.HyperMD-quote {
 	font-style: italic;
 }
-/* The > marker in Live Preview */
+/* --- The > marker in Live Preview ------------------------------- */
 .cm-line.HyperMD-quote .cm-formatting-quote {
 	font-style: italic;
 }
 
-/* --- Slider ------------------------------------------------------------------ */
+/* --- Slider ----------------------------------------------------- */
 input[type="range"]::-webkit-slider-thumb {
 	background: var(--text-normal);
 }
@@ -579,7 +579,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	background: var(--text-muted);
 }
 
-/* --- Buttons: inverted, uppercase -------------------------------------------- */
+/* --- Buttons: inverted, uppercase ------------------------------- */
 .modal button,
 .modal .mod-cta,
 .setting-item button,
@@ -617,7 +617,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	color: var(--background-primary);
 }
 
-/* --- Tags -------------------------------------------------------------------- */
+/* --- Tags ------------------------------------------------------- */
 .cm-hashtag.cm-hashtag-end {
 	letter-spacing: 0.05em;
 }
@@ -625,18 +625,18 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	color: var(--complement);
 }
 
-/* --- Cursor line highlight --------------------------------------------------- */
+/* --- Cursor line highlight -------------------------------------- */
 .cm-active.cm-line {
 	background: var(--cursor-line-color) !important;
 }
 
-/* --- Selected text ----------------------------------------------------------- */
+/* --- Selected text ---------------------------------------------- */
 .cm-editor ::selection {
 	background: var(--h6-color) !important;
 	color: var(--background-primary) !important;
 }
 
-/* --- Settings ---------------------------------------------------------------- */
+/* --- Settings --------------------------------------------------- */
 .modal {
 	border-bottom: 1px solid var(--background-modifier-border) !important;
 }
@@ -645,7 +645,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	background: hsla(var(--accent-h), calc(var(--accent-s) * 0.6), calc(var(--accent-l) * 0.4), 80%) !important;
 }
 
-/* Settings sidebar nav */
+/* --- Settings sidebar nav --------------------------------------- */
 .vertical-tab-nav-item.is-active,
 .vertical-tab-nav-item:hover {
 	background: var(--text-normal) !important;
@@ -661,7 +661,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	border-bottom: 1px solid var(--background-modifier-border) !important;
 }
 
-/* --- Dropdown ---------------------------------------------------------------- */
+/* --- Dropdown --------------------------------------------------- */
 .dropdown {
 	background-color: var(--text-normal) !important;
 	color: var(--background-primary) !important;
@@ -674,13 +674,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	border: 1px solid var(--text-normal) !important;
 }
 
-/* --- White padding fix ------------------------------------------------------- */
+/* --- White padding fix ------------------------------------------ */
 .setting-item,
 .setting-group-search {
 	background: var(--background-primary) !important;
 }
 
-/* --- Inputs ------------------------------------------------------------------ */
+/* --- Inputs ----------------------------------------------------- */
 .setting-item input[type="text"] {
 	background-color: var(--background-primary);
 	outline: none;
@@ -696,7 +696,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	box-shadow: none;
 }
 
-/* --- Accent colour picker ---------------------------------------------------- */
+/* --- Accent colour picker --------------------------------------- */
 input[type="color"]::-webkit-color-swatch {
 	border: none;
 }
@@ -707,7 +707,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 	transform: scaleY(0.97);
 }
 
-/* --- Toggles ----------------------------------------------------------------- */
+/* --- Toggles ---------------------------------------------------- */
 .checkbox-container.is-enabled {
 	background-color: var(--code-background);
 	--toggle-thumb-color: var(--text-normal);
@@ -727,7 +727,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 	box-shadow: inset 0 0 0 1px var(--text-faint);
 }
 
-/* --- Code blocks ------------------------------------------------------------- */
+/* --- Code blocks ------------------------------------------------ */
 .HyperMD-codeblock-begin {
 	border-top: 1px solid var(--code-border) !important;
 }
@@ -739,14 +739,14 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 	border-right: 1px solid var(--code-border) !important;
 }
 
-/* --- Inline code ------------------------------------------------------------- */
+/* --- Inline code ------------------------------------------------ */
 .cm-inline-code {
 	border: 1px solid var(--code-border) !important;
 	padding: 1px 4px;
 	font-size: 0.9em;
 }
 
-/* --- Code block markdown fix ------------------------------------------------- */
+/* --- Code block markdown fix ------------------------------------ */
 .HyperMD-codeblock .cm-header-1,
 .HyperMD-codeblock .cm-header-2,
 .HyperMD-codeblock .cm-header-3,
@@ -759,14 +759,14 @@ pre .cm-header-3 {
 	letter-spacing: normal !important;
 }
 
-/* --- Highlighted text -------------------------------------------------------- */
+/* --- Highlighted text ------------------------------------------- */
 mark, .cm-highlight {
 	background: var(--text-highlight-bg) !important;
 	color: var(--text-highlight) !important;
 }
 
-/* --- Links ------------------------------------------------------------------- */
-/* Editing View + Reading Mode: resolved links */
+/* --- Links ------------------------------------------------------ */
+/* --- Editing View + Reading Mode: resolved links ---------------- */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link,
 .markdown-rendered .internal-link {
 	text-decoration: underline wavy;
@@ -774,7 +774,7 @@ mark, .cm-highlight {
 	text-decoration-color: var(--text-faint);
 }
 
-/* Editing View + Reading Mode: unresolved links */
+/* --- Editing View + Reading Mode: unresolved links -------------- */
 .markdown-source-view.mod-cm6 .is-unresolved,
 .markdown-rendered .internal-link.is-unresolved {
 	color: var(--link-unresolved-color);
@@ -782,7 +782,7 @@ mark, .cm-highlight {
 	text-underline-offset: 4px;
 	text-decoration-color: red;
 }
-/* Hover state — resolved links */
+/* --- Hover state — resolved links ------------------------------- */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
 .markdown-rendered .internal-link:hover {
 	background: var(--text-muted);
@@ -791,7 +791,7 @@ mark, .cm-highlight {
 	text-underline-offset: 4px;
 	text-decoration-color: var(--text-muted) !important;
 }
-/* Hover state — unresolved links */
+/* --- Hover state — unresolved links ----------------------------- */
 .markdown-source-view.mod-cm6 .is-unresolved:hover,
 .markdown-rendered .internal-link.is-unresolved:hover {
 	background: var(--background-modifier-hover);
@@ -801,7 +801,7 @@ mark, .cm-highlight {
 	text-decoration-color: red !important;
 }
 
-/* --- Tables ------------------------------------------------------------------ */
+/* --- Tables ----------------------------------------------------- */
 table {
 	border-collapse: collapse;
 	width: 100%;
@@ -823,7 +823,7 @@ tr:hover td {
 	background: var(--background-modifier-hover) !important;
 }
 
-/* --- Table Presets (Style Settings) --- */
+/* --- Table Presets (Style Settings) ----------------------------- */
 body.table-alternate-rows tr:nth-child(even) td {
 	background: oklch(from var(--cursor-line-color) l c h / 0.2);
 }
@@ -832,7 +832,7 @@ body.table-alternate-rows tr:nth-child(even) td {
    EMPTY STATE
    ============================================= */
 
-/* --- Empty state (desktop: no file open) --- */
+/* --- Empty state (desktop: no file open) ------------------------ */
 
 .empty-state-action,
 .is-mobile .empty-state-action {
@@ -853,7 +853,7 @@ body.table-alternate-rows tr:nth-child(even) td {
    MOBILE
    ============================================= */
 
-/* Navigation bar */
+/* --- Navigation bar --------------------------------------------- */
 .is-mobile .mobile-navbar,
 .is-mobile .mobile-navbar.mod-raised,
 .is-mobile .mobile-navbar-actions,
@@ -876,7 +876,7 @@ body.table-alternate-rows tr:nth-child(even) td {
 	stroke: var(--background-primary) !important;
 }
 
-/* Toolbar */
+/* --- Toolbar ---------------------------------------------------- */
 .mobile-toolbar-options-list {
 	background-color: var(--text-normal) !important;
 	border: 1px solid var(--text-normal) !important;
@@ -884,7 +884,7 @@ body.table-alternate-rows tr:nth-child(even) td {
 	box-shadow: none !important;
 }
 
-/* The floating buttons (keyboard) */
+/* --- The floating buttons (keyboard) ---------------------------- */
 .mobile-toolbar-floating-options {
 	background-color: var(--text-normal) !important;
 	border: 1px solid var(--text-normal) !important;
@@ -899,7 +899,7 @@ body.table-alternate-rows tr:nth-child(even) td {
 	fill: none !important;
 }
 
-/* Settings gear icon in left sidebar drawer */
+/* --- Settings gear icon in left sidebar drawer ------------------ */
 .is-mobile.is-floating-nav .mod-raised {
 	background-color: var(--text-normal) !important;
 	color: var(--background-primary) !important;
@@ -908,12 +908,12 @@ body.table-alternate-rows tr:nth-child(even) td {
 	box-shadow: none !important;
 }
 
-/* Properties */
+/* --- Properties ------------------------------------------------- */
 .is-mobile .metadata-content {
 	background-color: transparent;
 }
 
-/* Delete... */
+/* --- Delete... -------------------------------------------------- */
 .menu-item.is-warning {
 	background-color: var(--text-normal) !important;
 	color: var(--text-error) !important;
@@ -929,9 +929,9 @@ body.table-alternate-rows tr:nth-child(even) td {
 	border: 1px solid var(--background-modifier-border);
 }
 
-/* --- Canvas --- */
+/* --- Canvas ----------------------------------------------------- */
 
-/* Node borders (default uncolored nodes) */
+/* --- Node borders (default uncolored nodes) --------------------- */
 .canvas-node:not(.is-themed) .canvas-node-container {
 	border-color: var(--background-modifier-border) !important;
 }
@@ -940,7 +940,7 @@ body.table-alternate-rows tr:nth-child(even) td {
 	border-color: var(--text-accent) !important;
 }
 
-/* Edges & arrows (default uncolored edges) */
+/* --- Edges & arrows (default uncolored edges) ------------------- */
 .canvas-edges path.canvas-display-path {
 	stroke: var(--text-muted) !important;
 }
@@ -949,24 +949,24 @@ body.table-alternate-rows tr:nth-child(even) td {
 	stroke: var(--text-muted) !important;
 }
 
-/* Arrow labels */
+/* --- Arrow labels ----------------------------------------------- */
 .canvas-path-label {
 	color: var(--text-muted);
 }
 
-/* Focused/hovered edge */
+/* --- Focused/hovered edge --------------------------------------- */
 .canvas-edges g.is-focused path.canvas-display-path,
 .canvas:not(.is-connecting) .canvas-edges g:hover  {
 	stroke: var(--text-accent) !important;
 }
 
-/* Alignment guideline */
+/* --- Alignment guideline ---------------------------------------- */
 .canvas-snaps line {
   stroke-width: 1px;
   stroke: var(--text-muted);
 }
 
-/* Controls - top right*/
+/* --- Controls - top right --------------------------------------- */
 .canvas-control-group {
 	background-color: var(--text-normal);
 }
@@ -975,13 +975,13 @@ body.table-alternate-rows tr:nth-child(even) td {
 	color: var(--background-primary);
 }
 
-/* Bottom floating buttons (Add card, note, media) */
+/* --- Bottom floating buttons (Add card, note, media) ------------ */
 .canvas-card-menu .canvas-card-menu-button:hover {
 	color: var(--text-normal) !important;
 	background-color: var(--background-modifier-hover);
 }
 
-/* --- Callouts -------------------------------------------------------------- */
+/* --- Callouts --------------------------------------------------- */
 
 .callout {
 	background-color: rgba(var(--callout-color), 0.25) !important;
@@ -1017,7 +1017,7 @@ body.is-translucent {
 	--nn-theme-mobile-bg: var(--workspace-background-translucent);
 }
 
-/* --- Notebook Navigator plugin --- */
+/* --- Notebook Navigator plugin ---------------------------------- */
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .notebook-navigator,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-list-pane,
@@ -1025,7 +1025,7 @@ body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-
 	background-color: var(--workspace-background-translucent-nn) !important;
 }
 
-/* Inner containers must be fully transparent so they don't stack */
+/* --- Inner containers must be fully transparent so they don't... */
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane-chrome,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane-panel,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-pane-scroller,
