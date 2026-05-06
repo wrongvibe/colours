@@ -52,6 +52,11 @@ settings:
           value: folder-default
         - label: Inverted Background
           value: folder-inverted
+
+    - id: disable-uppercase
+      title: Disable Uppercase
+      type: class-toggle
+      default: false
 */
 
 
@@ -1036,4 +1041,26 @@ body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-overlay,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-header * {
 	background-color: transparent !important;
+}
+
+/* --- Disable Uppercase (Style Settings toggle) ------------------ */
+body.disable-uppercase .inline-title {
+	text-transform: none;
+	letter-spacing: normal;
+}
+body.disable-uppercase .modal button,
+body.disable-uppercase .modal .mod-cta,
+body.disable-uppercase .setting-item button,
+body.disable-uppercase .setting-item .mod-cta,
+body.disable-uppercase .workspace-ribbon button,
+body.disable-uppercase .titlebar button,
+body.disable-uppercase .view-header button,
+body.disable-uppercase .view-actions button,
+body.disable-uppercase .view-action {
+	text-transform: none;
+	letter-spacing: normal;
+}
+body.disable-uppercase th {
+	text-transform: none;
+	letter-spacing: normal;
 }
