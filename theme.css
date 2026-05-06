@@ -57,6 +57,12 @@ settings:
       title: Disable Uppercase
       type: class-toggle
       default: false
+
+    - id: font-heading-custom
+      title: Heading Font
+      type: variable-text
+      default: "'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif"
+      description: "CSS font-family value. Use quotes for names with spaces."
 */
 
 
@@ -65,7 +71,7 @@ body {
 	--font-interface: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-text:      'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-monospace: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-header:    'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif;
+	--font-heading: var(--font-heading-custom, 'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif);
 
 	/* Hue shift */
 	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
@@ -509,7 +515,7 @@ body.folder-inverted .nav-folder-title-content {
 	color: var(--text-accent);
 	font-size: 4em !important;
 	font-weight: 700;
-	font-family: var(--font-header) !important;
+	font-family: var(--font-heading) !important;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
 }
@@ -527,7 +533,7 @@ body.folder-inverted .nav-folder-title-content {
 .markdown-reading-view h4,
 .markdown-reading-view h5,
 .markdown-reading-view h6 {
-	font-family: var(--font-header) !important;
+	font-family: var(--font-heading) !important;
 }
 
 /* --- Date icon -------------------------------------------------- */
