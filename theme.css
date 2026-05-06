@@ -128,6 +128,8 @@ body {
 	--nn-theme-calendar-day-active-border-color: var(--cursor-line-color);
 	--nn-theme-calendar-day-today-bg: var(--text-highlight-bg);	
 	--nn-theme-calendar-day-today-color: var(--text-highlight);
+
+	--nn-theme-mobile-toolbar-button-active-icon-color:var(--background-primary);
 }
 
 /* --- Highlight Presets (Style Settings) --- */
@@ -160,16 +162,13 @@ body.highlight-monochrome-low {
 body.heading-colour {
 	--h-l-min:   0.4;
   --h-l-max:   0.9;
-  --h-c:       1.0;
-  --h-c-min:   0.2;
-  --h-c-max:   0.7;
 
-  --h1-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 60) / 1.0);
-  --h2-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 50) / 0.95);
-  --h3-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 40) / 0.90);
-  --h4-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 30) / 0.85);
-  --h5-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 20) / 0.80);
-  --h6-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) calc(h + 10) / 0.75);
+  --h1-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 10) / 1.0);
+  --h2-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 5) / 0.95);
+  --h3-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 0) / 0.90);
+  --h4-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 5) / 0.85);
+  --h5-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 10) / 0.80);
+  --h6-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 15) / 0.75);
 }
 
 .theme-light.heading-colourful {
@@ -177,7 +176,6 @@ body.heading-colour {
 	--h-l-min:   0.45;
   --h-l-max:   0.8;
   --h-c:       1.3;
-  --h-c-min:   0.25;
   --h-c-max:   0.8;
 }
 .theme-dark.heading-colourful {
@@ -185,16 +183,15 @@ body.heading-colour {
 	--h-l-min:   0.4;
   --h-l-max:   0.75;
   --h-c:       0.75;
-  --h-c-min:   0.1;
   --h-c-max:   0.3;
 }
 body.heading-colourful {
-  --h1-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 1.0);
-  --h2-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.95);
-  --h3-color: oklch(from var(--triadic)     clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.90);
-  --h4-color: oklch(from var(--analogous-4) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.85);
-  --h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.80);
-  --h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(var(--h-c-min), c * var(--h-c), var(--h-c-max)) h / 0.75);
+  --h1-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 1.00);
+  --h2-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.95);
+  --h3-color: oklch(from var(--triadic)     clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.90);
+  --h4-color: oklch(from var(--analogous-4) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.85);
+  --h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.80);
+  --h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
 }
 
 /* --- Tab header cleanup (from template) --- */
@@ -252,15 +249,15 @@ svg * {
 	--background-modifier-border:       oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) c h / 0.2);
 	--background-modifier-border-hover: var(--text-muted);
 	--background-modifier-border-focus: var(--text-normal);
-	--background-modifier-form-field:             hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
-	--background-modifier-form-field-highlighted: hsl(var(--accent-h), var(--accent-s), clamp(25%, var(--dynamic-switch), 99%));
+	--background-modifier-form-field:   var(--background-primary);
+	--background-modifier-form-field-highlighted: var(--background-secondary-alt);
 
 	--titlebar-background:         var(--background-modifier-hover);
 	--titlebar-background-focused: var(--background-primary);
 	--workspace-background-translucent:    oklch(from var(--color-accent) calc(l * 1.2) c h / 0.5);
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
-	/* Cursor line colour */
+	/* --- Cursor line bg colour ------------------------------------------------- */
 	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.2, l * 0.8, 0.8) c h / 0.5);
 
 	/* --- Code blocks: step function -------------------------------------------- */
@@ -302,6 +299,8 @@ svg * {
 	--text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-selection: 	 var(--background-secondary-alt);
+
+	--link-color: var(--text-muted);
 
 	/* --- Headings -------------------------------------------------------------- */
 	--h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
@@ -363,8 +362,8 @@ svg * {
 	--background-modifier-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.8, 0.8) c h / 0.5);
 	--background-modifier-border-hover: var(--text-muted);
 	--background-modifier-border-focus: var(--text-normal);
-	--background-modifier-form-field:             oklch(from var(--color-accent) calc(l * 0.5 + 0.05) c h);
-	--background-modifier-form-field-highlighted: oklch(from var(--color-accent) calc(l * 0.6 + 0.05) c h);
+	--background-modifier-form-field:   var(--background-primary);
+	--background-modifier-form-field-highlighted: var(--background-secondary-alt);
 
 	--titlebar-background:         var(--background-modifier-hover);
 	--titlebar-background-focused: var(--background-primary);
@@ -1047,4 +1046,11 @@ body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-overlay,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-header *  {
 	background-color: transparent !important;
+}
+
+.modal {
+	--nn-theme-mobile-toolbar-button-active-icon-color:var(--background-primary);
+}
+body {
+	--nn-theme-divider-resize-handle-hover-bg: var(--text-highlight-bg);
 }
