@@ -10,10 +10,11 @@ A minimal, monospace, accent-tinted Obsidian theme that derives its entire palet
 - **Monospace-first** — IBM Plex Mono preferred, with system monospace fallbacks
 - **Full dark mode** — Complete dark palette with inverted backgrounds and fixed dark code blocks
 - **Light & dark stress-tested** — Works with extreme accent colors (white, black, gold, pure red)
-- **Style Settings support** — Customise highlight, heading, table, and folder styles via the Style Settings plugin
+- **Style Settings support** — Customise highlight, heading, table, folder, uppercase, and heading font styles via the Style Settings plugin
 - **Smart folder styling** — File explorer folders with optional inverted background treatment
 - **Canvas support** — Themed node borders, edges, arrows, and controls
 - **Notebook Navigator** — Calendar and list pane theming support
+- **Respects official font settings** — Obsidian's built-in font picker overrides the theme when set
 
 ## Requirements
 
@@ -71,30 +72,50 @@ python3 -m http.server
 
 ## Style Settings
 
-Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to customise these theme options:
+Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to customise these theme options. All settings are organised into collapsible groups:
 
-### Highlight Style
+### Typography
 
-Choose how `==highlighted text==` appears:
+#### Heading Font
+Set any custom font for headings using CSS `font-family` syntax.
 
-| Preset | Description |
-|--------|-------------|
-| **Default (Colourful)** | Complementary hue with full saturation |
-| **Subtle Colour** | Muted complementary tint |
-| **Monochrome (High contrast)** | Dark text on light background (or vice versa) |
-| **Monochrome (Low contrast)** | Subtle gray tones |
+- **Default:** `'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif`
+- **Example:** `Georgia, serif` or `'Inter', sans-serif`
 
-### Heading Style
+> Use quotes for font names containing spaces.
+
+#### Disable Uppercase
+Toggle off the theme's forced `text-transform: uppercase` on:
+- Note titles (`.inline-title`)
+- Buttons (modal, settings, ribbon, titlebar, view actions)
+- Table headers (`th`)
+
+#### Heading Style
 
 Choose how markdown headings (`# H1` through `###### H6`) are coloured:
 
 | Preset | Description |
 |--------|-------------|
-| **Monochrome (Default)** | Low-saturation accent tint — nearly grayscale |
+| **Monochrome** | Low-saturation accent tint — nearly grayscale |
 | **A little bit colour** | Slightly more saturation |
 | **Go Crazy** | Full chroma with different hues per heading level |
 
-### Table Style
+### Colours
+
+#### Highlight Style
+
+Choose how `==highlighted text==` appears:
+
+| Preset | Description |
+|--------|-------------|
+| **Colourful** | Complementary hue with full saturation |
+| **Subtle Colour** | Muted complementary tint |
+| **Monochrome (High contrast)** | Dark text on light background (or vice versa) |
+| **Monochrome (Low contrast)** | Subtle gray tones |
+
+### Layout
+
+#### Table Style
 
 Choose table row styling:
 
@@ -103,14 +124,37 @@ Choose table row styling:
 | **Tinted header row** | Header row tinted with accent colour |
 | **Tinted alternate rows** | Every other data row gets a subtle accent tint |
 
-### Folder Style
+#### Folder Style
 
 Choose how folder names appear in the file explorer:
 
 | Preset | Description |
 |--------|-------------|
-| **Light Background (Default)** | Subtle tinted background behind folder names |
+| **Light Background** | Subtle tinted background behind folder names |
 | **Inverted Background** | High-contrast muted background with primary text colour |
+
+## Fonts
+
+The theme respects Obsidian's official font settings:
+
+- **Interface font** — Obsidian Settings → Appearance → Interface font overrides the theme's IBM Plex Mono
+- **Text font** — Obsidian Settings → Appearance → Text font overrides the theme's IBM Plex Mono
+- **Monospace font** — Obsidian Settings → Appearance → Monospace font overrides the theme's IBM Plex Mono
+- **Heading font** — Controlled via Style Settings (Typography → Heading Font)
+
+If you leave Obsidian's font settings empty, the theme falls back to its monospace stack.
+
+## File Structure
+
+```
+.obsidian/themes/COLOURS/
+├── theme.css              # Main stylesheet
+├── manifest.json          # Theme metadata
+├── README.md              # This file
+├── test/
+│   └── preview.html       # Browser preview tool
+└── versions.json          # Version compatibility map
+```
 
 ## Customisation
 
