@@ -478,6 +478,34 @@ body.folder-inverted .nav-folder-title-content {
   color: var(--background-primary);
 }
 
+/* --- Outline Panel Headings -------------------------------------------------- */
+/* --- Outline Panel Headings (by nesting depth) ------------------------------- */
+/* Obsidian outline has no data-level attribute. Level = how deep it's nested. */
+/* H1 */
+.workspace-leaf-content[data-type="outline"] .view-content .tree-item:not(.tree-item-children *) > .tree-item-self .tree-item-inner {
+	text-decoration: underline dotted;
+	color: var(--h1-color);
+}
+/* H2 */
+.workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item:not(.tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
+	color: var(--h2-color);
+}
+/* H3 */
+.workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
+	color: var(--h3-color);
+}
+/* H4 */
+.workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
+	color: var(--h4-color);
+}
+/* H5 */
+.workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
+	color: var(--h5-color);
+}
+/* H6 */
+.workspace-leaf-content[data-type="outline"] .view-content .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item:not(.tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children .tree-item-children *) > .tree-item-self .tree-item-inner {
+	color: var(--h6-color);
+}
 
 /* --- Title ------------------------------------------------------------------- */
 .inline-title {
@@ -793,7 +821,7 @@ th, td {
 	text-align: left;
 }
 th {
-	background-color: var(--code-background) !important;
+	background-color: var(--cursor-line-color) !important;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
