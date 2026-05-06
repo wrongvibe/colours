@@ -73,9 +73,9 @@ body {
 	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
 
 	/* Theme default accent */
-  --accent-h: 240;
-  --accent-s: 100%;
-  --accent-l: 25%;
+	--accent-h: 240;
+	--accent-s: 100%;
+	--accent-l: 25%;
 
 	/* Radius overrides */
 	--radius-s: 0px;
@@ -129,7 +129,8 @@ body {
 	--nn-theme-calendar-day-today-bg: var(--text-highlight-bg);	
 	--nn-theme-calendar-day-today-color: var(--text-highlight);
 
-	--nn-theme-mobile-toolbar-button-active-icon-color:var(--background-primary);
+	--nn-theme-mobile-toolbar-button-active-icon-color: var(--background-primary);
+	--nn-theme-divider-resize-handle-hover-bg: var(--text-highlight-bg);
 }
 
 /* --- Highlight Presets (Style Settings) --- */
@@ -150,48 +151,50 @@ body.highlight-subtle {
 
 body.highlight-monochrome-high {
 	--text-highlight-bg: var(--text-muted);
-	--text-highlight:    var(--background-primary);
+	--text-highlight: var(--background-primary);
 }
+
 body.highlight-monochrome-low {
 	--text-highlight-bg: var(--background-modifier-border);
-	--text-highlight:    var(--text-muted);
+	--text-highlight: var(--text-muted);
 }
 
 /* --- Heading Presets (Style Settings) --- */
-
 body.heading-colour {
-	--h-l-min:   0.4;
-  --h-l-max:   0.9;
+	--h-l-min: 0.4;
+	--h-l-max: 0.9;
 
-  --h1-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 10) / 1.0);
-  --h2-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 5) / 0.95);
-  --h3-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 0) / 0.90);
-  --h4-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 5) / 0.85);
-  --h5-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 10) / 0.80);
-  --h6-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 15) / 0.75);
+	--h1-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 10) / 1.0);
+	--h2-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 5) / 0.95);
+	--h3-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 0) / 0.90);
+	--h4-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 5) / 0.85);
+	--h5-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 10) / 0.80);
+	--h6-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 15) / 0.75);
 }
 
 .theme-light.heading-colourful {
-	--h-l:       0.2;
-	--h-l-min:   0.45;
-  --h-l-max:   0.8;
-  --h-c:       1.3;
-  --h-c-max:   0.8;
+	--h-l: 0.2;
+	--h-l-min: 0.45;
+	--h-l-max: 0.8;
+	--h-c: 1.3;
+	--h-c-max: 0.8;
 }
+
 .theme-dark.heading-colourful {
-	--h-l:       0.0;
-	--h-l-min:   0.4;
-  --h-l-max:   0.75;
-  --h-c:       0.75;
-  --h-c-max:   0.3;
+	--h-l: 0.0;
+	--h-l-min: 0.4;
+	--h-l-max: 0.75;
+	--h-c: 0.75;
+	--h-c-max: 0.3;
 }
+
 body.heading-colourful {
-  --h1-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 1.00);
-  --h2-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.95);
-  --h3-color: oklch(from var(--triadic)     clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.90);
-  --h4-color: oklch(from var(--analogous-4) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.85);
-  --h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.80);
-  --h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
+	--h1-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 1.00);
+	--h2-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.95);
+	--h3-color: oklch(from var(--triadic)     clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.90);
+	--h4-color: oklch(from var(--analogous-4) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.85);
+	--h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.80);
+	--h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
 }
 
 /* --- Tab header cleanup (from template) --- */
@@ -315,22 +318,17 @@ svg * {
 	--tag-background:       var(--text-normal);
 	--tag-background-hover: var(--background-modifier-hover);
 
-	/* --- Graph view ------------------------------------------------------------------ */
-
-   /* 1. Identify a threshold (60% is usually best for readability) */
+	/* --- Graph view --- */
 	--contrast-threshold-graph: 45%;
-  	--lightness-offset: calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);
-   /* 2. Apply the lightness switching formula */
-   /* If L > 60%, result is negative (clamped to 0% = Black); L < 60%, result is positive (clamped to 100% = White) */
-  	--dynamic-switch-graph: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold-graph)) * -1000);
-	/*--dynamic-switch-graph:  calc(calc(var(--accent-l) - var(--contrast-threshold-graph)) * -1000);*/
-	--graph-text:                hsl(var(--accent-h), 				  calc(var(--accent-s) * 0.5), clamp(10%, var(--dynamic-switch-graph), 90%), 90%);
-	--graph-line:                hsl(var(--accent-h),  			  calc(var(--accent-s) * 0.2), clamp(20%, var(--dynamic-switch-graph), 80%), 30%);
-	--graph-node:                hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 1.0), clamp(30%, var(--accent-l) * 1.8      , 70%), 60%);
-	--graph-node-unresolved:     hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.5), clamp(50%, var(--accent-l)            , 90%), 80%);
-	--graph-node-focused:        hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 1.0), clamp(20%, var(--accent-l)            , 80%), 90%);
-	--graph-node-tag:            hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
-	--graph-node-attachment:     hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
+	--lightness-offset: calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);
+	--dynamic-switch-graph: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold-graph)) * -1000);
+	--graph-text:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.5), clamp(10%, var(--dynamic-switch-graph), 90%), 90%);
+	--graph-line:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(20%, var(--dynamic-switch-graph), 80%), 30%);
+	--graph-node:            hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 1.0), clamp(30%, var(--accent-l) * 1.8      , 70%), 60%);
+	--graph-node-unresolved: hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.5), clamp(50%, var(--accent-l)            , 90%), 80%);
+	--graph-node-focused:    hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 1.0), clamp(20%, var(--accent-l)            , 80%), 90%);
+	--graph-node-tag:        hsl(calc(var(--accent-h) + 240), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
+	--graph-node-attachment: hsl(calc(var(--accent-h) + 120), calc(var(--accent-s) * 0.7), clamp(30%, var(--accent-l)            , 80%));
 }
 
 /* =============================================
@@ -382,8 +380,8 @@ svg * {
 	--code-background:   oklch(from var(--color-accent) clamp(0.2, l * 0.25 + 0.02, 1.00) calc(c * 0.8) h / 0.9);
 	--code-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.35 + 0.02, 0.85) calc(c * 1.0) h / 0.6);
 
-	--code-normal: 	 	oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
-	--code-comment: 	oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
+	--code-normal: oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
+	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
 
 	/* --- Text colours ---------------------------------------------------------- */
 	--text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / 0.9);
@@ -392,7 +390,7 @@ svg * {
 	--text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h);
 	--text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
-	--text-selection: 	 var(--background-secondary-alt);
+	--text-selection: var(--background-secondary-alt);
 
 	/* --- Headings -------------------------------------------------------------- */
 	--h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
@@ -409,7 +407,7 @@ svg * {
 
 	/* --- Graph view (hsl only, oklch breaks rendering) --- */
 	--graph-text:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(70%, var(--accent-l) * 1.8, 95%), 90%);
-	--graph-line:            hsl(var(--accent-h),  			      calc(var(--accent-s) * 0.2), clamp(30%, var(--accent-l) * 1.5, 50%), 80%);
+	--graph-line:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(30%, var(--accent-l) * 1.5, 50%), 80%);
 	--graph-node:            hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(30%, var(--accent-l) * 2.0, 90%), 80%);
 	--graph-node-unresolved: hsl(calc(var(--accent-h) +  60), calc(var(--accent-s) * 0.2), clamp(50%, var(--accent-l) * 1.0, 80%), 70%);
 	--graph-node-focused:    hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 2.0), clamp(30%, var(--accent-l)      , 90%), 90%);
@@ -467,13 +465,8 @@ svg * {
 }
 /* Inverted preset */
 body.folder-inverted .nav-folder-title-content {
-  font-weight: 500;
-  font-size: 1.05em;
   text-decoration: none;
   background-color: var(--text-muted);
-  padding-bottom: 0px;
-  padding-left: 8px;
-  padding-right: 8px;
   color: var(--background-primary);
 }
 
@@ -787,14 +780,14 @@ mark, .cm-highlight {
 	color: var(--link-unresolved-color);
 	text-decoration: underline wavy;
 	text-underline-offset: 4px;
-	text-decoration-color: red ;
+	text-decoration-color: red;
 }
 /* Hover state — resolved links */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
 .markdown-rendered .internal-link:hover {
-	background: var(--text-muted) ;
-	color: var(--background-primary) ;
-	text-decoration: underline wavy ;
+	background: var(--text-muted);
+	color: var(--background-primary);
+	text-decoration: underline wavy;
 	text-underline-offset: 4px;
 	text-decoration-color: var(--text-muted) !important;
 }
@@ -802,8 +795,8 @@ mark, .cm-highlight {
 .markdown-source-view.mod-cm6 .is-unresolved:hover,
 .markdown-rendered .internal-link.is-unresolved:hover {
 	background: var(--background-modifier-hover);
-	color: var(--background-primary) ;
-	text-decoration: underline wavy ;
+	color: var(--background-primary);
+	text-decoration: underline wavy;
 	text-underline-offset: 4px;
 	text-decoration-color: red !important;
 }
@@ -865,54 +858,54 @@ body.table-alternate-rows tr:nth-child(even) td {
 .is-mobile .mobile-navbar.mod-raised,
 .is-mobile .mobile-navbar-actions,
 .is-mobile .mobile-navbar-action {
-     background-color: var(--text-normal) !important;
-     background-image: none !important;
-     /*backdrop-filter: none !important;*/
-     /*-webkit-backdrop-filter: none !important;*/
-     box-shadow: none !important;
-   }
+	background-color: var(--text-normal) !important;
+	background-image: none !important;
+	box-shadow: none !important;
+}
 .is-mobile .mobile-navbar-action .svg-icon,
 .is-mobile .mobile-navbar-actions .clickable-icon {
-    color: var(--background-primary) !important;
-    stroke: var(--background-primary) !important;
-    fill: none !important;
+	color: var(--background-primary) !important;
+	stroke: var(--background-primary) !important;
+	fill: none !important;
 }
 
 .is-mobile .mobile-navbar-action:hover .svg-icon,
 .is-mobile .mobile-navbar-action:active .svg-icon,
 .is-mobile .mobile-navbar-actions .clickable-icon:hover svg {
-    color: var(--background-primary) !important;
-    stroke: var(--background-primary) !important;
+	color: var(--background-primary) !important;
+	stroke: var(--background-primary) !important;
 }
 
 /* Toolbar */
 .mobile-toolbar-options-list {
-    background-color: var(--text-normal) !important;
-    border: 1px solid var(--text-normal) !important;
-    background-image: none !important;
-    box-shadow: none !important;
+	background-color: var(--text-normal) !important;
+	border: 1px solid var(--text-normal) !important;
+	background-image: none !important;
+	box-shadow: none !important;
 }
+
 /* The floating buttons (keyboard) */
 .mobile-toolbar-floating-options {
-	 background-color: var(--text-normal) !important;
-    border: 1px solid var(--text-normal) !important;
-	 background-image: none !important;
-	 box-shadow: none !important;
+	background-color: var(--text-normal) !important;
+	border: 1px solid var(--text-normal) !important;
+	background-image: none !important;
+	box-shadow: none !important;
 }
+
 .mobile-toolbar-option .svg-icon,
 .mobile-toolbar-option svg {
-    color: var(--background-primary) !important;
-    stroke: var(--background-primary) !important;
-    fill: none !important;
+	color: var(--background-primary) !important;
+	stroke: var(--background-primary) !important;
+	fill: none !important;
 }
 
 /* Settings gear icon in left sidebar drawer */
 .is-mobile.is-floating-nav .mod-raised {
-	 background-color: var(--text-normal) !important;
-    color: var(--background-primary) !important;
-    background-image: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
+	background-color: var(--text-normal) !important;
+	color: var(--background-primary) !important;
+	background-image: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
 }
 
 /* Properties */
@@ -927,13 +920,13 @@ body.table-alternate-rows tr:nth-child(even) td {
 	font-weight: bold !important;
 }
 .menu-item.is-warning .menu-item-icon {
-    color: var(--background-primary) !important;
+	color: var(--background-primary) !important;
 }
 
 .workspace-drawer-tab-select .workspace-tab-header-inner,
 .workspace-drawer-tab-options-list {
 	background-color: var(--background-primary) !important;
-	border:    1px solid var(--background-modifier-border);
+	border: 1px solid var(--background-modifier-border);
 }
 
 /* --- Canvas --- */
@@ -984,11 +977,8 @@ body.table-alternate-rows tr:nth-child(even) td {
 
 /* Bottom floating buttons (Add card, note, media) */
 .canvas-card-menu .canvas-card-menu-button:hover {
-   color: var(--text-normal) !important;
-}
-/* Optional: make the button background stand out on hover */
-.canvas-card-menu .canvas-card-menu-button:hover {
-    background-color: var(--background-modifier-hover);
+	color: var(--text-normal) !important;
+	background-color: var(--background-modifier-hover);
 }
 
 /* --- Callouts -------------------------------------------------------------- */
@@ -1044,13 +1034,6 @@ body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-list-pane-scroller,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-shortcut-pinned,
 body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-overlay,
-body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-header *  {
+body.is-translucent .workspace-leaf-content[data-type="notebook-navigator"] .nn-navigation-calendar-header * {
 	background-color: transparent !important;
-}
-
-.modal {
-	--nn-theme-mobile-toolbar-button-active-icon-color:var(--background-primary);
-}
-body {
-	--nn-theme-divider-resize-handle-hover-bg: var(--text-highlight-bg);
 }
