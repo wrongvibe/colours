@@ -13,7 +13,7 @@ settings:
       level: 2
       collapsed: false
 
-    - id: font-heading-custom
+    - id: font-heading-override
       title: Heading Font
       type: variable-text
       default: ""
@@ -86,10 +86,10 @@ settings:
 
 /* --- Shared: fonts, radius, structural -------------------------- */
 body {
-	--font-interface-theme: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-text-theme:      'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-monospace-theme: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-heading:   var(--font-heading-custom, 'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif);
+	--font-interface: var(--font-interface-override), 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
+	--font-text:      var(--font-text-override),      'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
+	--font-monospace: var(--font-monospace-override), 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
+	--font-heading:   var(--font-heading-override,    'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif);
 
 	/* Hue shift */
 	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
