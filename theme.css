@@ -11,43 +11,43 @@ settings:
       title: Typography
       type: heading
       level: 2
-      collapsed: true
+      collapsed: false
 
     - id: font-heading-custom
       title: Heading Font
       type: variable-text
       default: ""
-      description: "Set font for headings. Use quotes for names with spaces. \n Default font: 'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif"
+      description: "Set font for headings. Use quotes for names with spaces. \n Default font: 'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif"
 
     - id: disable-uppercase
       title: Disable Uppercase
       type: class-toggle
       default: false
 
+    - id: colours-colours
+      title: Colours
+      type: heading
+      level: 2
+      collapsed: false
+
     - id: heading-preset
       title: Heading Style
       type: class-select
       default: heading-monochrome
       options:
-        - label: Monochrome (Default)
+        - label: Monochrome
           value: heading-monochrome
         - label: A little bit colour
           value: heading-colour
         - label: Go Crazy
           value: heading-colourful
 
-    - id: colours-colours
-      title: Colours
-      type: heading
-      level: 2
-      collapsed: true
-
     - id: highlight-preset
       title: Highlight Style
       type: class-select
       default: highlight-default
       options:
-        - label: Colourful (Default)
+        - label: Colourful
           value: highlight-default
         - label: Subtle Colour
           value: highlight-subtle
@@ -60,14 +60,14 @@ settings:
       title: Layout
       type: heading
       level: 2
-      collapsed: true
+      collapsed: false
 
     - id: table-style
       title: Table Style
       type: class-select
       default: table-default
       options:
-        - label: Tinted header row (Default)
+        - label: Tinted header row
           value: table-default
         - label: Tinted alternate rows
           value: table-alternate-rows
@@ -77,7 +77,7 @@ settings:
       type: class-select
       default: folder-default
       options:
-        - label: Light Background (Default)
+        - label: Light Background
           value: folder-default
         - label: Inverted Background
           value: folder-inverted
@@ -89,7 +89,7 @@ body {
 	--font-interface: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-text:      'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-monospace: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-heading:   var(--font-heading-custom, 'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif);
+	--font-heading:   var(--font-heading-custom, 'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif);
 
 	/* Hue shift */
 	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
