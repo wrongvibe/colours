@@ -7,6 +7,41 @@
 name: COLOURS
 id: colours-theme
 settings:
+    - id: colours-typography
+      title: Typography
+      type: heading
+      level: 2
+      collapsed: true
+
+    - id: font-heading-custom
+      title: Heading Font
+      type: variable-text
+      default: ""
+      description: "Set font for headings. Use quotes for names with spaces. \n Default font: 'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif"
+
+    - id: disable-uppercase
+      title: Disable Uppercase
+      type: class-toggle
+      default: false
+
+    - id: heading-preset
+      title: Heading Style
+      type: class-select
+      default: heading-monochrome
+      options:
+        - label: Monochrome (Default)
+          value: heading-monochrome
+        - label: A little bit colour
+          value: heading-colour
+        - label: Go Crazy
+          value: heading-colourful
+
+    - id: colours-colours
+      title: Colours
+      type: heading
+      level: 2
+      collapsed: true
+
     - id: highlight-preset
       title: Highlight Style
       type: class-select
@@ -21,17 +56,11 @@ settings:
         - label: Monochrome (Low contrast)
           value: highlight-monochrome-low
 
-    - id: heading-preset
-      title: Heading Style
-      type: class-select
-      default: heading-monochrome
-      options:
-        - label: Monochrome (Default)
-          value: heading-monochrome
-        - label: A little bit colour
-          value: heading-colour
-        - label: Go Crazy
-          value: heading-colourful
+    - id: colours-layout
+      title: Layout
+      type: heading
+      level: 2
+      collapsed: true
 
     - id: table-style
       title: Table Style
@@ -52,17 +81,6 @@ settings:
           value: folder-default
         - label: Inverted Background
           value: folder-inverted
-
-    - id: disable-uppercase
-      title: Disable Uppercase
-      type: class-toggle
-      default: false
-
-    - id: font-heading-custom
-      title: Heading Font
-      type: variable-text
-      default: "'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif"
-      description: "CSS font-family value. Use quotes for names with spaces."
 */
 
 
@@ -71,7 +89,7 @@ body {
 	--font-interface: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-text:      'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
 	--font-monospace: 'IBM Plex Mono', 'SF Mono', 'Menlo', 'Consolas', 'Roboto Mono', monospace;
-	--font-heading: var(--font-heading-custom, 'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif);
+	--font-heading:   var(--font-heading-custom, 'Overused Grotesk Roman', 'Helvetica Neue', 'Futura', sans-serif);
 
 	/* Hue shift */
 	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
@@ -368,7 +386,7 @@ svg * {
 	--background-secondary:             var(--background-primary);
 	--background-secondary-alt:         oklch(from var(--color-accent) clamp(0.2, l * 0.4, 0.8) c h / 0.5);
 	--background-modifier-hover:        oklch(from var(--color-accent) clamp(0.3, l * 0.4, 0.8) calc(c * 0.75) h / 0.5);
-	--background-modifier-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.8, 0.8) c h / 0.5);
+	--background-modifier-border:       oklch(from var(--color-accent) clamp(0.5, l * 0.8, 0.8) c h / 0.5);
 	--background-modifier-border-hover: var(--text-muted);
 	--background-modifier-border-focus: var(--text-normal);
 	--background-modifier-form-field:   var(--background-primary);
@@ -687,7 +705,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* --- White padding fix ------------------------------------------ */
 .setting-item,
-.setting-group-search {
+.setting-group-search,
+.settings-search-input.is-active, 
+.settings-search-input:hover {
 	background: var(--background-primary) !important;
 }
 
