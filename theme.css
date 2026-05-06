@@ -584,294 +584,408 @@ input[type="checkbox"]:checked {
 	border-color: var(--background-modifier-border);
 }
 
-/* --- Alternate Checkboxes (Minimal-style) ----------------------- */
+/* --- Alternate Checkboxes (box = theme color, icon = text-normal) */
 /*
-   Obsidian renders any character inside `- [ ]` as a `data-task` attribute.
-   These styles color-code and icon each alternate checkbox type.
+   Obsidian renders any character inside `- [ ]` as a `data-task` attribute
+   on the input checkbox itself.
+   Box background = theme color | Icon = var(--text-normal)
    Works in both Reading mode and Live Preview.
 */
 
-/* --- Base: hide default checkmark on alternate types ------------ */
-.task-list-item[data-task]:not([data-task=" "]) .task-list-item-checkbox,
-.HyperMD-task-line[data-task]:not([data-task=" "]) .task-list-item-checkbox {
+/* --- Base group: hide default checkmark, enable ::after --------- */
+input[data-task="x"]:checked,
+input[data-task="-"]:checked,
+input[data-task="/"]:checked,
+input[data-task=">"]:checked,
+input[data-task="<"]:checked,
+input[data-task="!"]:checked,
+input[data-task="?"]:checked,
+input[data-task="i"]:checked,
+input[data-task="*"]:checked,
+input[data-task='"']:checked,
+input[data-task="l"]:checked,
+input[data-task="b"]:checked,
+input[data-task="S"]:checked,
+input[data-task="I"]:checked,
+input[data-task="p"]:checked,
+input[data-task="c"]:checked,
+input[data-task="f"]:checked,
+input[data-task="k"]:checked,
+input[data-task="w"]:checked,
+input[data-task="u"]:checked,
+input[data-task="d"]:checked,
+li[data-task="x"] > input:checked,
+li[data-task="-"] > input:checked,
+li[data-task="/"] > input:checked,
+li[data-task=">"] > input:checked,
+li[data-task="<"] > input:checked,
+li[data-task="!"] > input:checked,
+li[data-task="?"] > input:checked,
+li[data-task="i"] > input:checked,
+li[data-task="*"] > input:checked,
+li[data-task='"'] > input:checked,
+li[data-task="l"] > input:checked,
+li[data-task="b"] > input:checked,
+li[data-task="S"] > input:checked,
+li[data-task="I"] > input:checked,
+li[data-task="p"] > input:checked,
+li[data-task="c"] > input:checked,
+li[data-task="f"] > input:checked,
+li[data-task="k"] > input:checked,
+li[data-task="w"] > input:checked,
+li[data-task="u"] > input:checked,
+li[data-task="d"] > input:checked,
+li[data-task="x"] > p > input:checked,
+li[data-task="-"] > p > input:checked,
+li[data-task="/"] > p > input:checked,
+li[data-task=">"] > p > input:checked,
+li[data-task="<"] > p > input:checked,
+li[data-task="!"] > p > input:checked,
+li[data-task="?"] > p > input:checked,
+li[data-task="i"] > p > input:checked,
+li[data-task="*"] > p > input:checked,
+li[data-task='"'] > p > input:checked,
+li[data-task="l"] > p > input:checked,
+li[data-task="b"] > p > input:checked,
+li[data-task="S"] > p > input:checked,
+li[data-task="I"] > p > input:checked,
+li[data-task="p"] > p > input:checked,
+li[data-task="c"] > p > input:checked,
+li[data-task="f"] > p > input:checked,
+li[data-task="k"] > p > input:checked,
+li[data-task="w"] > p > input:checked,
+li[data-task="u"] > p > input:checked,
+li[data-task="d"] > p > input:checked {
 	--checkbox-marker-color: transparent;
+	border: none;
 	position: relative;
 }
 
-/* --- Icon layer (positioned over checkbox) ---------------------- */
-.task-list-item[data-task]:not([data-task=" "]) .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task]:not([data-task=" "]) .task-list-item-checkbox::after {
+/* --- Icon overlay (text-normal color via mask) ------------------ */
+input[data-task="x"]:checked::after,
+input[data-task="-"]:checked::after,
+input[data-task="/"]:checked::after,
+input[data-task=">"]:checked::after,
+input[data-task="<"]:checked::after,
+input[data-task="!"]:checked::after,
+input[data-task="?"]:checked::after,
+input[data-task="i"]:checked::after,
+input[data-task="*"]:checked::after,
+input[data-task='"']:checked::after,
+input[data-task="l"]:checked::after,
+input[data-task="b"]:checked::after,
+input[data-task="S"]:checked::after,
+input[data-task="I"]:checked::after,
+input[data-task="p"]:checked::after,
+input[data-task="c"]:checked::after,
+input[data-task="f"]:checked::after,
+input[data-task="k"]:checked::after,
+input[data-task="w"]:checked::after,
+input[data-task="u"]:checked::after,
+input[data-task="d"]:checked::after,
+li[data-task="x"] > input:checked::after,
+li[data-task="-"] > input:checked::after,
+li[data-task="/"] > input:checked::after,
+li[data-task=">"] > input:checked::after,
+li[data-task="<"] > input:checked::after,
+li[data-task="!"] > input:checked::after,
+li[data-task="?"] > input:checked::after,
+li[data-task="i"] > input:checked::after,
+li[data-task="*"] > input:checked::after,
+li[data-task='"'] > input:checked::after,
+li[data-task="l"] > input:checked::after,
+li[data-task="b"] > input:checked::after,
+li[data-task="S"] > input:checked::after,
+li[data-task="I"] > input:checked::after,
+li[data-task="p"] > input:checked::after,
+li[data-task="c"] > input:checked::after,
+li[data-task="f"] > input:checked::after,
+li[data-task="k"] > input:checked::after,
+li[data-task="w"] > input:checked::after,
+li[data-task="u"] > input:checked::after,
+li[data-task="d"] > input:checked::after,
+li[data-task="x"] > p > input:checked::after,
+li[data-task="-"] > p > input:checked::after,
+li[data-task="/"] > p > input:checked::after,
+li[data-task=">"] > p > input:checked::after,
+li[data-task="<"] > p > input:checked::after,
+li[data-task="!"] > p > input:checked::after,
+li[data-task="?"] > p > input:checked::after,
+li[data-task="i"] > p > input:checked::after,
+li[data-task="*"] > p > input:checked::after,
+li[data-task='"'] > p > input:checked::after,
+li[data-task="l"] > p > input:checked::after,
+li[data-task="b"] > p > input:checked::after,
+li[data-task="S"] > p > input:checked::after,
+li[data-task="I"] > p > input:checked::after,
+li[data-task="p"] > p > input:checked::after,
+li[data-task="c"] > p > input:checked::after,
+li[data-task="f"] > p > input:checked::after,
+li[data-task="k"] > p > input:checked::after,
+li[data-task="w"] > p > input:checked::after,
+li[data-task="u"] > p > input:checked::after,
+li[data-task="d"] > p > input:checked::after {
 	content: "";
 	position: absolute;
 	inset: 0;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 70%;
+	background-color: var(--text-normal);
+	-webkit-mask-size: 65%;
+	-webkit-mask-position: 50% 50%;
+	-webkit-mask-repeat: no-repeat;
 	pointer-events: none;
 }
 
-/* --- SVG icon helpers ------------------------------------------- */
-/* checkmark */
-.task-list-item[data-task="x"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="x"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
-}
-/* X mark */
-.task-list-item[data-task="-"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="-"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
-}
-/* forward arrow > */
-.task-list-item[data-task=">"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task=">"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
-}
-/* back arrow < */
-.task-list-item[data-task="<"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="<"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolyline points='15 18 9 12 15 6'/%3E%3C/svg%3E");
-}
-/* exclamation ! */
-.task-list-item[data-task="!"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="!"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='8' x2='12' y2='15'/%3E%3Cline x1='12' y1='19' x2='12.01' y2='19'/%3E%3C/svg%3E");
-}
-/* question ? */
-.task-list-item[data-task="?"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="?"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'/%3E%3C/svg%3E");
-}
-/* info i */
-.task-list-item[data-task="i"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="i"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='11' x2='12' y2='17'/%3E%3Cline x1='12' y1='7' x2='12.01' y2='7'/%3E%3C/svg%3E");
-}
-/* star */
-.task-list-item[data-task="*"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="*"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E");
-}
-/* quote " */
-.task-list-item[data-task='"'] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task='"'] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3'/%3E%3C/svg%3E");
-}
-/* location l */
-.task-list-item[data-task="l"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="l"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
-}
-/* bookmark b */
-.task-list-item[data-task="b"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="b"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
-}
-/* savings S */
-.task-list-item[data-task="S"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="S"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/%3E%3C/svg%3E");
-}
-/* idea I */
-.task-list-item[data-task="I"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="I"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M9 18h6M10 22h4M12 2v1M12 7a5 5 0 0 1 5 5c0 2.5-2 4-3 5.5'/%3E%3C/svg%3E");
-}
-/* plus p */
-.task-list-item[data-task="p"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="p"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
-}
-/* minus c */
-.task-list-item[data-task="c"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="c"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
-}
-/* fire f */
-.task-list-item[data-task="f"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="f"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'/%3E%3C/svg%3E");
-}
-/* key k */
-.task-list-item[data-task="k"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="k"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4'/%3E%3C/svg%3E");
-}
-/* win w */
-.task-list-item[data-task="w"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="w"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'/%3E%3Cpath d='M18 2H6v7a6 6 0 0 0 12 0V2z'/%3E%3C/svg%3E");
-}
-/* up arrow u */
-.task-list-item[data-task="u"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="u"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='19' x2='12' y2='5'/%3E%3Cpolyline points='5 12 12 5 19 12'/%3E%3C/svg%3E");
-}
-/* down arrow d */
-.task-list-item[data-task="d"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="d"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cpolyline points='19 12 12 19 5 12'/%3E%3C/svg%3E");
-}
-/* slash / (incomplete) */
-.task-list-item[data-task="/"] .task-list-item-checkbox::after,
-.HyperMD-task-line[data-task="/"] .task-list-item-checkbox::after {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='17' y1='4' x2='7' y2='20'/%3E%3C/svg%3E");
-}
-
-/* --- Color mapping ---------------------------------------------- */
-/* Progress / Time  → warm analogous */
-.task-list-item[data-task="/"] .task-list-item-checkbox,
-.task-list-item[data-task=">"] .task-list-item-checkbox,
-.task-list-item[data-task="<"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="/"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task=">"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="<"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous);
-	border-color: var(--analogous);
-	background-color: var(--analogous);
-}
-
-/* Done → neutral text */
-.task-list-item[data-task="x"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="x"] .task-list-item-checkbox {
-	--checkbox-color: var(--text-normal);
-	border-color: var(--text-normal);
+/* --- [x] Done (box = text-normal, icon = background-primary) ---- */
+input[data-task="x"]:checked,
+li[data-task="x"] > input:checked,
+li[data-task="x"] > p > input:checked {
 	background-color: var(--text-normal);
 }
+input[data-task="x"]:checked::after,
+li[data-task="x"] > input:checked::after,
+li[data-task="x"] > p > input:checked::after {
+	background-color: var(--background-primary);
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+}
 
-/* Canceled → faint */
-.task-list-item[data-task="-"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="-"] .task-list-item-checkbox {
-	--checkbox-color: var(--text-faint);
-	border-color: var(--text-faint);
+/* --- [-] Canceled ----------------------------------------------- */
+input[data-task="-"]:checked,
+li[data-task="-"] > input:checked,
+li[data-task="-"] > p > input:checked {
 	background-color: var(--text-faint);
 }
+input[data-task="-"]:checked::after,
+li[data-task="-"] > input:checked::after,
+li[data-task="-"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+}
 
-/* Important → complement (high contrast) */
-.task-list-item[data-task="!"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="!"] .task-list-item-checkbox {
-	--checkbox-color: var(--complement);
-	border-color: var(--complement);
+/* --- [/] Incomplete --------------------------------------------- */
+input[data-task="/"]:checked,
+li[data-task="/"] > input:checked,
+li[data-task="/"] > p > input:checked {
+	background-color: var(--analogous);
+}
+input[data-task="/"]:checked::after,
+li[data-task="/"] > input:checked::after,
+li[data-task="/"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='17' y1='4' x2='7' y2='20'/%3E%3C/svg%3E");
+}
+
+/* --- [>] Forwarded ---------------------------------------------- */
+input[data-task=">"]:checked,
+li[data-task=">"] > input:checked,
+li[data-task=">"] > p > input:checked {
+	background-color: var(--analogous);
+}
+input[data-task=">"]:checked::after,
+li[data-task=">"] > input:checked::after,
+li[data-task=">"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
+}
+
+/* --- [<] Scheduling --------------------------------------------- */
+input[data-task="<"]:checked,
+li[data-task="<"] > input:checked,
+li[data-task="<"] > p > input:checked {
+	background-color: var(--analogous);
+}
+input[data-task="<"]:checked::after,
+li[data-task="<"] > input:checked::after,
+li[data-task="<"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolyline points='15 18 9 12 15 6'/%3E%3C/svg%3E");
+}
+
+/* --- [!] Important ---------------------------------------------- */
+input[data-task="!"]:checked,
+li[data-task="!"] > input:checked,
+li[data-task="!"] > p > input:checked {
 	background-color: var(--complement);
 }
+input[data-task="!"]:checked::after,
+li[data-task="!"] > input:checked::after,
+li[data-task="!"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='8' x2='12' y2='15'/%3E%3Cline x1='12' y1='19' x2='12.01' y2='19'/%3E%3C/svg%3E");
+}
 
-/* Question → triadic */
-.task-list-item[data-task="?"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="?"] .task-list-item-checkbox {
-	--checkbox-color: var(--triadic);
-	border-color: var(--triadic);
+/* --- [?] Question ----------------------------------------------- */
+input[data-task="?"]:checked,
+li[data-task="?"] > input:checked,
+li[data-task="?"] > p > input:checked {
 	background-color: var(--triadic);
 }
+input[data-task="?"]:checked::after,
+li[data-task="?"] > input:checked::after,
+li[data-task="?"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'/%3E%3C/svg%3E");
+}
 
-/* Info → triadic-2 */
-.task-list-item[data-task="i"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="i"] .task-list-item-checkbox {
-	--checkbox-color: var(--triadic-2);
-	border-color: var(--triadic-2);
+/* --- [i] Info --------------------------------------------------- */
+input[data-task="i"]:checked,
+li[data-task="i"] > input:checked,
+li[data-task="i"] > p > input:checked {
 	background-color: var(--triadic-2);
 }
-
-/* Star → analogous-4 (bright) */
-.task-list-item[data-task="*"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="*"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous-4);
-	border-color: var(--analogous-4);
-	background-color: var(--analogous-4);
+input[data-task="i"]:checked::after,
+li[data-task="i"] > input:checked::after,
+li[data-task="i"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='11' x2='12' y2='17'/%3E%3Cline x1='12' y1='7' x2='12.01' y2='7'/%3E%3C/svg%3E");
 }
 
-/* Quote → split-comp */
-.task-list-item[data-task='"'] .task-list-item-checkbox,
-.HyperMD-task-line[data-task='"'] .task-list-item-checkbox {
-	--checkbox-color: var(--split-comp);
-	border-color: var(--split-comp);
+/* --- [*] Star --------------------------------------------------- */
+input[data-task="*"]:checked,
+li[data-task="*"] > input:checked,
+li[data-task="*"] > p > input:checked {
+	background-color: var(--analogous-4);
+}
+input[data-task="*"]:checked::after,
+li[data-task="*"] > input:checked::after,
+li[data-task="*"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E");
+}
+
+/* --- ["] Quote -------------------------------------------------- */
+input[data-task='"']:checked,
+li[data-task='"'] > input:checked,
+li[data-task='"'] > p > input:checked {
 	background-color: var(--split-comp);
 }
-
-/* Location → analogous */
-.task-list-item[data-task="l"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="l"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous);
-	border-color: var(--analogous);
-	background-color: var(--analogous);
+input[data-task='"']:checked::after,
+li[data-task='"'] > input:checked::after,
+li[data-task='"'] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M6 9v6a3 3 0 0 0 3 3h1M18 9v6a3 3 0 0 1-3 3h-1'/%3E%3C/svg%3E");
 }
 
-/* Bookmark → analogous-3 */
-.task-list-item[data-task="b"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="b"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous-3);
-	border-color: var(--analogous-3);
+/* --- [l] Location ----------------------------------------------- */
+input[data-task="l"]:checked,
+li[data-task="l"] > input:checked,
+li[data-task="l"] > p > input:checked {
+	background-color: var(--analogous);
+}
+input[data-task="l"]:checked::after,
+li[data-task="l"] > input:checked::after,
+li[data-task="l"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+}
+
+/* --- [b] Bookmark ----------------------------------------------- */
+input[data-task="b"]:checked,
+li[data-task="b"] > input:checked,
+li[data-task="b"] > p > input:checked {
 	background-color: var(--analogous-3);
 }
-
-/* Savings → triadic */
-.task-list-item[data-task="S"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="S"] .task-list-item-checkbox {
-	--checkbox-color: var(--triadic);
-	border-color: var(--triadic);
-	background-color: var(--triadic);
+input[data-task="b"]:checked::after,
+li[data-task="b"] > input:checked::after,
+li[data-task="b"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
 }
 
-/* Idea → triadic-2 */
-.task-list-item[data-task="I"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="I"] .task-list-item-checkbox {
-	--checkbox-color: var(--triadic-2);
-	border-color: var(--triadic-2);
+/* --- [S] Savings ------------------------------------------------ */
+input[data-task="S"]:checked,
+li[data-task="S"] > input:checked,
+li[data-task="S"] > p > input:checked {
+	background-color: var(--triadic);
+}
+input[data-task="S"]:checked::after,
+li[data-task="S"] > input:checked::after,
+li[data-task="S"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/%3E%3C/svg%3E");
+}
+
+/* --- [I] Idea --------------------------------------------------- */
+input[data-task="I"]:checked,
+li[data-task="I"] > input:checked,
+li[data-task="I"] > p > input:checked {
 	background-color: var(--triadic-2);
 }
-
-/* Pros → analogous */
-.task-list-item[data-task="p"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="p"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous);
-	border-color: var(--analogous);
-	background-color: var(--analogous);
+input[data-task="I"]:checked::after,
+li[data-task="I"] > input:checked::after,
+li[data-task="I"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M9 18h6M10 22h4M12 2v1M12 7a5 5 0 0 1 5 5c0 2.5-2 4-3 5.5'/%3E%3C/svg%3E");
 }
 
-/* Cons → complement */
-.task-list-item[data-task="c"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="c"] .task-list-item-checkbox {
-	--checkbox-color: var(--complement);
-	border-color: var(--complement);
+/* --- [p] Pros --------------------------------------------------- */
+input[data-task="p"]:checked,
+li[data-task="p"] > input:checked,
+li[data-task="p"] > p > input:checked {
+	background-color: var(--analogous);
+}
+input[data-task="p"]:checked::after,
+li[data-task="p"] > input:checked::after,
+li[data-task="p"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
+}
+
+/* --- [c] Cons --------------------------------------------------- */
+input[data-task="c"]:checked,
+li[data-task="c"] > input:checked,
+li[data-task="c"] > p > input:checked {
 	background-color: var(--complement);
 }
-
-/* Fire → analogous */
-.task-list-item[data-task="f"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="f"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous);
-	border-color: var(--analogous);
-	background-color: var(--analogous);
+input[data-task="c"]:checked::after,
+li[data-task="c"] > input:checked::after,
+li[data-task="c"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
 }
 
-/* Key → triadic */
-.task-list-item[data-task="k"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="k"] .task-list-item-checkbox {
-	--checkbox-color: var(--triadic);
-	border-color: var(--triadic);
+/* --- [f] Fire --------------------------------------------------- */
+input[data-task="f"]:checked,
+li[data-task="f"] > input:checked,
+li[data-task="f"] > p > input:checked {
+	background-color: var(--analogous);
+}
+input[data-task="f"]:checked::after,
+li[data-task="f"] > input:checked::after,
+li[data-task="f"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'/%3E%3C/svg%3E");
+}
+
+/* --- [k] Key ---------------------------------------------------- */
+input[data-task="k"]:checked,
+li[data-task="k"] > input:checked,
+li[data-task="k"] > p > input:checked {
 	background-color: var(--triadic);
 }
+input[data-task="k"]:checked::after,
+li[data-task="k"] > input:checked::after,
+li[data-task="k"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4'/%3E%3C/svg%3E");
+}
 
-/* Win → analogous-4 */
-.task-list-item[data-task="w"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="w"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous-4);
-	border-color: var(--analogous-4);
+/* --- [w] Win ---------------------------------------------------- */
+input[data-task="w"]:checked,
+li[data-task="w"] > input:checked,
+li[data-task="w"] > p > input:checked {
 	background-color: var(--analogous-4);
 }
-
-/* Up → analogous */
-.task-list-item[data-task="u"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="u"] .task-list-item-checkbox {
-	--checkbox-color: var(--analogous);
-	border-color: var(--analogous);
-	background-color: var(--analogous);
+input[data-task="w"]:checked::after,
+li[data-task="w"] > input:checked::after,
+li[data-task="w"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'/%3E%3Cpath d='M18 2H6v7a6 6 0 0 0 12 0V2z'/%3E%3C/svg%3E");
 }
 
-/* Down → complement */
-.task-list-item[data-task="d"] .task-list-item-checkbox,
-.HyperMD-task-line[data-task="d"] .task-list-item-checkbox {
-	--checkbox-color: var(--complement);
-	border-color: var(--complement);
+/* --- [u] Up ----------------------------------------------------- */
+input[data-task="u"]:checked,
+li[data-task="u"] > input:checked,
+li[data-task="u"] > p > input:checked {
+	background-color: var(--analogous);
+}
+input[data-task="u"]:checked::after,
+li[data-task="u"] > input:checked::after,
+li[data-task="u"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='19' x2='12' y2='5'/%3E%3Cpolyline points='5 12 12 5 19 12'/%3E%3C/svg%3E");
+}
+
+/* --- [d] Down --------------------------------------------------- */
+input[data-task="d"]:checked,
+li[data-task="d"] > input:checked,
+li[data-task="d"] > p > input:checked {
 	background-color: var(--complement);
+}
+input[data-task="d"]:checked::after,
+li[data-task="d"] > input:checked::after,
+li[data-task="d"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cpolyline points='19 12 12 19 5 12'/%3E%3C/svg%3E");
 }
 
 /* --- Blockquote ------------------------------------------------- */
