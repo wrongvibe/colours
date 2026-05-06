@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COLOURS — Alternate Checkbox Test</title>
+<style>
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 40px;
+    background: #1a1a2e;
+    color: #eee;
+  }
+  h1 { font-size: 1.5em; margin-bottom: 20px; }
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .test-item {
+    background: #16213e;
+    padding: 16px;
+    border: 1px solid #0f3460;
+  }
+  .test-item label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #e94560;
+  }
+</style>
+</head>
+<body>
+<h1>Alternate Checkbox Test</h1>
+<p>Open this in Obsidian with the COLOURS theme active.</p>
+<p>Type these in a note to see the styled checkboxes:</p>
+
+<div class="test-grid">
+  <div class="test-item"><label><input type="checkbox"> <code>- [ ]</code> to-do</label></div>
+  <div class="test-item"><label><input type="checkbox" checked> <code>- [x]</code> done</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [/]</code> incomplete</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [-]</code> canceled</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [>]</code> forwarded</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [<]</code> scheduling</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [!]</code> important</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [?]</code> question</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [i]</code> info</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [*]</code> star</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- ["]</code> quote</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [l]</code> location</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [b]</code> bookmark</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [S]</code> savings</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [I]</code> idea</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [p]</code> pros</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [c]</code> cons</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [f]</code> fire</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [k]</code> key</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [w]</code> win</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [u]</code> up</label></div>
+  <div class="test-item"><label><input type="checkbox"> <code>- [d]</code> down</label></div>
+</div>
+
+</body>
+</html>
