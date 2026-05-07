@@ -153,6 +153,8 @@ body {
 	--blockquote-font-style:       italic;
 	--blockquote-color: 					 var(--text-muted);
 
+
+
 	/* Notebook Navigator */
 	--nn-theme-calendar-day-active-border-color: var(--cursor-line-color);
 	--nn-theme-calendar-day-today-bg: var(--text-highlight-bg);	
@@ -569,6 +571,19 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 /* --- Task checkbox ---------------------------------------------- */
+
+body {
+	/*--checkbox-icon: 1.5em;*/
+  --checkbox-size: var(--font-text-size);
+  --checkbox-marker-color: var(--background-primary);
+  --checkbox-color: var(--interactive-accent);
+  --checkbox-color-hover: var(--interactive-accent-hover);
+  --checkbox-border-color: var(--text-faint);
+  --checkbox-border-color-hover: var(--text-muted);
+  --checklist-done-decoration: line-through;
+  --checklist-done-color: rgb(var(--ctp-accent));
+}
+
 .task-list-item-checkbox:hover,
 .task-list-item-checkbox:hover:checked,
 input[type="checkbox"]:checked:hover {
@@ -729,14 +744,14 @@ li[data-task="d"] > p > input:checked::after {
 	position: absolute;
 	inset: 0;
 	background-color: var(--text-normal);
-	-webkit-mask-size: 65%;
+	-webkit-mask-size: var(--checkbox-icon);
 	-webkit-mask-position: 50% 50%;
 	-webkit-mask-repeat: no-repeat;
 	pointer-events: none;
 }
 
 /* --- [x] Done (box = text-normal, icon = background-primary) ---- */
-input[data-task="x"]:checked,
+/*input[data-task="x"]:checked,
 li[data-task="x"] > input:checked,
 li[data-task="x"] > p > input:checked {
 	background-color: var(--text-normal);
@@ -746,7 +761,7 @@ li[data-task="x"] > input:checked::after,
 li[data-task="x"] > p > input:checked::after {
 	background-color: var(--background-primary);
 	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
-}
+}*/
 
 /* --- [-] Canceled ----------------------------------------------- */
 input[data-task="-"]:checked,
