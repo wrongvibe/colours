@@ -92,14 +92,14 @@ body {
 	--font-heading:   var(--font-heading-override,    'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif);
 
 	/* Hue shift */
-	--triadic-2:   oklch(from var(--color-accent) l c calc(h + 240));
-	--complement:  oklch(from var(--color-accent) l c calc(h + 180));
-	--split-comp:  oklch(from var(--color-accent) l c calc(h + 150));
-	--triadic:     oklch(from var(--color-accent) l c calc(h + 120));
-	--analogous-4: oklch(from var(--color-accent) l c calc(h + 90));
-	--analogous:   oklch(from var(--color-accent) l c calc(h + 30));
-	--analogous-2: oklch(from var(--color-accent) l c calc(h + 10));
-	--analogous-3: oklch(from var(--color-accent) l c calc(h - 20));
+	--triadic-2:   oklch(from var(--background-primary) l c calc(h + 240));
+	--complement:  oklch(from var(--background-primary) l c calc(h + 180));
+	--split-comp:  oklch(from var(--background-primary) l c calc(h + 150));
+	--triadic:     oklch(from var(--background-primary) l c calc(h + 120));
+	--analogous-4: oklch(from var(--background-primary) l c calc(h + 90));
+	--analogous:   oklch(from var(--background-primary) l c calc(h + 30));
+	--analogous-2: oklch(from var(--background-primary) l c calc(h + 10));
+	--analogous-3: oklch(from var(--background-primary) l c calc(h - 20));
 
 	/* Theme default accent */
 	--accent-h: 240;
@@ -191,18 +191,28 @@ body.highlight-monochrome-low {
 }
 
 /* --- Heading Presets (Style Settings) --------------------------- */
+/* A bit colour */
+.theme-light.heading-colour {
+	--h-l-min: 0.45;
+	--h-l-max: 0.9;
+}
+.theme-dark.heading-colour {
+	--h-l-min: 0.4;
+	--h-l-max: 0.75;
+}
 body.heading-colour {
 	--h-l-min: 0.4;
 	--h-l-max: 0.9;
 
-	--h1-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 10) / 1.0);
-	--h2-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 5) / 0.95);
-	--h3-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 0) / 0.90);
-	--h4-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 5) / 0.85);
-	--h5-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 10) / 0.80);
-	--h6-color: oklch(from var(--color-accent) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 15) / 0.75);
+	--h1-color: oklch(from var(--background-primary) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 10) / 1.0);
+	--h2-color: oklch(from var(--background-primary) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 5) / 0.95);
+	--h3-color: oklch(from var(--background-primary) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h + 0) / 0.90);
+	--h4-color: oklch(from var(--background-primary) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 5) / 0.85);
+	--h5-color: oklch(from var(--background-primary) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 10) / 0.80);
+	--h6-color: oklch(from var(--background-primary) clamp(var(--h-l-min), var(--dynamic-switch), var(--h-l-max)) c calc(h - 15) / 0.75);
 }
 
+/* Colourful */
 .theme-light.heading-colourful {
 	--h-l: 0.2;
 	--h-l-min: 0.45;
@@ -210,7 +220,6 @@ body.heading-colour {
 	--h-c: 1.3;
 	--h-c-max: 0.8;
 }
-
 .theme-dark.heading-colourful {
 	--h-l: 0.0;
 	--h-l-min: 0.4;
@@ -218,7 +227,6 @@ body.heading-colour {
 	--h-c: 0.75;
 	--h-c-max: 0.3;
 }
-
 body.heading-colourful {
 	--h1-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 1.00);
 	--h2-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.95);
@@ -307,8 +315,8 @@ svg * {
 			var(--code-bg-range) +
 			var(--code-bg-bias)
 		)
-		calc(c * 0.8)
-		h / 0.8
+		calc(c * 0.75)
+		h / 0.85
 	);
 	--code-border: oklch(from var(--color-accent)
 		calc(
@@ -387,11 +395,11 @@ svg * {
 	);
 
 	/* --- Backgrounds ------------------------------------------------ */
-	--background-primary:               oklch(from var(--color-accent) calc(l * 0.4 + 0.06) c h);
+	--background-primary:               oklch(from var(--color-accent) calc(l * 0.4 + 0.06) calc(c * 0.8) h);
 	--background-secondary:             var(--background-primary);
-	--background-secondary-alt:         oklch(from var(--color-accent) clamp(0.2, l * 0.4, 0.8) c h / 0.5);
-	--background-modifier-hover:        oklch(from var(--color-accent) clamp(0.3, l * 0.4, 0.8) calc(c * 0.75) h / 0.5);
-	--background-modifier-border:       oklch(from var(--color-accent) clamp(0.5, l * 0.8, 0.8) c h / 0.5);
+	--background-secondary-alt:         oklch(from var(--background-primary) clamp(0.2, l * 0.8, 0.8) c h / 0.5);
+	--background-modifier-hover:        oklch(from var(--background-primary) clamp(0.3, l * 0.8, 0.8) calc(c * 0.8) h / 0.5);
+	--background-modifier-border:       oklch(from var(--background-primary) clamp(0.5, l * 1.5, 0.8) c h / 0.5);
 	--background-modifier-border-hover: var(--text-muted);
 	--background-modifier-border-focus: var(--text-normal);
 	--background-modifier-form-field:   var(--background-primary);
@@ -399,11 +407,11 @@ svg * {
 
 	--titlebar-background:         var(--background-modifier-hover);
 	--titlebar-background-focused: var(--background-primary);
-	--workspace-background-translucent: oklch(from var(--color-accent) calc(l * 0.4 + 0.08) calc(c) calc(h) / 0.3);
+	--workspace-background-translucent: oklch(from var(--background-primary) calc(l * 0.8 + 0.08) calc(c) calc(h) / 0.2);
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* Cursor line colour */
-	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.3, l * 0.7, 0.6) c h / 0.5);
+	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.3, l * 1.2, 0.5) c h / 0.5);
 
 	/* --- Code blocks: always dark ----------------------------------- */
 	--code-bg-bias:      0;
@@ -411,19 +419,19 @@ svg * {
 	--code-bg-light:     0.95;
 	--code-bg-dark:      0.15;
 	--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
-	--code-background:   oklch(from var(--color-accent) clamp(0.2, l * 0.25 + 0.02, 1.00) calc(c * 0.8) h / 0.9);
-	--code-border:       oklch(from var(--color-accent) clamp(0.4, l * 0.35 + 0.02, 0.85) calc(c * 1.0) h / 0.6);
+	--code-background:   oklch(from var(--background-primary) clamp(0.25, l * 0.25 + 0.02, 1.00) calc(c * 0.8) h / 0.9);
+	--code-border:       oklch(from var(--background-primary) clamp(0.4, l * 0.35 + 0.02, 0.85) calc(c * 1.0) h / 0.6);
 
-	--code-normal: oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
+	--code-normal: 	oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
 
 	/* --- Text colours ----------------------------------------------- */
-	--text-normal:       oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / 0.9);
-	--text-muted:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h / 0.8);
-	--text-faint:        oklch(from var(--color-accent) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h / 0.7);
-	--text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h);
-	--text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
-	--text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
+	--text-normal:       oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / 0.9);
+	--text-muted:        oklch(from var(--background-primary) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h / 0.8);
+	--text-faint:        oklch(from var(--background-primary) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h / 0.7);
+	--text-accent:       oklch(from var(--background-primary) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
+	--text-on-accent:    oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.85) calc(c * 0.1) h);
+	--text-accent-hover: oklch(from var(--background-primary) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-selection: var(--background-secondary-alt);
 
 	--link-color: var(--text-muted);
@@ -432,12 +440,12 @@ svg * {
 	--interactive-accent-hover: var(--background-modifier-border);
 
 	/* --- Headings --------------------------------------------------- */
-	--h1-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
-	--h2-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.95);
-	--h3-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.9);
-	--h4-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.8);
-	--h5-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.7);
-	--h6-color: oklch(from var(--color-accent) clamp(0.15, var(--dynamic-switch), 0.95) calc(c * 0.3) h / 0.6);
+	--h1-color: oklch(from var(--background-primary) clamp(0.15, var(--dynamic-switch), 0.9) calc(c * 0.3) h / 0.95);
+	--h2-color: oklch(from var(--background-primary) clamp(0.15, var(--dynamic-switch), 0.9) calc(c * 0.3) h / 0.9);
+	--h3-color: oklch(from var(--background-primary) clamp(0.15, var(--dynamic-switch), 0.9) calc(c * 0.3) h / 0.85);
+	--h4-color: oklch(from var(--background-primary) clamp(0.15, var(--dynamic-switch), 0.9) calc(c * 0.3) h / 0.8);
+	--h5-color: oklch(from var(--background-primary) clamp(0.15, var(--dynamic-switch), 0.9) calc(c * 0.3) h / 0.7);
+	--h6-color: oklch(from var(--background-primary) clamp(0.15, var(--dynamic-switch), 0.9) calc(c * 0.3) h / 0.6);
 
 	/* --- Tags ------------------------------------------------------- */
 	--tag-color:            var(--background-primary) !important;
@@ -1004,11 +1012,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	color: var(--complement);
 }
 
-/* --- Cursor line highlight -------------------------------------- */
-.cm-active.cm-line {
-	background: var(--cursor-line-color) !important;
-}
-
 /* --- Selected text ---------------------------------------------- */
 .cm-editor ::selection {
 	background: var(--h6-color) !important;
@@ -1041,19 +1044,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* --- Dropdown --------------------------------------------------- */
-/*.dropdown {
-	color: var(--background-primary);
-	background-color: var(--text-normal);
-	box-shadow: none !important;
-	outline: none !important;
-}
-
-.dropdown:hover {
-	background-color: var(--background-primary) !important;
-	color: var(--text-normal) !important;
-	border: 1px solid var(--text-normal) !important;
-}*/
-
 .dropdown {
 	background-color: var(--text-normal);
 	color: var(--background-primary);
@@ -1130,6 +1120,12 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 	box-shadow: inset 0 0 0 1px var(--text-faint);
 }
 
+
+/* --- Cursor line highlight -------------------------------------- */
+.cm-active.cm-line {
+	background: var(--cursor-line-color) !important;
+}
+
 /* --- Code blocks ------------------------------------------------ */
 .HyperMD-codeblock-begin {
 	border-top: 1px solid var(--code-border) !important;
@@ -1147,6 +1143,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 	border: 1px solid var(--code-border) !important;
 	padding: 1px 4px;
 	font-size: 0.9em;
+	mix-blend-mode: multiply;
 }
 
 /* --- Code block markdown fix ------------------------------------ */
@@ -1162,6 +1159,13 @@ pre .cm-header-3 {
 	letter-spacing: normal !important;
 }
 
+/* --- Cursor line and code block mix --- */
+.cm-active.cm-line.HyperMD-codeblock,
+.cm-active.cm-line.HyperMD-codeblock-begin,
+.cm-active.cm-line.HyperMD-codeblock-end {
+  background: color-mix(in srgb, var(--cursor-line-color) 30%, var(--code-background)) !important;
+}
+
 /* --- Highlighted text ------------------------------------------- */
 mark, .cm-highlight {
 	background: var(--text-highlight-bg) !important;
@@ -1169,7 +1173,7 @@ mark, .cm-highlight {
 }
 
 /* --- Links ------------------------------------------------------ */
-/* --- Editing View + Reading Mode: resolved links ---------------- */
+/* --- Editing View + Reading Mode: resolved links --- */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link,
 .markdown-rendered .internal-link {
 	text-decoration: underline wavy;
@@ -1177,7 +1181,7 @@ mark, .cm-highlight {
 	text-decoration-color: var(--text-faint);
 }
 
-/* --- Editing View + Reading Mode: unresolved links -------------- */
+/* --- Editing View + Reading Mode: unresolved links --- */
 .markdown-source-view.mod-cm6 .is-unresolved,
 .markdown-rendered .internal-link.is-unresolved {
 	color: var(--link-unresolved-color);
@@ -1185,7 +1189,7 @@ mark, .cm-highlight {
 	text-underline-offset: 4px;
 	text-decoration-color: red;
 }
-/* --- Hover state — resolved links ------------------------------- */
+/* --- Hover state — resolved links --- */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
 .markdown-rendered .internal-link:hover {
 	background: var(--text-muted);
@@ -1194,7 +1198,7 @@ mark, .cm-highlight {
 	text-underline-offset: 4px;
 	text-decoration-color: var(--text-muted) !important;
 }
-/* --- Hover state — unresolved links ----------------------------- */
+/* --- Hover state — unresolved links --- */
 .markdown-source-view.mod-cm6 .is-unresolved:hover,
 .markdown-rendered .internal-link.is-unresolved:hover {
 	background: var(--background-modifier-hover);
