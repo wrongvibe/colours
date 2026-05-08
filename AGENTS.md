@@ -54,6 +54,57 @@ body {          /* fonts, radius, structural vars */ }
 - **Cursor line**: `--cursor-line-color` variable for `.cm-active.cm-line`
 - **Notebook Navigator**: Calendar theming (`--nn-theme-calendar-day-*`)
 - **Graph view**: Node/link colours with HSL variables (`--graph-node`, `--graph-line`)
+- **Bases embeds**: `--bases-embed-width` and `--bases-embed-transform` for controlling embedded Base width/position
+
+### Bases Embed Width (`--bases-embed-width`)
+Introduced in Obsidian 1.12.7 (2026 update). Controls width of embedded Bases (`![[Base.base]]`).
+
+**Original Obsidian implementation** (extracted from `obsidian-1.12.7.asar`):
+```css
+/* Defined in .is-phone selector (line 17961) */
+.is-phone {
+  --bases-embed-width: calc(100% + var(--file-margins-x) * 2);
+  --bases-embed-transform: translateX(calc(-1 * var(--file-margins-x)));
+}
+
+/* Applied in Reading View (line 13268) */
+.markdown-reading-view .bases-embed {
+  width: var(--bases-embed-width, 100%);  /* Fallback: 100% */
+  transform: var(--bases-embed-transform, none);
+}
+
+/* Applied in Live Preview (line 13287) */
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed {
+  width: var(--bases-embed-width, 100%);
+  transform: var(--bases-embed-transform, none);
+}
+```
+
+**Key insight**: The `width` property uses `var(--bases-embed-width, 100%)` with a fallback, meaning the variable doesn't need to be predefined in `body` — it only needs to be set where you want to override.
+
+### Dynamic Transform Calculation (Avoid Hardcoding)
+To make bases embeds ignore readable line length without hardcoding percentages:
+
+```css
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed,
+.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base {
+  --bases-embed-width: calc(var(--file-line-width) * 1.5);
+  --bases-embed-transform: translateX(calc(
+    (var(--file-line-width) - var(--bases-embed-width)) / 2 
+    / var(--bases-embed-width) * 100%
+  ));
+}
+```
+
+**How it works**:
+1. `(var(--file-line-width) - var(--bases-embed-width))` = Width difference (e.g., `700px - 1050px = -350px`)
+2. `/ 2` = Half the difference = shift needed to center (`-175px`)
+3. `/ var(--bases-embed-width)` = Convert to ratio of element's own width (`-175px / 1050px = -16.67%`)
+4. `* 100%` = Convert to percentage for `translateX`
+
+**Why this works**: `translateX(percentage)` uses the element's own width as reference, and all values come from CSS variables. Change the `1.5` multiplier and the transform adjusts automatically.
+
+**Note**: The update package loads from `~/Library/Application Support/obsidian/obsidian-1.12.7.asar`, NOT the bundled `/Applications/Obsidian.app/Contents/Resources/obsidian.asar`.
 
 ## Workflow
 - No build tools. Edit `theme.css` directly in `.obsidian/themes/COLOURS/`.
@@ -67,19 +118,34 @@ body {          /* fonts, radius, structural vars */ }
 ## Reverse-Engineering Obsidian's Built-in CSS
 Obsidian bundles its UI CSS inside `.asar` archives. To find the **real class names** (e.g. `.canvas-display-path` vs `.canvas-edge-path`), pseudo-elements, and default rules, extract and grep the official stylesheet.
 
+**⚠️ Always use the LATEST package**: Obsidian auto-updates and loads from `~/Library/Application Support/obsidian/obsidian-*.asar`, NOT the bundled app. The bundled version may be outdated. Run Obsidian from terminal to see which package it loads.
+
 ### 1. Locate the asar files
+**Important**: Obsidian loads from the **latest update package**, not the bundled version. Always check the update folder first.
+
 ```bash
-# macOS
-/Applications/Obsidian.app/Contents/Resources/app.asar
+# macOS - UPDATED PACKAGE (preferred, has latest code)
+~/Library/Application Support/obsidian/obsidian-*.asar
+
+# macOS - Bundled version (may be outdated)
 /Applications/Obsidian.app/Contents/Resources/obsidian.asar
+/Applications/Obsidian.app/Contents/Resources/app.asar
 
 # Windows (typical)
-%LOCALAPPDATA%\Obsidian\app-*\resources\app.asar
+%LOCALAPPDATA%\Obsidian\obsidian-*.asar
 %LOCALAPPDATA%\Obsidian\app-*\resources\obsidian.asar
 
 # Linux (typical)
-/usr/lib/obsidian/resources/app.asar
+~/.config/obsidian/obsidian-*.asar
 /usr/lib/obsidian/resources/obsidian.asar
+```
+
+**Check which version Obsidian is using:**
+```bash
+# Run Obsidian from terminal to see loaded package
+/Applications/Obsidian.app/Contents/MacOS/Obsidian
+
+# Output will show: "Loading updated app package /Users/emma/Library/Application Support/obsidian/obsidian-1.12.7.asar"
 ```
 
 ### 2. Install asar extractor
@@ -92,9 +158,14 @@ npx asar --version
 ### 3. Extract the UI CSS
 ```bash
 mkdir -p /tmp/obsidian-ui
-npx asar extract /Applications/Obsidian.app/Contents/Resources/obsidian.asar /tmp/obsidian-ui
+npx asar extract ~/Library/Application\ Support/obsidian/obsidian-*.asar /tmp/obsidian-ui
 ```
 The main stylesheet is at `/tmp/obsidian-ui/app.css`.
+
+**Note**: If the wildcard fails, check the exact filename:
+```bash
+ls ~/Library/Application\ Support/obsidian/*.asar
+```
 
 ### 4. Search for selectors
 ```bash
