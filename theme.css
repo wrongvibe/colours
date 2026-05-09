@@ -81,7 +81,22 @@ settings:
           value: folder-default
         - label: Inverted Background
           value: folder-inverted
-*/
+
+    - id: colours-bases
+      title: Bases
+      type: heading
+      level: 2
+      collapsed: false
+
+    - id: bases-embed-width-override
+      title: Base Embed Width Multiplier
+      description: "Controls how wide embedded Bases are relative to the readable line width. 1 = same width, 5 = 5× wider."
+      type: variable-number-slider
+      default: 1.5
+      min: 1
+      max: 5
+      step: 0.1
+ */
 
 
 /* --- Shared: fonts, radius, structural -------------------------- */
@@ -272,7 +287,7 @@ svg * {
 
 	/* --- Highlight system ------------------------------------------- */
 	--text-highlight-bg: oklch(from var(--complement)
-		clamp(0.2, calc((0.9 - calc(var(--dynamic-switch) - var(--dynamic-switch))) * 0.7 + 0.1), 0.9)
+		clamp(0.2, calc((1 - calc(var(--dynamic-switch) - var(--dynamic-switch))) * 0.7 + 0.1), 0.9)
 		calc(c * 0.6)
 		h
 	);
@@ -280,11 +295,11 @@ svg * {
 		clamp(0.2, calc(calc(var(--dynamic-switch) - var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
 		c
 		h
-		/ 0.8
 	);
 
 	/* --- Backgrounds ------------------------------------------------ */
 	--background-primary:               oklch(from var(--color-accent) l c h);
+	--background-primary-alt:						oklch(from var(--color-accent) calc(l * 0.95) c h);
 	--background-secondary:             var(--background-primary);
 	--background-secondary-alt:         oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.80) c h / 0.2);
 	--background-modifier-hover:        oklch(from var(--color-accent) clamp(0.10, l * 0.8, 0.8) calc(c * 0.75) h / 0.5);
@@ -304,7 +319,7 @@ svg * {
 
 	/* --- Code blocks: step function --------------------------------- */
 	--code-bg-bias:      0;
-	--code-bg-threshold: 0.78;
+	--code-bg-threshold: 0.74;
 	--code-bg-light:     0.95;
 	--code-bg-dark:      0.2;
 	--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
@@ -329,11 +344,11 @@ svg * {
 		calc(c * 1)
 		h / 0.5
 	);
-
-	--code-normal:  oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.95) calc(c * 0.3) h);
+	--code-normal:  oklch(from var(--code-background) clamp(0.15, calc(1 - l) + 0.1, 0.95) calc(c * 0.3) h);
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.95) calc(c * 0.5) h);
 
 	/* --- Text colours ----------------------------------------------- */
+
 	--text-normal:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h / 0.95);
 	--text-muted:        oklch(from var(--color-accent) clamp(0.25, var(--dynamic-switch), 0.90) calc(c * 0.3) h / 0.9);
 	--text-faint:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.3) h / 0.75);
@@ -362,8 +377,8 @@ svg * {
 
 	/* --- Graph view (hsl only, oklch breaks rendering) -------------- */
 	--contrast-threshold-graph: 45%;
-	--lightness-offset: calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);
-	--dynamic-switch-graph: calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold-graph)) * -1000);
+	--lightness-offset: 		 calc(sin((var(--accent-h) - 140) * 3.14159 / 180) * 10%);
+	--dynamic-switch-graph:  calc(calc(var(--accent-l) - var(--lightness-offset) - var(--contrast-threshold-graph)) * -1000);
 	--graph-text:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.5), clamp(10%, var(--dynamic-switch-graph), 90%), 90%);
 	--graph-line:            hsl(var(--accent-h),             calc(var(--accent-s) * 0.2), clamp(20%, var(--dynamic-switch-graph), 80%), 30%);
 	--graph-node:            hsl(calc(var(--accent-h) + 180), calc(var(--accent-s) * 1.0), clamp(30%, var(--accent-l) * 1.8      , 70%), 60%);
@@ -383,19 +398,19 @@ svg * {
 
 	/* --- Highlight system ------------------------------------------- */
 	--text-highlight-bg: oklch(from var(--complement)
-		clamp(0.2, calc((var(--dynamic-switch)) * 0.7 + 0.1), 0.9)
+		clamp(0.2, calc((var(--dynamic-switch)) * 0.75 + 0.1), 0.75)
 		calc(c * 0.9)
 		h
-		/ 0.8
 	);
 	--text-highlight: oklch(from var(--complement)
-		clamp(0.2, calc(1 - var(--dynamic-switch) * 0.7 + 0.1), 0.9)
+		clamp(0.2, calc(1 - var(--dynamic-switch) * 0.75 + 0.1), 0.9)
 		c
 		h
 	);
 
 	/* --- Backgrounds ------------------------------------------------ */
 	--background-primary:               oklch(from var(--color-accent) calc(l * 0.4 + 0.06) calc(c * 0.8) h);
+	--background-primary-alt:						oklch(from var(--background-primary) calc(l * 0.95) c h);
 	--background-secondary:             var(--background-primary);
 	--background-secondary-alt:         oklch(from var(--background-primary) clamp(0.2, l * 0.8, 0.8) c h / 0.5);
 	--background-modifier-hover:        oklch(from var(--background-primary) clamp(0.3, l * 0.8, 0.8) calc(c * 0.8) h / 0.5);
@@ -419,10 +434,10 @@ svg * {
 	--code-bg-light:     0.95;
 	--code-bg-dark:      0.15;
 	--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));
-	--code-background:   oklch(from var(--background-primary) clamp(0.25, l * 0.25 + 0.02, 1.00) calc(c * 0.8) h / 0.9);
-	--code-border:       oklch(from var(--background-primary) clamp(0.50, l * 0.35 + 0.02, 0.85) calc(c * 1.0) h / 0.6);
+	--code-background:   oklch(from var(--background-primary) clamp(0.25, l * 0.3, 1.00) calc(c * 0.8) h / 0.9);
+	--code-border:       oklch(from var(--background-primary) clamp(0.40, l * 2, 0.60) calc(c * 1.0) h / 0.9);
 
-	--code-normal: 	oklch(from var(--code-background) clamp(0.15, calc(1 - l), 0.8) calc(c * 0.3) h);
+	--code-normal: 	oklch(from var(--code-background) clamp(0.20, calc(1 - l) + 0.1, 0.8) calc(c * 0.3) h);
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.8) calc(c * 0.5) h);
 
 	/* --- Text colours ----------------------------------------------- */
@@ -479,7 +494,10 @@ svg * {
 }
 
 /* --- Scrollbar: thin and monochrome ----------------------------- */
-::-webkit-scrollbar { width: 6px;}
+::-webkit-scrollbar { 
+	width: 6px;
+	height: 6px;
+}
 ::-webkit-scrollbar:hover { opacity: 0.8; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-faint); }
@@ -739,7 +757,7 @@ li[data-task="/"] > p > input:checked:after {
 	background: linear-gradient(315deg, transparent 50%, var(--text-normal) 50%);
   -webkit-mask-image: none;
   border-color: var(--checkbox-border-color);
-  inset: -2px 0px;
+  inset: -0.5px -1px;
 }
 
 /* --- [>] Forwarded ---------------------------------------------- */
@@ -850,8 +868,9 @@ body:not(.tasks) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task]:is(
 body:not(.tasks) .markdown-preview-view ul li[data-task="-"].task-list-item.is-checked,
 body:not(.tasks) li[data-task="-"].task-list-item.is-checked {
   font-size: 0.9em;
-  font-family: monospace;
+  font-family: var(--font-monospace);
   background-color: var(--code-background);
+  color: var(--code-normal);
 }
 
 /* --- [u] Up ----------------------------------------------------- */
@@ -1004,6 +1023,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	color: var(--background-primary);
 }
 
+/* --- Embedded not found --- */
+.file-embed {
+	border: 1px solid var(--background-modifier-border);
+}
+
 /* --- Tags ------------------------------------------------------- */
 .cm-hashtag.cm-hashtag-end {
 	letter-spacing: 0.05em;
@@ -1089,15 +1113,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
 	box-shadow: none;
 }
 
-/* --- Accent colour picker --------------------------------------- */
+/* --- Accent colour picker border fix ---------------------------- */
 input[type="color"]::-webkit-color-swatch {
-	border: none;
-}
-input[type="color"]::-webkit-color-swatch-wrapper {
-	border-radius: 50%;
-	padding: 0;
-	border: 2px solid var(--text-faint) !important;
-	/*transform: scaleY(0.97);*/
+	--swatch-shadow: inset 0 0 0 1px rgba(var(--mono-rgb-100), 0.5), 0 0 0 1px var(--background-modifier-border-hover);
 }
 
 /* --- Toggles ---------------------------------------------------- */
@@ -1120,7 +1138,6 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 	box-shadow: inset 0 0 0 1px var(--text-faint);
 }
 
-
 /* --- Cursor line highlight -------------------------------------- */
 .cm-active.cm-line {
 	background: var(--cursor-line-color) !important;
@@ -1133,9 +1150,34 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 .HyperMD-codeblock-end {
 	border-bottom: 1px solid var(--code-border) !important;
 }
+
+.theme-light .cm-line.HyperMD-codeblock {
+		--code-colour-mix: 100%;
+}
+.theme-dark .cm-line.HyperMD-codeblock {
+		--code-colour-mix: 80%;
+}
+
 .cm-line.HyperMD-codeblock {
 	border-left: 1px solid var(--code-border) !important;
 	border-right: 1px solid var(--code-border) !important;
+
+	--code-function:  color-mix(in srgb, var(--color-yellow)   var(--code-colour-mix), var(--code-background));
+	--code-important: color-mix(in srgb, var(--color-orange)   var(--code-colour-mix), var(--code-background));
+	--code-keyword:   color-mix(in srgb, var(--color-pink)     var(--code-colour-mix), var(--code-background));
+	--code-operator:  color-mix(in srgb, var(--color-red)      var(--code-colour-mix), var(--code-background));
+	--code-property:  color-mix(in srgb, var(--color-cyan)     var(--code-colour-mix), var(--code-background));
+	--code-punctuation: color-mix(in srgb, var(--color-base-70) var(--code-colour-mix), var(--code-background));
+	--code-string:    color-mix(in srgb, var(--color-green)    var(--code-colour-mix), var(--code-background));
+	--code-tag:       color-mix(in srgb, var(--color-red)      var(--code-colour-mix), var(--code-background));
+	--code-value:     color-mix(in srgb, var(--color-purple)   var(--code-colour-mix), var(--code-background));
+}
+
+/* --- Cursor line and code block mix --- */
+.cm-active.cm-line.HyperMD-codeblock,
+.cm-active.cm-line.HyperMD-codeblock-begin,
+.cm-active.cm-line.HyperMD-codeblock-end {
+  background: color-mix(in srgb, var(--cursor-line-color) 30%, var(--code-background)) !important;
 }
 
 /* --- Inline code ------------------------------------------------ */
@@ -1157,13 +1199,6 @@ pre .cm-header-3 {
 	font-weight: inherit !important;
 	text-transform: none !important;
 	letter-spacing: normal !important;
-}
-
-/* --- Cursor line and code block mix --- */
-.cm-active.cm-line.HyperMD-codeblock,
-.cm-active.cm-line.HyperMD-codeblock-begin,
-.cm-active.cm-line.HyperMD-codeblock-end {
-  background: color-mix(in srgb, var(--cursor-line-color) 30%, var(--code-background)) !important;
 }
 
 /* --- Highlighted text ------------------------------------------- */
@@ -1335,7 +1370,7 @@ body {
 	background-color: transparent;
 }
 
-/* --- Delete... -------------------------------------------------- */
+/* --- Delete warning --------------------------------------------- */
 .menu-item.is-warning {
 	background-color: var(--text-normal) !important;
 	color: var(--text-error) !important;
@@ -1351,7 +1386,9 @@ body {
 	border: 1px solid var(--background-modifier-border);
 }
 
-/* --- Canvas ----------------------------------------------------- */
+/* =============================================
+   Canvas
+   ============================================= */
 
 /* --- Node borders (default uncolored nodes) --------------------- */
 .canvas-node:not(.is-themed) .canvas-node-container {
@@ -1403,7 +1440,9 @@ body {
 	background-color: var(--background-modifier-hover);
 }
 
-/* --- Callouts --------------------------------------------------- */
+/* =============================================
+   Callouts
+   ============================================= */
 
 .callout {
 	background-color: rgba(var(--callout-color), 0.25) !important;
@@ -1427,10 +1466,257 @@ body {
   padding: 0px 20px;
 }
 
+.search-result-file-matched-text {
+    color: var(--text-highlight);
+    background-color: var(--text-highlight-bg);
+}
+
+/* =============================================
+   Mermaid
+   ============================================= */
+
+.theme-dark .mermaid > svg {
+  filter: invert(0%) hue-rotate(0deg) saturate(1);
+}
+
+body {
+	--code-background-mm: oklch(from var(--code-background) l c h / 2);
+}
+
+.mermaid svg [id$="pointEnd"] path,
+.mermaid svg [id$="arrowhead"] path {
+	fill: var(--text-muted) !important;
+  stroke: var(--text-muted) !important;
+}
+
+.mermaid svg .node * {
+  fill:   var(--code-background) !important;
+  stroke: var(--code-border) !important;
+}
+
+/* ── FLOWCHART ───────────────────────────────────────────── */
+.mermaid svg .node foreignObject div span {
+  color: var(--code-normal) !important;
+}
+.mermaid svg .flowchart-link {
+  stroke: var(--text-muted) !important;
+}
+.mermaid svg .edgeLabel foreignObject div span {
+  color: var(--text-highlight) !important;
+}
+.mermaid svg .edgeLabel * {
+  background-color: var(--text-highlight-bg) !important;
+}
+
+/* ── SEQUENCE ────────────────────────────────────────────── */
+.mermaid svg .actor {
+  fill: var(--code-background) !important;
+  stroke: var(--code-border) !important;
+}
+.mermaid svg text.actor > tspan {
+  fill: var(--code-normal) !important;
+}
+.mermaid svg .actor-line {
+  stroke: var(--text-highlight-bg) !important;
+}
+.mermaid svg .messageLine0,
+.mermaid svg .messageLine1 {
+  stroke: var(--text-muted) !important;
+}
+.mermaid svg .messageText {
+  fill: var(--text-normal) !important;
+}
+.mermaid svg .labelBox {
+  fill: var(--code-background-mm) !important;
+  stroke: var(--code-border) !important;
+}
+.mermaid svg .labelText {
+  fill: var(--code-normal) !important;
+}
+.mermaid svg .loopText,
+.mermaid svg .loopLine {
+  fill: var(--text-muted) !important;
+  stroke: var(--text-muted) !important;
+}
+.mermaid svg .note {
+  fill: var(--code-background-mm) !important;
+  stroke: var(--code-border) !important;
+}
+.mermaid svg .noteText {
+  fill: var(--text-normal) !important;
+}
+
+/* ── CLASS DIAGRAM ───────────────────────────────────────── */
+.mermaid svg .classBox rect,
+.mermaid svg g.classGroup rect {
+  fill: var(--code-background-mm) !important;
+  stroke: var(--code-border) !important;
+}
+.mermaid svg .classBox text,
+.mermaid svg g.classGroup text {
+  fill: var(--code-normal) !important;
+}
+.mermaid svg .relation {
+  stroke: var(--text-muted) !important;
+  fill: none !important;
+}
+.mermaid svg[aria-roledescription="class"] marker path {
+  stroke: var(--text-muted) !important;
+}
+
+/* ── STATE DIAGRAM ───────────────────────────────────────── */
+.mermaid svg .transition {
+  stroke: var(--text-muted) !important;
+}
+.mermaid svg .node circle.state-start {
+	fill: var(--text-muted) !important;
+}
+
+/* end state — outer ring */
+.mermaid svg [id^="state-root_end"] > g > path:nth-child(2) {
+  stroke: var(--text-muted) !important;
+}
+
+/* end state — inner dot */
+.mermaid svg [id^="state-root_end"] > g > g > path:first-child {
+  fill: var(--text-highlight-bg) !important;
+}
+.mermaid svg [id^="state-root_end"] > g > g > path:nth-child(2) {
+  stroke: var(--text-highlight-bg) !important;
+  fill: var(--text-highlight-bg) !important;
+}
+
+/* start state — solid circle */
+.mermaid svg [id^="state-root_start"] > g > path:first-child {
+  fill: var(--text-muted) !important;
+}
+.mermaid svg [id^="state-root_start"] > g > path:nth-child(2) {
+  stroke: var(--text-muted) !important;
+}
+
+
+.mermaid svg[aria-roledescription="stateDiagram"] marker path {
+  fill: var(--text-muted) !important;
+  stroke: var(--text-muted) !important;
+}
+
+/* ── ER DIAGRAM ──────────────────────────────────────────── */
+.mermaid svg .er.entityBox {
+  fill: var(--code-background-mm) !important;
+  stroke: var(--code-border) !important;
+}
+.mermaid svg .er.entityLabel {
+  fill: var(--code-normal) !important;
+}
+.mermaid svg .er.relationshipLine {
+  stroke: var(--text-muted) !important;
+}
+.mermaid svg .er.attributeBoxOdd {
+	fill: oklch(from var(--code-background-mm) calc(l * 1.5) c h) !important;
+  stroke: var(--code-border) !important;
+}
+.mermaid svg .er.attributeBoxEven {
+	fill: oklch(from var(--code-background-mm) calc(l * 1.3) c h) !important;
+  stroke: var(--code-border) !important;
+}
+.mermaid svg .er.relationshipLabelBox {
+	fill: var(--code-background-mm) !important;
+}
+
+/* one or more */
+.mermaid svg defs [id$="-ONE_OR_MORE_START"] path,
+.mermaid svg defs [id$="-ONE_OR_MORE_END"] path {
+  stroke: var(--text-muted) !important;
+}
+/* zero or more */
+.mermaid svg defs [id$="-ZERO_OR_MORE_START"] circle,
+.mermaid svg defs [id$="-ZERO_OR_MORE_END"] circle {
+  stroke: var(--text-muted) !important;
+  fill: var(--code-background-mm) !important;
+}
+/* only one */
+.mermaid svg defs [id$="-ONLY_ONE_START"] path,
+.mermaid svg defs [id$="-ONLY_ONE_END"] path {
+  stroke: var(--text-muted) !important;
+}
+/* zero or one */
+.mermaid svg defs [id$="-ZERO_OR_ONE_START"] path,
+.mermaid svg defs [id$="-ZERO_OR_ONE_END"] path {
+  stroke: var(--text-muted) !important;
+  fill: var(--code-background-mm) !important;
+}
+.mermaid svg[aria-roledescription="er"] marker path {
+  stroke: var(--text-muted) !important;
+}
+
+/* ── GANTT ───────────────────────────────────────────────── */
+.mermaid svg .sectionTitle,
+.mermaid svg .grid .tick text {
+	fill: var(--text-muted) !important;
+}
+
+/* ── PIE ─────────────────────────────────────────────────── */
+.mermaid svg .pieTitleText {
+  fill: var(--text-muted) !important;
+}
+.mermaid svg .legend text {
+  fill: var(--text-muted) !important;
+}
+
+/* ── GITGRAPH ────────────────────────────────────────────── */
+.mermaid svg .commit-label {
+  fill: var(--code-normal) !important;
+}
+.mermaid svg .commit-label-bkg {
+  fill: var(--code-background-mm) !important;
+}
+.mermaid svg .branch-label foreignObject div {
+  color: var(--text-muted) !important;
+}
+
+/* ── MINDMAP ─────────────────────────────────────────────── */
+.mermaid svg .mindmap-node rect,
+.mermaid svg .mindmap-node circle,
+.mermaid svg .mindmap-node polygon {
+  fill: var(--text-highlight-bg) !important;
+  stroke: var(--text-highlight) !important;
+}
+.mermaid svg .mindmap-node foreignObject div {
+  color: var(--text-muted) !important;
+}
+
+/* ── TIMELINE ─────────────────────────────────────────────── */
+.mermaid svg > text {
+  fill: var(--text-normal) !important;
+}
+
+.mermaid svg .lineWrapper line {
+  fill: var(--code-background-mm) !important;
+  stroke: var(--text-muted) !important;
+}
+
+/* ── Quadrant ─────────────────────────────────────────────── */
+/* all text (axis labels, quadrant labels, data point labels) */
+.mermaid svg[aria-roledescription="quadrantChart"] text {
+  fill: var(--text-normal) !important;
+}
+/* quadrant background boxes */
+.mermaid svg[aria-roledescription="quadrantChart"] rect {
+  fill: var(--code-background) !important;
+  stroke: var(--code-border) !important;
+}
+/* axis lines */
+.mermaid svg[aria-roledescription="quadrantChart"] line {
+  stroke: var(--code-border) !important;
+}
+/* data points (circles) */
+.mermaid svg[aria-roledescription="quadrantChart"] circle {
+  fill: var(--text-highlight-bg) !important;
+  stroke: var(--text-highlight-bg) !important;
+}
+
 /* =============================================
    TRANSLUCENT WINDOW SUPPORT
-   Uses official --workspace-background-translucent
-   defined in .theme-light and .theme-dark above.
    ============================================= */
 
 body.is-translucent {
