@@ -118,7 +118,7 @@ body {
 
 	/* Theme default accent */
 	--accent-h: 240;
-	--accent-s: 100%;
+	--accent-s: 80%;
 	--accent-l: 25%;
 
 	/* Radius overrides */
@@ -167,7 +167,6 @@ body {
 	--blockquote-border-color:	   var(--background-modifier-border);
 	--blockquote-font-style:       italic;
 	--blockquote-color: 					 var(--text-muted);
-
 
 
 	/* Notebook Navigator */
@@ -275,6 +274,7 @@ svg * {
 .menu-separator {
 	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
 }
+
 
 /* =============================================
    LIGHT MODE PALETTE
@@ -493,6 +493,14 @@ svg * {
 	border: 1px solid var(--background-modifier-border) !important;
 }
 
+/* --- Status Bar ----------------------------------------------- */
+.status-bar {
+  color: var(--text-faint);
+}
+.status-bar-item.mod-clickable:hover {
+  color: var(--text-normal);
+}
+
 /* --- Scrollbar: thin and monochrome ----------------------------- */
 ::-webkit-scrollbar { 
 	width: 6px;
@@ -612,8 +620,8 @@ body {
   --checkbox-marker-color-hover: var(--text-normal);
   --checkbox-color: 			var(--interactive-accent);
   --checkbox-color-hover: var(--interactive-accent-hover);
-  --checkbox-border-color: 			 var(--text-normal); /* Unchecked border color */
-  --checkbox-border-color-hover: var(--text-muted);  /* custom var */
+  --checkbox-border-color: 			 var(--text-muted);
+  --checkbox-border-color-hover: var(--interactive-accent-hover);
   --checklist-done-decoration: line-through;
   --checklist-done-color: var(--text-normal);
 }
@@ -624,7 +632,7 @@ input[type="checkbox"]:checked:hover {
 	background-color: var(--interactive-accent-hover);
 	--checkbox-color-hover: var(--interactive-accent-hover);
 	--checkbox-marker-color: var(--text-normal);
-	border-color: var(--checkbox-border-color-hover);
+  border: 1px solid var(--checkbox-border-color-hover);
 }
 
 .task-list-item-checkbox:checked,
@@ -637,28 +645,32 @@ input[type="checkbox"]:checked {
 /* --- Alternate Checkboxes --- */
 
 /* --- Base group: hide default checkmark, enable ::after --------- */
-input[data-task="-"]:checked,
 input[data-task="/"]:checked,
 input[data-task=">"]:checked,
 input[data-task="<"]:checked,
-input[data-task="!"]:checked,
-input[data-task="?"]:checked,
-input[data-task="i"]:checked,
-input[data-task="*"]:checked,
-input[data-task="l"]:checked,
-input[data-task="b"]:checked,
-input[data-task="p"]:checked,
-input[data-task="c"]:checked,
-input[data-task="k"]:checked,
-input[data-task="u"]:checked,
-input[data-task="d"]:checked,
-/*li[data-task="x"] > input:checked,*/
-li[data-task="-"] > input:checked,
 li[data-task="/"] > input:checked,
 li[data-task=">"] > input:checked,
 li[data-task="<"] > input:checked,
-li[data-task="!"] > input:checked,
+li[data-task="/"] > p > input:checked,
+li[data-task=">"] > p > input:checked,
+li[data-task="<"] > p > input:checked {
+	--checkbox-marker-color: transparent;
+}
+input[data-task="?"]:checked,
+input[data-task="-"]:checked,
+input[data-task="!"]:checked,
+input[data-task="i"]:checked,
+input[data-task="*"]:checked,
+input[data-task="b"]:checked,
+input[data-task="l"]:checked,
+input[data-task="k"]:checked,
+input[data-task="u"]:checked,
+input[data-task="d"]:checked,
+input[data-task="p"]:checked,
+input[data-task="c"]:checked,
 li[data-task="?"] > input:checked,
+li[data-task="-"] > input:checked,
+li[data-task="!"] > input:checked,
 li[data-task="i"] > input:checked,
 li[data-task="*"] > input:checked,
 li[data-task="l"] > input:checked,
@@ -668,12 +680,9 @@ li[data-task="c"] > input:checked,
 li[data-task="k"] > input:checked,
 li[data-task="u"] > input:checked,
 li[data-task="d"] > input:checked,
-li[data-task="-"] > p > input:checked,
-li[data-task="/"] > p > input:checked,
-li[data-task=">"] > p > input:checked,
-li[data-task="<"] > p > input:checked,
-li[data-task="!"] > p > input:checked,
 li[data-task="?"] > p > input:checked,
+li[data-task="-"] > p > input:checked,
+li[data-task="!"] > p > input:checked,
 li[data-task="i"] > p > input:checked,
 li[data-task="*"] > p > input:checked,
 li[data-task="l"] > p > input:checked,
@@ -685,14 +694,26 @@ li[data-task="u"] > p > input:checked,
 li[data-task="d"] > p > input:checked {
 	--checkbox-marker-color: transparent;
 	border: none;
-	position: relative;
 }
 
 /* --- Icon overlay (text-normal color via mask) ------------------ */
-input[data-task="-"]:checked::after,
 input[data-task="/"]:checked::after,
 input[data-task=">"]:checked::after,
 input[data-task="<"]:checked::after,
+li[data-task="/"] > input:checked::after,
+li[data-task=">"] > input:checked::after,
+li[data-task="<"] > input:checked::after,
+li[data-task="/"] > p > input:checked::after,
+li[data-task=">"] > p > input:checked::after,
+li[data-task="<"] > p > input:checked::after {
+	inset: -0.5px -0.8px;
+	background-color: var(--interactive-accent); /* icon colour = bg primary */
+	-webkit-mask-size: var(--checkbox-icon);
+	-webkit-mask-position: 50% 50%;
+	-webkit-mask-repeat: no-repeat;
+	pointer-events: none;
+}
+input[data-task="-"]:checked::after,
 input[data-task="!"]:checked::after,
 input[data-task="?"]:checked::after,
 input[data-task="i"]:checked::after,
@@ -705,9 +726,6 @@ input[data-task="k"]:checked::after,
 input[data-task="u"]:checked::after,
 input[data-task="d"]:checked::after,
 li[data-task="-"] > input:checked::after,
-li[data-task="/"] > input:checked::after,
-li[data-task=">"] > input:checked::after,
-li[data-task="<"] > input:checked::after,
 li[data-task="!"] > input:checked::after,
 li[data-task="?"] > input:checked::after,
 li[data-task="i"] > input:checked::after,
@@ -720,9 +738,6 @@ li[data-task="k"] > input:checked::after,
 li[data-task="u"] > input:checked::after,
 li[data-task="d"] > input:checked::after,
 li[data-task="-"] > p > input:checked::after,
-li[data-task="/"] > p > input:checked::after,
-li[data-task=">"] > p > input:checked::after,
-li[data-task="<"] > p > input:checked::after,
 li[data-task="!"] > p > input:checked::after,
 li[data-task="?"] > p > input:checked::after,
 li[data-task="i"] > p > input:checked::after,
@@ -742,6 +757,7 @@ li[data-task="d"] > p > input:checked::after {
 	-webkit-mask-position: 50% 50%;
 	-webkit-mask-repeat: no-repeat;
 	pointer-events: none;
+	border: none;
 }
 
 /* --- [/] Incomplete --------------------------------------------- */
@@ -756,8 +772,8 @@ li[data-task="/"] > input:checked:after,
 li[data-task="/"] > p > input:checked:after {
 	background: linear-gradient(315deg, transparent 50%, var(--text-normal) 50%);
   -webkit-mask-image: none;
+  /*inset: -0.5px -1px;*/
   border-color: var(--checkbox-border-color);
-  inset: -0.5px -1px;
 }
 
 /* --- [>] Forwarded ---------------------------------------------- */
@@ -1278,8 +1294,8 @@ body {
 	--bases-embed-width-override: 1.5;
 }
 
-.markdown-source-view.mod-cm6 .cm-content > .bases-embed,
-.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base {
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-content > .bases-embed,
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-content > .cm-lang-base  {
   --bases-embed-width: calc(var(--file-line-width) * var(--bases-embed-width-override));
   --bases-embed-transform: translateX(calc(
     (var(--file-line-width) - var(--bases-embed-width)) / 2 
@@ -1298,12 +1314,22 @@ body {
 	border: 1px solid var(--background-primary);
 	padding-left: 30px;
 	padding-right: 30px;
+	font-size: 0.9em;
 }
 .empty-state-action:hover,
 .is-mobile .empty-state-action:hover {
 	background: var(--background-modifier-hover);
 	color: var(--text-accent);
 	border-color: var(--text-accent);
+}
+
+/* =============================================
+		Vim mode cursor colour
+    =============================================  */
+
+.cm-focused .cm-fat-cursor {
+   background-color: oklch(from var(--text-highlight-bg) calc(l * 1.2) c h) !important;
+   color: var(--text-highlight) !important;
 }
 
 /* =============================================
@@ -1481,6 +1507,10 @@ body {
 
 body {
 	--code-background-mm: oklch(from var(--code-background) l c h / 2);
+}
+
+.mermaid svg a {
+  text-decoration: none !important;
 }
 
 .mermaid svg [id$="pointEnd"] path,
