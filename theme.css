@@ -56,6 +56,22 @@ settings:
         - label: Monochrome (Low contrast)
           value: highlight-monochrome-low
 
+    - id: accent-override
+      title: Override System Accent
+      description: "When off (default), Obsidian's appearance-settings accent is used. Turn on to use the per-mode colours below."
+      type: class-toggle
+      level: 3
+      default: false
+
+    - id: accent-colour
+      title: Accent Colour
+      description: "Per-mode accent. Only applied when 'Override System Accent' is on."
+      type: variable-themed-color
+      format: hex
+      opacity: false
+      default-light: '#0d0d73'
+      default-dark: '#0d0d73'
+
     - id: colours-layout
       title: Layout
       type: heading
@@ -81,6 +97,22 @@ settings:
           value: folder-default
         - label: Inverted Background
           value: folder-inverted
+
+    - id: internal-link-style
+      title: Internal Link Decoration
+      type: class-select
+      default: link-wavy
+      options:
+        - label: Wavy
+          value: link-wavy
+        - label: Underline
+          value: link-underline
+
+    - id: auto-hide-scrollbar
+      title: Auto-hide Scrollbar
+      description: "Use the OS overlay scrollbar — appears while scrolling or hovering, hides otherwise. Replaces the theme's custom thin scrollbar."
+      type: class-toggle
+      default: false
 
     - id: colours-bases
       title: Bases
@@ -478,6 +510,27 @@ svg * {
 }
 
 /* =============================================
+   ACCENT OVERRIDE (Style Settings)
+   Replaces Obsidian's --color-accent per mode.
+   Graph view keeps the theme's fixed --accent-h/s/l.
+   ============================================= */
+.theme-light.accent-override {
+	--color-accent: var(--accent-colour, #0d0d73);
+}
+.theme-dark.accent-override {
+	--color-accent: var(--accent-colour, #0d0d73);
+	/* Skip the dim-down formula — use the picked colour as-is. */
+	--background-primary: oklch(from var(--color-accent) l c h);
+}
+
+/* Folder Accents plugin sets one colour per folder via [data-folder-accent].
+   Restore the dim-down formula so its colours render correctly in dark mode
+   regardless of the Style Settings override. */
+.theme-dark.accent-override[data-folder-accent] {
+	--background-primary: oklch(from var(--color-accent) calc(l * 0.4 + 0.06) calc(c * 0.8) h);
+}
+
+/* =============================================
    COMPONENT STYLES (shared across modes)
    ============================================= */
 
@@ -502,13 +555,15 @@ svg * {
 }
 
 /* --- Scrollbar: thin and monochrome ----------------------------- */
-::-webkit-scrollbar { 
+/* Skipped when body.auto-hide-scrollbar is set, so Chromium falls
+   back to the OS overlay scrollbar (auto-hides + appears on scroll). */
+body:not(.auto-hide-scrollbar) ::-webkit-scrollbar {
 	width: 6px;
 	height: 6px;
 }
-::-webkit-scrollbar:hover { opacity: 0.8; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--text-faint); }
+body:not(.auto-hide-scrollbar) ::-webkit-scrollbar:hover { opacity: 0.8; }
+body:not(.auto-hide-scrollbar) ::-webkit-scrollbar-track { background: transparent; }
+body:not(.auto-hide-scrollbar) ::-webkit-scrollbar-thumb { background: var(--text-faint); }
 
 /* --- Dividers --------------------------------------------------- */
 .workspace-leaf-resize-handle {
@@ -1224,10 +1279,14 @@ mark, .cm-highlight {
 }
 
 /* --- Links ------------------------------------------------------ */
+/* Style Settings: internal link decoration style */
+body.link-wavy      { --internal-link-decoration-style: wavy; }
+body.link-underline { --internal-link-decoration-style: solid; }
+
 /* --- Editing View + Reading Mode: resolved links --- */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link,
 .markdown-rendered .internal-link {
-	text-decoration: underline wavy;
+	text-decoration: underline var(--internal-link-decoration-style, wavy);
 	text-underline-offset: 4px;
 	text-decoration-color: var(--text-faint);
 }
@@ -1236,7 +1295,7 @@ mark, .cm-highlight {
 .markdown-source-view.mod-cm6 .is-unresolved,
 .markdown-rendered .internal-link.is-unresolved {
 	color: var(--link-unresolved-color);
-	text-decoration: underline wavy;
+	text-decoration: underline var(--internal-link-decoration-style, wavy);
 	text-underline-offset: 4px;
 	text-decoration-color: red;
 }
@@ -1245,7 +1304,7 @@ mark, .cm-highlight {
 .markdown-rendered .internal-link:hover {
 	background: var(--text-muted);
 	color: var(--background-primary);
-	text-decoration: underline wavy;
+	text-decoration: underline var(--internal-link-decoration-style, wavy);
 	text-underline-offset: 4px;
 	text-decoration-color: var(--text-muted) !important;
 }
@@ -1254,7 +1313,7 @@ mark, .cm-highlight {
 .markdown-rendered .internal-link.is-unresolved:hover {
 	background: var(--background-modifier-hover);
 	color: var(--background-primary);
-	text-decoration: underline wavy;
+	text-decoration: underline var(--internal-link-decoration-style, wavy);
 	text-underline-offset: 4px;
 	text-decoration-color: red !important;
 }
