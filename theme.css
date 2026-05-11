@@ -918,8 +918,21 @@ li[data-task="i"] > p > input:checked {
 input[data-task="i"]:checked::after,
 li[data-task="i"] > input:checked::after,
 li[data-task="i"] > p > input:checked::after {
-	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='12' y1='11' x2='12' y2='17'/%3E%3Cline x1='12' y1='7' x2='12.01' y2='7'/%3E%3C/svg%3E");
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='white' stroke='none'%3E%3Crect x='10.75' y='6' width='2.5' height='2.5'/%3E%3Crect x='11.25' y='10' width='2' height='7.5'/%3E%3Crect x='8.5' y='10' width='3' height='1.5'/%3E%3Crect x='7.5' y='17.5' width='9' height='1.75'/%3E%3C/svg%3E");
   background-color: var(--interactive-accent);
+}
+
+/* --- [*] Star --------------------------------------------------- */
+input[data-task="*"]:checked,
+li[data-task="*"] > input:checked,
+li[data-task="*"] > p > input:checked {
+	background-color: transparent;
+}
+input[data-task="*"]:checked::after,
+li[data-task="*"] > input:checked::after,
+li[data-task="*"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E");
+	background-color: oklch(from var(--text-highlight-bg) calc(l * 1.2) calc(c * 2) h);
 }
 
 /* --- [b] Bug ----------------------------------------------- */
@@ -942,6 +955,32 @@ body:not(.tasks) li[data-task="-"].task-list-item.is-checked {
   font-family: var(--font-monospace);
   background-color: var(--code-background);
   color: var(--code-normal);
+}
+
+/* --- [l] Location ----------------------------------------------- */
+input[data-task="l"]:checked,
+li[data-task="l"] > input:checked,
+li[data-task="l"] > p > input:checked {
+	background-color: transparent;
+}
+input[data-task="l"]:checked::after,
+li[data-task="l"] > input:checked::after,
+li[data-task="l"] > p > input:checked::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z' clip-rule='evenodd' /%3E%3C/svg%3E");
+	background-color: var(--h5-color);
+}
+
+/* --- [k] Key ---------------------------------------------------- */
+input[data-task="k"]:checked,
+li[data-task="k"] > input:checked,
+li[data-task="k"] > p > input:checked {
+	background-color: transparent;
+}
+input[data-task="k"]:checked::after,
+li[data-task="k"] > input:checked::after,
+li[data-task="k"] > p > input:checked::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath fill='none' d='M12.4 2.7a2.5 2.5 0 0 1 3.4 0l5.5 5.5a2.5 2.5 0 0 1 0 3.4l-3.7 3.7a2.5 2.5 0 0 1-3.4 0L8.7 9.8a2.5 2.5 0 0 1 0-3.4z'/%3E%3Cpath stroke='none' fill-rule='evenodd' d='M12.4 2.7a2.5 2.5 0 0 1 3.4 0l5.5 5.5a2.5 2.5 0 0 1 0 3.4l-3.7 3.7a2.5 2.5 0 0 1-3.4 0L8.7 9.8a2.5 2.5 0 0 1 0-3.4z M13.3 7.7 L14.7 6.3 L17.7 9.3 L16.3 10.7 z'/%3E%3Cpath fill='none' d='m9.4 10.6-6.814 6.814A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814'/%3E%3C/svg%3E");
+	background-color: var(--h5-color);
 }
 
 /* --- [u] Up ----------------------------------------------------- */
@@ -992,44 +1031,6 @@ li[data-task="c"] > p > input:checked::after {
 	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
 }
 
-/* --- [*] Star --------------------------------------------------- */
-input[data-task="*"]:checked,
-li[data-task="*"] > input:checked,
-li[data-task="*"] > p > input:checked {
-	background-color: transparent;
-}
-input[data-task="*"]:checked::after,
-li[data-task="*"] > input:checked::after,
-li[data-task="*"] > p > input:checked::after {
-	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E");
-	background-color: oklch(from var(--text-highlight-bg) calc(l * 1.2) calc(c * 2) h);
-}
-
-/* --- [l] Location ----------------------------------------------- */
-input[data-task="l"]:checked,
-li[data-task="l"] > input:checked,
-li[data-task="l"] > p > input:checked {
-	background-color: transparent;
-}
-input[data-task="l"]:checked::after,
-li[data-task="l"] > input:checked::after,
-li[data-task="l"] > p > input:checked::after {
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z' clip-rule='evenodd' /%3E%3C/svg%3E");
-	background-color: var(--h5-color);
-}
-
-/* --- [k] Key ---------------------------------------------------- */
-input[data-task="k"]:checked,
-li[data-task="k"] > input:checked,
-li[data-task="k"] > p > input:checked {
-	background-color: transparent;
-}
-input[data-task="k"]:checked::after,
-li[data-task="k"] > input:checked::after,
-li[data-task="k"] > p > input:checked::after {
-	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-key-square-icon lucide-key-square'%3E%3Cpath d='M12.4 2.7a2.5 2.5 0 0 1 3.4 0l5.5 5.5a2.5 2.5 0 0 1 0 3.4l-3.7 3.7a2.5 2.5 0 0 1-3.4 0L8.7 9.8a2.5 2.5 0 0 1 0-3.4z'/%3E%3Cpath d='m14 7 3 3'/%3E%3Cpath d='m9.4 10.6-6.814 6.814A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814'/%3E%3C/svg%3E");
-	background-color: var(--h5-color);
-}
 
 
 /* --- Blockquote ------------------------------------------------- */
