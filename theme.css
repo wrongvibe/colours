@@ -98,7 +98,6 @@ settings:
       type: class-toggle
       default: false
 
-
     - id: colours-layout
       title: Layout
       type: heading
@@ -188,6 +187,7 @@ body {
 	--radius-s: 0px;
 	--radius-m: 0px;
 	--radius-l: 0px;
+	--radius-xl: 0px;
 	--input-radius: 0px;
 	--tab-radius-active: 0px;
 	--checkbox-radius: 0px;
@@ -219,7 +219,6 @@ body {
 	--link-unresolved-color: none;
 	--link-unresolved-decoration-color: none;
 	--link-unresolved-opacity: 60%;
-	--link-external-decoration: underline;
 	--link-external-decoration-hover: none;
 
 	/* Canvas */
@@ -315,12 +314,20 @@ body.heading-colourful {
 
 /* --- Heading size presets --------------------------------------- */
 body.heading-size-compact {
-	--h1-size: 1.8em; --h2-size: 1.5em; --h3-size: 1.3em;
-	--h4-size: 1.15em; --h5-size: 1.05em; --h6-size: 1em;
+	--h1-size: 1.8em;
+	--h2-size: 1.5em;
+	--h3-size: 1.3em;
+	--h4-size: 1.15em;
+	--h5-size: 1.05em;
+	--h6-size: 1em;
 }
 body.heading-size-large {
-	--h1-size: 3em; --h2-size: 2.5em; --h3-size: 2em;
-	--h4-size: 1.6em; --h5-size: 1.3em; --h6-size: 1.15em;
+	--h1-size: 3em;
+	--h2-size: 2.5em;
+	--h3-size: 2em;
+	--h4-size: 1.6em;
+	--h5-size: 1.3em;
+	--h6-size: 1.15em;
 }
 
 /* --- Line height presets ---------------------------------------- */
@@ -721,15 +728,11 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 /* --- Task checkbox ---------------------------------------------- */
 
 body {
-  --checkbox-size: var(--font-text-size);
-  --checkbox-marker-color: var(--interactive-accent);
-  --checkbox-marker-color-hover: var(--text-normal);
-  --checkbox-color: 			var(--interactive-accent);
-  --checkbox-color-hover: var(--interactive-accent-hover);
-  --checkbox-border-color: 			 var(--text-muted);
-  --checkbox-border-color-hover: var(--interactive-accent-hover);
-  --checklist-done-decoration: line-through;
-  --checklist-done-color: var(--text-normal);
+	--checkbox-marker-color: var(--interactive-accent);
+	--checkbox-marker-color-hover: var(--text-normal);
+	--checkbox-border-color: var(--text-muted);
+	--checkbox-border-color-hover: var(--interactive-accent-hover);
+	--checklist-done-color: var(--text-normal);
 }
 
 .task-list-item-checkbox:hover,
@@ -1017,16 +1020,11 @@ input[data-task="/"]:checked:after,
 li[data-task="/"] > input:checked:after,
 li[data-task="/"] > p > input:checked:after {
 	background: linear-gradient(315deg, transparent 50%, var(--text-normal) 50%);
-  -webkit-mask-image: none;
-  /*inset: -0.5px -1px;*/
-  border-color: var(--checkbox-border-color);
+	-webkit-mask-image: none;
+	border-color: var(--checkbox-border-color);
 }
 
 /* --- [>] Forwarded ---------------------------------------------- */
-input[data-task=">"]:checked,
-li[data-task=">"] > input:checked,
-li[data-task=">"] > p > input:checked {
-}
 input[data-task=">"]:checked::after,
 li[data-task=">"] > input:checked::after,
 li[data-task=">"] > p > input:checked::after {
@@ -1034,10 +1032,6 @@ li[data-task=">"] > p > input:checked::after {
 }
 
 /* --- [<] Scheduling --------------------------------------------- */
-input[data-task="<"]:checked,
-li[data-task="<"] > input:checked,
-li[data-task="<"] > p > input:checked {
-}
 input[data-task="<"]:checked::after,
 li[data-task="<"] > input:checked::after,
 li[data-task="<"] > p > input:checked::after {
@@ -1076,10 +1070,10 @@ li[data-task="!"] > p > input:checked::after {
   background-color: var(--text-highlight);
 }
 body:not(.tasks) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task]:is([data-task="!"]),
-body:not(.tasks) .markdown-preview-view ul li[data-task="-"].task-list-item.is-checked,
-body:not(.tasks) li[data-task="-"].task-list-item.is-checked {
-  font-weight: 500;
-  color: var(--text-accent);
+body:not(.tasks) .markdown-preview-view ul li[data-task="!"].task-list-item.is-checked,
+body:not(.tasks) li[data-task="!"].task-list-item.is-checked {
+	font-weight: 500;
+	color: var(--text-accent);
 }
 
 /* --- [?] Question ----------------------------------------------- */
@@ -1095,9 +1089,9 @@ li[data-task="?"] > p > input:checked::after {
   background-color: var(--interactive-accent);
 }
 body:not(.tasks) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task]:is([data-task="?"]),
-body:not(.tasks) .markdown-preview-view ul li[data-task="-"].task-list-item.is-checked,
-body:not(.tasks) li[data-task="-"].task-list-item.is-checked {
-  font-style: italic;
+body:not(.tasks) .markdown-preview-view ul li[data-task="?"].task-list-item.is-checked,
+body:not(.tasks) li[data-task="?"].task-list-item.is-checked {
+	font-style: italic;
 }
 
 /* --- [i] Info --------------------------------------------------- */
@@ -1136,16 +1130,16 @@ input[data-task="b"]:checked::after,
 li[data-task="b"] > input:checked::after,
 li[data-task="b"] > p > input:checked::after {
 	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-bug-icon lucide-bug'%3E%3Cpath d='M12 20v-9'/%3E%3Cpath d='M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z'/%3E%3Cpath d='M14.12 3.88 16 2'/%3E%3Cpath d='M21 21a4 4 0 0 0-3.81-4'/%3E%3Cpath d='M21 5a4 4 0 0 1-3.55 3.97'/%3E%3Cpath d='M22 13h-4'/%3E%3Cpath d='M3 21a4 4 0 0 1 3.81-4'/%3E%3Cpath d='M3 5a4 4 0 0 0 3.55 3.97'/%3E%3Cpath d='M6 13H2'/%3E%3Cpath d='m8 2 1.88 1.88'/%3E%3Cpath d='M9 7.13V6a3 3 0 1 1 6 0v1.13'/%3E%3C/svg%3E");
-		background-color: rgb(225,0,0, 80%);
+		background-color: rgb(225 0 0 / 80%);
 }
 
 body:not(.tasks) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task]:is([data-task="b"]),
-body:not(.tasks) .markdown-preview-view ul li[data-task="-"].task-list-item.is-checked,
-body:not(.tasks) li[data-task="-"].task-list-item.is-checked {
-  font-size: 0.9em;
-  font-family: var(--font-monospace);
-  background-color: var(--code-background);
-  color: var(--code-normal);
+body:not(.tasks) .markdown-preview-view ul li[data-task="b"].task-list-item.is-checked,
+body:not(.tasks) li[data-task="b"].task-list-item.is-checked {
+	font-size: 0.9em;
+	font-family: var(--font-monospace);
+	background-color: var(--code-background);
+	color: var(--code-normal);
 }
 
 /* --- [l] Location ----------------------------------------------- */
