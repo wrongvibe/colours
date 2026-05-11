@@ -7,31 +7,31 @@
 name: COLOURS
 id: colours-theme
 settings:
-    - id: colours-typography
-      title: Typography
-      type: heading
-      level: 2
-      collapsed: false
-
-    - id: font-heading-override
-      title: Heading Font
-      type: variable-text
-      default: ""
-      description: "Set font for headings. Use quotes for names with spaces. \n Default font: 'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif"
-
-    - id: disable-uppercase
-      title: Disable Uppercase
-      type: class-toggle
-      default: false
-
     - id: colours-colours
       title: Colours
       type: heading
-      level: 2
+      level: 1
       collapsed: false
+
+    - id: accent-override
+      title: Override System Accent
+      description: "When off (default), Obsidian's appearance-settings accent is used. Turn on to use the per-mode colours below."
+      type: class-toggle
+      level: 2
+      default: false
+
+    - id: accent-colour
+      title: Accent Colour
+      description: "Only applied when 'Override System Accent' is enabled above."
+      type: variable-themed-color
+      format: hex
+      opacity: false
+      default-light: '#0d0d73'
+      default-dark: '#0f0f3d'
 
     - id: heading-preset
       title: Heading Style
+      description: "Monochrome uses a low-saturation accent tint (default). 'A little bit colour' and 'Go Crazy' progressively increase chroma and hue variation across heading levels."
       type: class-select
       default: heading-monochrome
       options:
@@ -44,6 +44,7 @@ settings:
 
     - id: highlight-preset
       title: Highlight Style
+      description: "Colourful uses the accent complement hue (default). Other options reduce saturation or remove hue entirely."
       type: class-select
       default: highlight-default
       options:
@@ -56,21 +57,47 @@ settings:
         - label: Monochrome (Low contrast)
           value: highlight-monochrome-low
 
-    - id: accent-override
-      title: Override System Accent
-      description: "When off (default), Obsidian's appearance-settings accent is used. Turn on to use the per-mode colours below."
+    - id: colours-typography
+      title: Typography
+      type: heading
+      level: 2
+      collapsed: false
+
+    - id: font-heading-override
+      title: Heading Font
+      type: variable-text
+      default: ""
+      description: "Set font for headings. Use quotes for names with spaces. \n Default font: 'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif"
+
+    - id: heading-size-preset
+      title: Heading Sizes
+      type: class-select
+      default: heading-size-default
+      options:
+        - label: Default
+          value: heading-size-default
+        - label: Compact
+          value: heading-size-compact
+        - label: Large
+          value: heading-size-large
+
+    - id: line-height-style
+      title: Line Height
+      type: class-select
+      default: line-height-default
+      options:
+        - label: Default
+          value: line-height-default
+        - label: Relaxed
+          value: line-height-relaxed
+        - label: Compact
+          value: line-height-compact
+
+    - id: disable-uppercase
+      title: Disable Uppercase
       type: class-toggle
-      level: 3
       default: false
 
-    - id: accent-colour
-      title: Accent Colour
-      description: "Per-mode accent. Only applied when 'Override System Accent' is on."
-      type: variable-themed-color
-      format: hex
-      opacity: false
-      default-light: '#0d0d73'
-      default-dark: '#0f0f3d'
 
     - id: colours-layout
       title: Layout
@@ -97,6 +124,8 @@ settings:
           value: folder-default
         - label: Inverted Background
           value: folder-inverted
+        - label: Plain
+          value: folder-plain
 
     - id: internal-link-style
       title: Internal Link Decoration
@@ -107,6 +136,8 @@ settings:
           value: link-wavy
         - label: Underline
           value: link-underline
+        - label: None
+          value: link-none
 
     - id: auto-hide-scrollbar
       title: Auto-hide Scrollbar
@@ -281,6 +312,20 @@ body.heading-colourful {
 	--h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.80);
 	--h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
 }
+
+/* --- Heading size presets --------------------------------------- */
+body.heading-size-compact {
+	--h1-size: 1.8em; --h2-size: 1.5em; --h3-size: 1.3em;
+	--h4-size: 1.15em; --h5-size: 1.05em; --h6-size: 1em;
+}
+body.heading-size-large {
+	--h1-size: 3em; --h2-size: 2.5em; --h3-size: 2em;
+	--h4-size: 1.6em; --h5-size: 1.3em; --h6-size: 1.15em;
+}
+
+/* --- Line height presets ---------------------------------------- */
+body.line-height-relaxed { --line-height-normal: 1.8; }
+body.line-height-compact  { --line-height-normal: 1.4; }
 
 /* --- Tab header cleanup (from template) ------------------------- */
 .workspace-tab-header.is-active::before,
@@ -596,6 +641,12 @@ body.folder-inverted .nav-folder-title-content {
   text-decoration: none;
   background-color: var(--text-muted);
   color: var(--background-primary);
+}
+/* --- Plain preset ----------------------------------------------- */
+body.folder-plain .nav-folder-title-content {
+  background-color: transparent;
+  font-weight: inherit;
+  font-size: inherit;
 }
 
 /* --- Outline Panel Headings ------------------------------------- */
@@ -1423,6 +1474,7 @@ mark, .cm-highlight {
 /* Style Settings: internal link decoration style */
 body.link-wavy      { --internal-link-decoration-style: wavy; }
 body.link-underline { --internal-link-decoration-style: solid; }
+body.link-none      { --internal-link-decoration-style: none; --link-decoration: none; }
 
 /* --- Editing View + Reading Mode: resolved links --- */
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link,
