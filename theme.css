@@ -42,6 +42,12 @@ settings:
         - label: Go Crazy
           value: heading-colourful
 
+    - id: checkbox-coloured
+      title: Coloured Alternate Checkboxes
+      description: "Apply the Go Crazy hue palette to alternate checkbox backgrounds, independent of the Heading Style setting."
+      type: class-toggle
+      default: false
+
     - id: highlight-preset
       title: Highlight Style
       description: "Colourful uses the accent complement hue (default). Other options reduce saturation or remove hue entirely."
@@ -98,6 +104,15 @@ settings:
       type: class-toggle
       default: false
 
+    - id: font-brightness
+      title: Font Brightness
+      description: "Scales text opacity. Lower values give a softer, more muted look."
+      type: variable-number-slider
+      default: 1
+      min: 0.5
+      max: 1
+      step: 0.05
+
     - id: colours-layout
       title: Layout
       type: heading
@@ -144,11 +159,15 @@ settings:
       type: class-toggle
       default: false
 
-    - id: colours-bases
-      title: Bases
-      type: heading
-      level: 2
-      collapsed: false
+    - id: readable-line-width
+      title: Readable Line Width
+      description: "Custom line width when Readable line length is on in Obsidian settings."
+      type: variable-number-slider
+      default: 700
+      min: 400
+      max: 1400
+      step: 10
+      format: px
 
     - id: bases-embed-width-override
       title: Base Embed Width Multiplier
@@ -199,6 +218,9 @@ body {
 
 	--divider-color-hover: var(--text-highlight-bg);
 	--divider-width: 1px;
+
+	--font-brightness: 1;
+	--readable-line-width: 700px;
 
 	/* Heading sizes */
 	--h1-size: 2.5em;
@@ -310,6 +332,20 @@ body.heading-colourful {
 	--h4-color: oklch(from var(--analogous-4) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.85);
 	--h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.80);
 	--h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
+}
+
+/* --- Coloured Checkboxes (Style Settings) — mirrors heading-colourful palette */
+.theme-light.checkbox-coloured {
+	--cb-h2-color: oklch(from var(--triadic-2)   clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.95);
+	--cb-h3-color: oklch(from var(--triadic)     clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.90);
+	--cb-h5-color: oklch(from var(--analogous-2) clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.80);
+	--cb-h6-color: oklch(from var(--analogous-3) clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.75);
+}
+.theme-dark.checkbox-coloured {
+	--cb-h2-color: oklch(from var(--triadic-2)   clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.95);
+	--cb-h3-color: oklch(from var(--triadic)     clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.90);
+	--cb-h5-color: oklch(from var(--analogous-2) clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.80);
+	--cb-h6-color: oklch(from var(--analogous-3) clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.75);
 }
 
 /* --- Heading size presets --------------------------------------- */
@@ -433,9 +469,9 @@ svg * {
 
 	/* --- Text colours ----------------------------------------------- */
 
-	--text-normal:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h / 0.95);
-	--text-muted:        oklch(from var(--color-accent) clamp(0.25, var(--dynamic-switch), 0.90) calc(c * 0.3) h / 0.9);
-	--text-faint:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.3) h / 0.75);
+	--text-normal:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h / calc(0.95 * var(--font-brightness)));
+	--text-muted:        oklch(from var(--color-accent) clamp(0.25, var(--dynamic-switch), 0.90) calc(c * 0.3) h / calc(0.9  * var(--font-brightness)));
+	--text-faint:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.3) h / calc(0.75 * var(--font-brightness)));
 	--text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h);
 	--text-on-accent:    oklch(from var(--color-accent) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-accent-hover: oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
@@ -525,9 +561,9 @@ svg * {
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.8) calc(c * 0.5) h);
 
 	/* --- Text colours ----------------------------------------------- */
-	--text-normal:       oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / 0.9);
-	--text-muted:        oklch(from var(--background-primary) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h / 0.8);
-	--text-faint:        oklch(from var(--background-primary) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h / 0.7);
+	--text-normal:       oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / calc(0.9  * var(--font-brightness)));
+	--text-muted:        oklch(from var(--background-primary) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h / calc(0.8  * var(--font-brightness)));
+	--text-faint:        oklch(from var(--background-primary) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h / calc(0.7  * var(--font-brightness)));
 	--text-accent:       oklch(from var(--background-primary) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-on-accent:    oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.85) calc(c * 0.1) h);
 	--text-accent-hover: oklch(from var(--background-primary) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
@@ -710,6 +746,14 @@ body.folder-plain .nav-folder-title-content {
 .markdown-reading-view h6 {
 	font-family: var(--font-heading) !important;
 }
+
+/* --- Header Weight (decreasing h1 → h6) ------------------------- */
+.cm-header-1, .markdown-reading-view h1 { font-weight: 700; }
+.cm-header-2, .markdown-reading-view h2 { font-weight: 600; }
+.cm-header-3, .markdown-reading-view h3 { font-weight: 500; }
+.cm-header-4, .markdown-reading-view h4 { font-weight: 400; }
+.cm-header-5, .markdown-reading-view h5 { font-weight: 400; }
+.cm-header-6, .markdown-reading-view h6 { font-weight: 300; }
 
 /* --- Date icon -------------------------------------------------- */
 input[type="date"]::-webkit-calendar-picker-indicator,
@@ -1080,7 +1124,7 @@ body:not(.tasks) li[data-task="!"].task-list-item.is-checked {
 input[data-task="?"]:checked,
 li[data-task="?"] > input:checked,
 li[data-task="?"] > p > input:checked {
-	background-color: var(--h6-color);
+	background-color: var(--cb-h6-color, var(--h6-color));
 }
 input[data-task="?"]:checked::after,
 li[data-task="?"] > input:checked::after,
@@ -1098,7 +1142,7 @@ body:not(.tasks) li[data-task="?"].task-list-item.is-checked {
 input[data-task="i"]:checked,
 li[data-task="i"] > input:checked,
 li[data-task="i"] > p > input:checked {
-	background-color: var(--h5-color);
+	background-color: var(--cb-h5-color, var(--h5-color));
 }
 input[data-task="i"]:checked::after,
 li[data-task="i"] > input:checked::after,
@@ -1152,7 +1196,7 @@ input[data-task="l"]:checked::after,
 li[data-task="l"] > input:checked::after,
 li[data-task="l"] > p > input:checked::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z' clip-rule='evenodd' /%3E%3C/svg%3E");
-	background-color: var(--h5-color);
+	background-color: var(--cb-h5-color, var(--h5-color));
 }
 
 /* --- [k] Key ---------------------------------------------------- */
@@ -1165,14 +1209,14 @@ input[data-task="k"]:checked::after,
 li[data-task="k"] > input:checked::after,
 li[data-task="k"] > p > input:checked::after {
 	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath fill='none' d='M12.4 2.7a2.5 2.5 0 0 1 3.4 0l5.5 5.5a2.5 2.5 0 0 1 0 3.4l-3.7 3.7a2.5 2.5 0 0 1-3.4 0L8.7 9.8a2.5 2.5 0 0 1 0-3.4z'/%3E%3Cpath stroke='none' fill-rule='evenodd' d='M12.4 2.7a2.5 2.5 0 0 1 3.4 0l5.5 5.5a2.5 2.5 0 0 1 0 3.4l-3.7 3.7a2.5 2.5 0 0 1-3.4 0L8.7 9.8a2.5 2.5 0 0 1 0-3.4z M13.3 7.7 L14.7 6.3 L17.7 9.3 L16.3 10.7 z'/%3E%3Cpath fill='none' d='m9.4 10.6-6.814 6.814A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814'/%3E%3C/svg%3E");
-	background-color: var(--h5-color);
+	background-color: var(--cb-h5-color, var(--h5-color));
 }
 
 /* --- [u] Up ----------------------------------------------------- */
 input[data-task="u"]:checked,
 li[data-task="u"] > input:checked,
 li[data-task="u"] > p > input:checked {
-	background-color: var(--h2-color);
+	background-color: var(--cb-h2-color, var(--h2-color));
 }
 input[data-task="u"]:checked::after,
 li[data-task="u"] > input:checked::after,
@@ -1184,7 +1228,7 @@ li[data-task="u"] > p > input:checked::after {
 input[data-task="d"]:checked,
 li[data-task="d"] > input:checked,
 li[data-task="d"] > p > input:checked {
-	background-color: var(--h3-color);
+	background-color: var(--cb-h3-color, var(--h3-color));
 }
 input[data-task="d"]:checked::after,
 li[data-task="d"] > input:checked::after,
@@ -1196,7 +1240,7 @@ li[data-task="d"] > p > input:checked::after {
 input[data-task="p"]:checked,
 li[data-task="p"] > input:checked,
 li[data-task="p"] > p > input:checked {
-	background-color: var(--h2-color);
+	background-color: var(--cb-h2-color, var(--h2-color));
 }
 input[data-task="p"]:checked::after,
 li[data-task="p"] > input:checked::after,
@@ -1208,7 +1252,7 @@ li[data-task="p"] > p > input:checked::after {
 input[data-task="c"]:checked,
 li[data-task="c"] > input:checked,
 li[data-task="c"] > p > input:checked {
-	background-color: var(--h3-color);
+	background-color: var(--cb-h3-color, var(--h3-color));
 }
 input[data-task="c"]:checked::after,
 li[data-task="c"] > input:checked::after,
@@ -1530,6 +1574,12 @@ tr:hover td {
 /* --- Table Presets (Style Settings) ----------------------------- */
 body.table-alternate-rows tr:nth-child(even) td {
 	background: oklch(from var(--cursor-line-color) l c h / 0.2);
+}
+
+/* --- Readable Line Width (Style Settings) ----------------------- */
+.is-readable-line-width .markdown-preview-view .markdown-preview-sizer,
+.is-readable-line-width .cm-sizer {
+	--file-line-width: var(--readable-line-width);
 }
 
 /* =============================================
