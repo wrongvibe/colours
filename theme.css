@@ -179,7 +179,7 @@ settings:
       title: Base Embed Width Multiplier
       description: "Controls how wide embedded Bases are relative to the readable line width. 1 = same width, 5 = 5× wider."
       type: variable-number-slider
-      default: 1.5
+      default: 1
       min: 1
       max: 5
       step: 0.1
@@ -194,14 +194,14 @@ body {
 	--font-heading:   var(--font-heading-override,    'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif);
 
 	/* Hue shift */
-	--triadic-2:   oklch(from var(--background-primary) l c calc(h + 240));
+	--hue-4:			 oklch(from var(--background-primary) l c calc(h + 240));
 	--complement:  oklch(from var(--background-primary) l c calc(h + 180));
 	--split-comp:  oklch(from var(--background-primary) l c calc(h + 150));
 	--triadic:     oklch(from var(--background-primary) l c calc(h + 120));
-	--analogous-4: oklch(from var(--background-primary) l c calc(h + 90));
+	--hue-3: 			 oklch(from var(--background-primary) l c calc(h + 90));
 	--analogous:   oklch(from var(--background-primary) l c calc(h + 30));
-	--analogous-2: oklch(from var(--background-primary) l c calc(h + 10));
-	--analogous-3: oklch(from var(--background-primary) l c calc(h - 20));
+	--hue-2: 			 oklch(from var(--background-primary) l c calc(h + 10));
+	--hue-1: 			 oklch(from var(--background-primary) l c calc(h - 20));
 
 	/* Theme default accent */
 	--accent-h: 240;
@@ -263,7 +263,6 @@ body {
 	--nn-theme-calendar-day-active-border-color: var(--cursor-line-color);
 	--nn-theme-calendar-day-today-bg: var(--text-highlight-bg);	
 	--nn-theme-calendar-day-today-color: var(--text-highlight);
-
 	--nn-theme-mobile-toolbar-button-active-icon-color: var(--background-primary);
 	--nn-theme-divider-resize-handle-hover-bg: var(--text-highlight-bg);
 }
@@ -333,25 +332,25 @@ body.heading-colour {
 }
 body.heading-colourful {
 	--h1-color: oklch(from var(--complement)  clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 1.00);
-	--h2-color: oklch(from var(--triadic-2)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.95);
+	--h2-color: oklch(from var(--hue-4)   clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.95);
 	--h3-color: oklch(from var(--triadic)     clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.90);
-	--h4-color: oklch(from var(--analogous-4) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.85);
-	--h5-color: oklch(from var(--analogous-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.80);
-	--h6-color: oklch(from var(--analogous-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
+	--h4-color: oklch(from var(--hue-3) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.85);
+	--h5-color: oklch(from var(--hue-2) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.80);
+	--h6-color: oklch(from var(--hue-1) clamp(var(--h-l-min), var(--dynamic-switch) + var(--h-l), var(--h-l-max)) clamp(c, c * var(--h-c), var(--h-c-max)) h / 0.75);
 }
 
 /* --- Coloured Checkboxes (Style Settings) — mirrors heading-colourful palette */
 .theme-light.checkbox-coloured {
-	--cb-h2-color: oklch(from var(--triadic-2)   clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.95);
+	--cb-h2-color: oklch(from var(--hue-4)   clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.95);
 	--cb-h3-color: oklch(from var(--triadic)     clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.90);
-	--cb-h5-color: oklch(from var(--analogous-2) clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.80);
-	--cb-h6-color: oklch(from var(--analogous-3) clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.75);
+	--cb-h5-color: oklch(from var(--hue-2) clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.80);
+	--cb-h6-color: oklch(from var(--hue-1) clamp(0.45, var(--dynamic-switch) + 0.2, 0.7) clamp(c, c * 1.2, 0.3) h / 0.75);
 }
 .theme-dark.checkbox-coloured {
-	--cb-h2-color: oklch(from var(--triadic-2)   clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.95);
+	--cb-h2-color: oklch(from var(--hue-4)   clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.95);
 	--cb-h3-color: oklch(from var(--triadic)     clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.90);
-	--cb-h5-color: oklch(from var(--analogous-2) clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.80);
-	--cb-h6-color: oklch(from var(--analogous-3) clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.75);
+	--cb-h5-color: oklch(from var(--hue-2) clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.80);
+	--cb-h6-color: oklch(from var(--hue-1) clamp(0.40, var(--dynamic-switch), 0.7) clamp(c, c * 0.75, 0.3) h / 0.75);
 }
 
 /* --- Heading size presets --------------------------------------- */
@@ -441,7 +440,7 @@ svg * {
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* --- Cursor line bg colour -------------------------------------- */
-	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.2, l * 0.8, 0.8) c h / 0.5);
+	--cursor-line-color: oklch(from var(--hue-2) clamp(0.2, l * 0.8, 0.8) c h / 0.5);
 
 	/* --- Code blocks: step function --------------------------------- */
 	--code-bg-bias:      0;
@@ -475,7 +474,7 @@ svg * {
 
 	/* --- Text colours ----------------------------------------------- */
 
-	--text-normal:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h / calc(0.95 * var(--font-brightness)));
+	--text-normal:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h / calc(1 * var(--font-brightness)));
 	--text-muted:        oklch(from var(--color-accent) clamp(0.25, var(--dynamic-switch), 0.90) calc(c * 0.3) h / calc(0.9  * var(--font-brightness)));
 	--text-faint:        oklch(from var(--color-accent) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.3) h / calc(0.75 * var(--font-brightness)));
 	--text-accent:       oklch(from var(--color-accent) clamp(0.10, var(--dynamic-switch), 0.95) calc(c * 0.1) h);
@@ -552,7 +551,7 @@ svg * {
 	--workspace-background-translucent-nn: oklch(from var(--workspace-background-translucent) l c h / 0);
 
 	/* Cursor line colour */
-	--cursor-line-color: oklch(from var(--analogous-2) clamp(0.3, l * 1.2, 0.5) c h / 0.5);
+	--cursor-line-color: oklch(from var(--hue-2) clamp(0.3, l * 1.2, 0.5) c h / 0.5);
 
 	/* --- Code blocks: always dark ----------------------------------- */
 	--code-bg-bias:      0;
@@ -567,9 +566,9 @@ svg * {
 	--code-comment: oklch(from var(--code-background) clamp(0.45, calc(1 - l), 0.8) calc(c * 0.5) h);
 
 	/* --- Text colours ----------------------------------------------- */
-	--text-normal:       oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / calc(0.9  * var(--font-brightness)));
-	--text-muted:        oklch(from var(--background-primary) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h / calc(0.8  * var(--font-brightness)));
-	--text-faint:        oklch(from var(--background-primary) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h / calc(0.7  * var(--font-brightness)));
+	--text-normal:       oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.90) calc(c * 0.1) h / calc(1   * var(--font-brightness)));
+	--text-muted:        oklch(from var(--background-primary) clamp(0.30, var(--dynamic-switch), 0.80) calc(c * 0.5) h / calc(0.8 * var(--font-brightness)));
+	--text-faint:        oklch(from var(--background-primary) clamp(0.40, var(--dynamic-switch), 0.70) calc(c * 0.5) h / calc(0.7 * var(--font-brightness)));
 	--text-accent:       oklch(from var(--background-primary) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
 	--text-on-accent:    oklch(from var(--background-primary) clamp(0.20, var(--dynamic-switch), 0.85) calc(c * 0.1) h);
 	--text-accent-hover: oklch(from var(--background-primary) clamp(0.10, var(--dynamic-switch), 0.90) calc(c * 0.1) h);
@@ -1274,6 +1273,23 @@ li[data-task="c"] > p > input:checked::after {
 	background: var(--background-secondary-alt);
 	padding: 0.5rem 1rem;
 	margin:  1rem 0;
+	font-style: var(--blockquote-font-style);
+}
+.markdown-rendered blockquote cite {
+	display: block;
+	text-align: right;
+	font-style: normal;
+	margin-block-end: 0;
+}
+.markdown-rendered blockquote cite + p:empty,
+.markdown-rendered blockquote cite + br {
+	display: none;
+}
+.is-live-preview .cm-line:has(cite) {
+	text-align: right;
+}
+.is-live-preview .cm-line:has(cite) cite {
+	font-style: normal;
 }
 /* --- Live Preview — quote lines --------------------------------- */
 .cm-line.HyperMD-quote {
@@ -1603,7 +1619,7 @@ body.table-alternate-rows tr:nth-child(even) td {
    ============================================= */
 
 body {
-	--bases-embed-width-override: 1.5;
+	--bases-embed-width-override: 1;
 }
 
 .markdown-source-view.mod-cm6.is-readable-line-width .cm-content > .bases-embed,
