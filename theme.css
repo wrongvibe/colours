@@ -70,7 +70,7 @@ settings:
       format: hex
       opacity: false
       default-light: '#0d0d73'
-      default-dark: '#0d0d73'
+      default-dark: '#0f0f3d'
 
     - id: colours-layout
       title: Layout
@@ -518,7 +518,7 @@ svg * {
 	--color-accent: var(--accent-colour, #0d0d73);
 }
 .theme-dark.accent-override {
-	--color-accent: var(--accent-colour, #0d0d73);
+	--color-accent: var(--accent-colour, #0f0f3d);
 	/* Skip the dim-down formula — use the picked colour as-is. */
 	--background-primary: oklch(from var(--color-accent) l c h);
 }
@@ -813,6 +813,146 @@ li[data-task="d"] > p > input:checked::after {
 	-webkit-mask-repeat: no-repeat;
 	pointer-events: none;
 	border: none;
+}
+
+/* --- Hover overrides for alternate checkboxes ------------------- */
+
+/* Group 2 alternates: block the base hover rule's border — these have border:none
+   at rest, so adding a border on hover shifts the ::after. Box-bg types get an
+   inset box-shadow instead for the visible ring. */
+input[data-task="-"]:checked:hover,
+input[data-task="!"]:checked:hover,
+input[data-task="?"]:checked:hover,
+input[data-task="i"]:checked:hover,
+input[data-task="*"]:checked:hover,
+input[data-task="b"]:checked:hover,
+input[data-task="l"]:checked:hover,
+input[data-task="k"]:checked:hover,
+input[data-task="u"]:checked:hover,
+input[data-task="d"]:checked:hover,
+input[data-task="p"]:checked:hover,
+input[data-task="c"]:checked:hover,
+li[data-task="-"] > input:checked:hover,
+li[data-task="!"] > input:checked:hover,
+li[data-task="?"] > input:checked:hover,
+li[data-task="i"] > input:checked:hover,
+li[data-task="*"] > input:checked:hover,
+li[data-task="b"] > input:checked:hover,
+li[data-task="l"] > input:checked:hover,
+li[data-task="k"] > input:checked:hover,
+li[data-task="u"] > input:checked:hover,
+li[data-task="d"] > input:checked:hover,
+li[data-task="p"] > input:checked:hover,
+li[data-task="c"] > input:checked:hover,
+li[data-task="-"] > p > input:checked:hover,
+li[data-task="!"] > p > input:checked:hover,
+li[data-task="?"] > p > input:checked:hover,
+li[data-task="i"] > p > input:checked:hover,
+li[data-task="*"] > p > input:checked:hover,
+li[data-task="b"] > p > input:checked:hover,
+li[data-task="l"] > p > input:checked:hover,
+li[data-task="k"] > p > input:checked:hover,
+li[data-task="u"] > p > input:checked:hover,
+li[data-task="d"] > p > input:checked:hover,
+li[data-task="p"] > p > input:checked:hover,
+li[data-task="c"] > p > input:checked:hover {
+	border: none;
+}
+
+/* Box-bg alternates: ring via inset shadow (no layout shift) */
+input[data-task=">"]:checked:hover,
+input[data-task="<"]:checked:hover,
+input[data-task="-"]:checked:hover,
+input[data-task="!"]:checked:hover,
+input[data-task="?"]:checked:hover,
+input[data-task="i"]:checked:hover,
+input[data-task="u"]:checked:hover,
+input[data-task="d"]:checked:hover,
+input[data-task="p"]:checked:hover,
+input[data-task="c"]:checked:hover,
+li[data-task=">"] > input:checked:hover,
+li[data-task="<"] > input:checked:hover,
+li[data-task="-"] > input:checked:hover,
+li[data-task="!"] > input:checked:hover,
+li[data-task="?"] > input:checked:hover,
+li[data-task="i"] > input:checked:hover,
+li[data-task="u"] > input:checked:hover,
+li[data-task="d"] > input:checked:hover,
+li[data-task="p"] > input:checked:hover,
+li[data-task="c"] > input:checked:hover,
+li[data-task=">"] > p > input:checked:hover,
+li[data-task="<"] > p > input:checked:hover,
+li[data-task="-"] > p > input:checked:hover,
+li[data-task="!"] > p > input:checked:hover,
+li[data-task="?"] > p > input:checked:hover,
+li[data-task="i"] > p > input:checked:hover,
+li[data-task="u"] > p > input:checked:hover,
+li[data-task="d"] > p > input:checked:hover,
+li[data-task="p"] > p > input:checked:hover,
+li[data-task="c"] > p > input:checked:hover {
+	box-shadow: inset 0 0 0 1px var(--checkbox-border-color-hover);
+}
+
+/* Icon-only (*, b, l, k): suppress bg — only icon color changes */
+input[data-task="*"]:checked:hover,
+input[data-task="b"]:checked:hover,
+input[data-task="l"]:checked:hover,
+input[data-task="k"]:checked:hover,
+li[data-task="*"] > input:checked:hover,
+li[data-task="b"] > input:checked:hover,
+li[data-task="l"] > input:checked:hover,
+li[data-task="k"] > input:checked:hover,
+li[data-task="*"] > p > input:checked:hover,
+li[data-task="b"] > p > input:checked:hover,
+li[data-task="l"] > p > input:checked:hover,
+li[data-task="k"] > p > input:checked:hover {
+	background-color: transparent;
+}
+
+/* All SVG alternates: icon flips to --text-normal on hover */
+input[data-task=">"]:checked:hover::after,
+input[data-task="<"]:checked:hover::after,
+input[data-task="-"]:checked:hover::after,
+input[data-task="!"]:checked:hover::after,
+input[data-task="?"]:checked:hover::after,
+input[data-task="i"]:checked:hover::after,
+input[data-task="*"]:checked:hover::after,
+input[data-task="b"]:checked:hover::after,
+input[data-task="l"]:checked:hover::after,
+input[data-task="k"]:checked:hover::after,
+input[data-task="u"]:checked:hover::after,
+input[data-task="d"]:checked:hover::after,
+input[data-task="p"]:checked:hover::after,
+input[data-task="c"]:checked:hover::after,
+li[data-task=">"] > input:checked:hover::after,
+li[data-task="<"] > input:checked:hover::after,
+li[data-task="-"] > input:checked:hover::after,
+li[data-task="!"] > input:checked:hover::after,
+li[data-task="?"] > input:checked:hover::after,
+li[data-task="i"] > input:checked:hover::after,
+li[data-task="*"] > input:checked:hover::after,
+li[data-task="b"] > input:checked:hover::after,
+li[data-task="l"] > input:checked:hover::after,
+li[data-task="k"] > input:checked:hover::after,
+li[data-task="u"] > input:checked:hover::after,
+li[data-task="d"] > input:checked:hover::after,
+li[data-task="p"] > input:checked:hover::after,
+li[data-task="c"] > input:checked:hover::after,
+li[data-task=">"] > p > input:checked:hover::after,
+li[data-task="<"] > p > input:checked:hover::after,
+li[data-task="-"] > p > input:checked:hover::after,
+li[data-task="!"] > p > input:checked:hover::after,
+li[data-task="?"] > p > input:checked:hover::after,
+li[data-task="i"] > p > input:checked:hover::after,
+li[data-task="*"] > p > input:checked:hover::after,
+li[data-task="b"] > p > input:checked:hover::after,
+li[data-task="l"] > p > input:checked:hover::after,
+li[data-task="k"] > p > input:checked:hover::after,
+li[data-task="u"] > p > input:checked:hover::after,
+li[data-task="d"] > p > input:checked:hover::after,
+li[data-task="p"] > p > input:checked:hover::after,
+li[data-task="c"] > p > input:checked:hover::after {
+	background-color: var(--text-normal);
 }
 
 /* --- [/] Incomplete --------------------------------------------- */
