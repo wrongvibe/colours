@@ -1,176 +1,189 @@
 # COLOURS
 
-A minimal, monospace, accent-tinted Obsidian theme that derives its entire palette from your single chosen accent color.
+A minimal, monospace, accent-tinted Obsidian theme. The entire colour palette — backgrounds, text, headings, highlights, borders — is derived mathematically from your single chosen accent colour using CSS `oklch()` relative colour syntax.
 
 ## Features
 
-- **Dynamic palette** — Every color is derived from `--color-accent` using `oklch()` relative color syntax
-- **Auto-contrast** — Text automatically switches between light and dark based on your accent color's lightness
-- **Sharp edges** — Zero border radius everywhere for a crisp, technical feel
+- **Single-accent palette** — Every colour derived from `--color-accent` via `oklch()`; change one colour, everything updates
+- **Auto-contrast** — Text automatically flips light/dark based on your accent's lightness
+- **Sharp edges** — Zero border radius throughout for a crisp, technical feel
 - **Monospace-first** — IBM Plex Mono preferred, with system monospace fallbacks
-- **Full dark mode** — Complete dark palette with inverted backgrounds and fixed dark code blocks
-- **Light & dark stress-tested** — Works with extreme accent colors (white, black, gold, pure red)
-- **Style Settings support** — Customise highlight, heading, table, folder, uppercase, and heading font styles via the Style Settings plugin
-- **Smart folder styling** — File explorer folders with optional inverted background treatment
-- **Canvas support** — Themed node borders, edges, arrows, and controls
-- **Notebook Navigator** — Calendar and list pane theming support
-- **Respects official font settings** — Obsidian's built-in font picker overrides the theme when set
+- **Full dark mode** — Complete palette override with inverted backgrounds and fixed dark code blocks
+- **Stress-tested** — Works with extreme accent colours: white, black, gold, pure red
+- **Style Settings** — Typography, colour, layout, and Bases options via the Style Settings plugin
+- **Custom task checkboxes** — Styled alternates for `[*]`, `[!]`, `[?]`, `[i]`, `[>]`, `[<]`, `[-]`, `[b]`, `[l]`, `[k]`, `[u]`, `[d]`, `[p]`, `[c]`
+- **Canvas** — Themed node borders, edges, arrows, and controls
+- **Notebook Navigator** — Calendar and list pane theming
+- **Respects Obsidian font settings** — Interface/Text/Monospace font pickers override the theme when set
 
 ## Requirements
 
-- Obsidian **1.5.0+** (required for `oklch(from ...)` relative color syntax)
+Obsidian **1.5.0+** (required for `oklch(from …)` relative colour syntax — ships with a modern Chromium base).
 
 ## Installation
 
-### From Obsidian Community Themes (when published)
+### Community Themes (when published)
 
-1. Open **Settings → Appearance → Themes**
-2. Click **Browse**
-3. Search for **COLOURS**
-4. Click **Install**
+1. **Settings → Appearance → Themes → Browse**
+2. Search **COLOURS** → Install
 
-### Manual Installation
+### Manual
 
 1. Download `theme.css` and `manifest.json`
-2. Create a folder `.obsidian/themes/COLOURS/` in your vault
-3. Place both files in that folder
-4. Open **Settings → Appearance → Themes** and select **COLOURS**
-
-## How It Works
-
-The theme uses CSS `oklch()` relative color syntax to mathematically derive every hue, saturation, and lightness value from your chosen accent color:
-
-- **Backgrounds** — Tinted with your accent hue, lightness varies by layer
-- **Text** — Auto-contrasts using `--dynamic-switch` (reads accent lightness)
-- **Headings** — Gradually fading opacity from H1 to H6
-- **Code blocks** — Step function flips between light/dark based on accent
-- **Highlights** — Complementary hue with guaranteed readable contrast
-
-### Color Relationships
-
-| Variable | Derivation |
-|----------|-----------|
-| `--complement` | Accent hue + 180° |
-| `--triadic` | Accent hue + 120° |
-| `--split-comp` | Accent hue + 150° |
-| `--analogous` | Accent hue + 30° |
-
-## Browser Preview Tool
-
-A standalone preview tool is included for rapid testing without opening Obsidian:
-
-1. Open `test/preview.html` in a modern browser
-2. Load `theme.css` via the file picker
-3. Try stress-test presets or pick any custom color
-4. Toggle between Light and Dark modes
-5. Inspect computed CSS variable values in real-time
-
-For the **Reload** button to work, serve the directory with a local server:
-```bash
-python3 -m http.server
-```
+2. Place both in `.obsidian/themes/COLOURS/` inside your vault
+3. **Settings → Appearance → Themes** → select **COLOURS**
 
 ## Style Settings
 
-Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to customise these theme options. All settings are organised into collapsible groups:
+Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options.
+
+---
+
+### Colours
+
+#### Override System Accent
+When off (default), Obsidian's built-in accent colour picker drives the theme.
+Turn **on** to use the per-mode colours below instead of the system accent.
+
+#### Accent Colour
+*(Only active when Override System Accent is on.)*
+Set separate accent colours for light and dark mode. Defaults: `#0d0d73` (light) / `#0f0f3d` (dark).
+
+#### Heading Style
+How `# H1` through `###### H6` are coloured:
+
+| Option | Description |
+|--------|-------------|
+| **Monochrome** *(default)* | Low-saturation accent tint — nearly grayscale |
+| **A little bit colour** | Slightly more chroma |
+| **Go Crazy** | Full chroma, different hue per heading level |
+
+#### Highlight Style
+How `==highlighted text==` appears:
+
+| Option | Description |
+|--------|-------------|
+| **Colourful** *(default)* | Complementary hue, full saturation |
+| **Subtle Colour** | Muted complementary tint |
+| **Monochrome (High contrast)** | Dark on light (or vice versa) |
+| **Monochrome (Low contrast)** | Subtle grey tones |
+
+---
 
 ### Typography
 
 #### Heading Font
-Set any custom font for headings using CSS `font-family` syntax.
+Set any font for headings using CSS `font-family` syntax.
 
 - **Default:** `'Overused Grotesk Roman', 'Helvetica Neue', 'Inter', sans-serif`
-- **Example:** `Georgia, serif` or `'Inter', sans-serif`
+- **Example:** `Georgia, serif` or `'Departure Mono', monospace`
 
-> Use quotes for font names containing spaces.
+Quote names that contain spaces.
+
+#### Heading Sizes
+Scale all heading sizes up or down:
+
+| Option | H1 → H6 range |
+|--------|---------------|
+| **Default** | 2.5em → 1.1em |
+| **Compact** | 1.8em → 1.0em |
+| **Large** | 3.0em → 1.15em |
+
+#### Line Height
+
+| Option | Value |
+|--------|-------|
+| **Default** | Obsidian default |
+| **Relaxed** | 1.8 |
+| **Compact** | 1.4 |
 
 #### Disable Uppercase
-Toggle off the theme's forced `text-transform: uppercase` on:
-- Note titles (`.inline-title`)
-- Buttons (modal, settings, ribbon, titlebar, view actions)
-- Table headers (`th`)
+Toggles off the theme's `text-transform: uppercase` on note titles, buttons, and table headers.
 
-#### Heading Style
-
-Choose how markdown headings (`# H1` through `###### H6`) are coloured:
-
-| Preset | Description |
-|--------|-------------|
-| **Monochrome** | Low-saturation accent tint — nearly grayscale |
-| **A little bit colour** | Slightly more saturation |
-| **Go Crazy** | Full chroma with different hues per heading level |
-
-### Colours
-
-#### Highlight Style
-
-Choose how `==highlighted text==` appears:
-
-| Preset | Description |
-|--------|-------------|
-| **Colourful** | Complementary hue with full saturation |
-| **Subtle Colour** | Muted complementary tint |
-| **Monochrome (High contrast)** | Dark text on light background (or vice versa) |
-| **Monochrome (Low contrast)** | Subtle gray tones |
+---
 
 ### Layout
 
 #### Table Style
 
-Choose table row styling:
-
-| Preset | Description |
+| Option | Description |
 |--------|-------------|
-| **Tinted header row** | Header row tinted with accent colour |
-| **Tinted alternate rows** | Every other data row gets a subtle accent tint |
+| **Tinted header row** *(default)* | Header row tinted with accent |
+| **Tinted alternate rows** | Zebra stripe on data rows |
 
 #### Folder Style
 
-Choose how folder names appear in the file explorer:
-
-| Preset | Description |
+| Option | Description |
 |--------|-------------|
-| **Light Background** | Subtle tinted background behind folder names |
+| **Light Background** *(default)* | Subtle accent tint behind folder names |
 | **Inverted Background** | High-contrast muted background with primary text colour |
+| **Plain** | No background — unstyled folder names |
+
+#### Internal Link Decoration
+
+| Option | Description |
+|--------|-------------|
+| **Wavy** *(default)* | Wavy underline on internal links |
+| **Underline** | Solid underline |
+| **None** | No decoration |
+
+#### Auto-hide Scrollbar
+Uses the OS overlay scrollbar — appears on hover/scroll, hidden otherwise. Replaces the theme's custom thin scrollbar.
+
+---
+
+### Bases
+
+#### Base Embed Width Multiplier
+Controls how wide embedded Bases (`![[Base.base]]`) are relative to the readable line width.
+- **Range:** 1× (same as line width) → 5× wider
+- **Default:** 1.5×
+
+Only has a visible effect when readable line length is enabled.
+
+---
 
 ## Fonts
 
 The theme respects Obsidian's official font settings:
 
-- **Interface font** — Obsidian Settings → Appearance → Interface font overrides the theme's IBM Plex Mono
-- **Text font** — Obsidian Settings → Appearance → Text font overrides the theme's IBM Plex Mono
-- **Monospace font** — Obsidian Settings → Appearance → Monospace font overrides the theme's IBM Plex Mono
-- **Heading font** — Controlled via Style Settings (Typography → Heading Font)
+| Obsidian setting | Overrides |
+|-----------------|-----------|
+| Interface font | Theme's IBM Plex Mono interface stack |
+| Text font | Theme's IBM Plex Mono text stack |
+| Monospace font | Theme's IBM Plex Mono monospace stack |
+| *(leave empty)* | Theme's font stack applies |
 
-If you leave Obsidian's font settings empty, the theme falls back to its monospace stack.
+Heading font is controlled separately via Style Settings → Typography → Heading Font.
 
-## File Structure
+## Browser Preview Tool
 
+A standalone preview is included for rapid testing without Obsidian:
+
+```bash
+python3 -m http.server   # serve from repo root
+# then open test/preview.html
 ```
-.obsidian/themes/COLOURS/
-├── theme.css              # Main stylesheet
-├── manifest.json          # Theme metadata
-├── README.md              # This file
-├── test/
-│   └── preview.html       # Browser preview tool
-└── versions.json          # Version compatibility map
-```
+
+- Load `theme.css` via the file picker (or use the Reload button with the local server)
+- Try stress-test presets: `#B51A00`, `#FFFFFF`, `#000000`, `#808080`, `#FFD700`, `#00008B`
+- Toggle Light / Dark mode
+- Inspect computed CSS variable values live
 
 ## Customisation
 
-All variables are CSS custom properties — override them in a snippet if needed:
+All colours are CSS custom properties. Override any variable in a snippet:
 
 ```css
 .theme-light, .theme-dark {
   --tag-size: 1em;
-  --code-bg-threshold: 0.8;
 }
 ```
 
 ## Contributing
 
-This theme is pure CSS. Edit `theme.css` directly — no build step required.
+Pure CSS — no build step. Edit `theme.css` directly.
 
 ## License
 
-[Your license here]
+MIT
