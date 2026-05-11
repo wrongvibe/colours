@@ -159,6 +159,12 @@ settings:
       type: class-toggle
       default: false
 
+    - id: no-cursor-line
+      title: Disable Cursor Line Highlight
+      description: "Remove the background tint on the active editor line."
+      type: class-toggle
+      default: false
+
     - id: readable-line-width
       title: Readable Line Width
       description: "Custom line width when Readable line length is on in Obsidian settings."
@@ -1479,6 +1485,16 @@ input[type="color"]::-webkit-color-swatch {
 .cm-active.cm-line.HyperMD-codeblock-begin,
 .cm-active.cm-line.HyperMD-codeblock-end {
   background: color-mix(in srgb, var(--cursor-line-color) 30%, var(--code-background)) !important;
+}
+
+/* --- Disable cursor line highlight (Style Settings) ------------- */
+body.no-cursor-line .cm-active.cm-line {
+	background: transparent !important;
+}
+body.no-cursor-line .cm-active.cm-line.HyperMD-codeblock,
+body.no-cursor-line .cm-active.cm-line.HyperMD-codeblock-begin,
+body.no-cursor-line .cm-active.cm-line.HyperMD-codeblock-end {
+	background: var(--code-background) !important;
 }
 
 /* --- Inline code ------------------------------------------------ */
