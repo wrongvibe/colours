@@ -1,10 +1,10 @@
 # COLOURS
 
-An accent colour oriented, minimal Obsidian theme. 
+Accent colour is the theme colour, a minimal Obsidian theme. 
 
-The entire colour palette is derived mathematically from single chosen accent colour. No longer restricted in theme's Light and Dark preset. More options in Style Setting.
+The entire colour palette is derived mathematically from single chosen accent colour. No longer restricted by theme's Light and Dark preset. More options in [Style Settings](#style-settings).
 
-An companion plugin [Folder Accents]() is available for changing accent colour when openning note in desinated folder.
+A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents) is available for changing accent colour when openning note in desinated folder.
 
 ## Features
 
@@ -34,14 +34,14 @@ Obsidian **1.5.0+** (required for `oklch(from …)` relative colour syntax — s
 ### Fonts
 The theme respects Obsidian's font settings, which will override theme setting.
 
-| Theme recommanded fonts |  |
+Title and Heading font can be customized via Style Settings → Typography → Heading Font.
+
+| Recommanded fonts | Theme default |
 |-----------------|-----------|
 | Interface font | [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono) |
 | Text font | IBM Plex Mono |
 | Monospace font | IBM Plex Mono |
 | Title and Heading | [Overused Grotesk](https://github.com/RandomMaerks/Overused-Grotesk) |
-
-Title and Heading font can be customized via Style Settings → Typography → Heading Font.
 
 You will need to install the fonts, they are not included in the theme.
 
@@ -67,6 +67,10 @@ How `# H1` through `###### H6` are coloured:
 | **Monochrome** *(default)* | Low-saturation accent tint — nearly grayscale |
 | **A little bit colour** | Slightly more chroma |
 | **Go Crazy** | Full chroma, different hue per heading level |
+
+#### Coloured Alternate Checkboxes
+*(Default: on)*
+Applies the Go Crazy hue palette to alternate checkbox backgrounds. Turn off to fall back to the Heading Style setting.
 
 #### Highlight Style
 How `==highlighted text==` appears:
@@ -107,8 +111,11 @@ Scale all heading sizes up or down:
 | **Relaxed** | 1.8 |
 | **Compact** | 1.4 |
 
-#### Disable Uppercase
-Toggles off the theme's `text-transform: uppercase` on note titles, buttons, and table headers.
+#### Enable Uppercase
+Applies `text-transform: uppercase` to the note title, table headers, and UI buttons (modals, settings, ribbon, view actions). Off by default.
+
+#### Font Brightness
+Scales text opacity. Lower values give a softer, more muted look. Range: 0–1, default: 1.
 
 ---
 
@@ -140,40 +147,24 @@ Toggles off the theme's `text-transform: uppercase` on note titles, buttons, and
 #### Auto-hide Scrollbar
 Uses the OS overlay scrollbar — appears on hover/scroll, hidden otherwise. Replaces the theme's custom thin scrollbar.
 
+#### Disable Cursor Line Highlight
+Removes the background tint on the active editor line.
+
+#### Hide Inline Title in Canvas
+Shows the inline note title in the editor but hides it inside Canvas cards.
+
+#### Readable Line Width
+Custom line width when Readable line length is on. Range: 400–1400px, default: 700px.
 
 #### Base Embed Width Multiplier
 Controls how wide embedded Bases (`![[Base.base]]`) are relative to the readable line width.
 - **Range:** 1× (same as line width) → 5× wider
-- **Default:** 1.5×
+- **Default:** 1×
 
 Only has a visible effect when readable line length is enabled.
 
 ---
 
-
-## Browser Preview Tool
-
-A standalone preview is included for rapid testing without Obsidian:
-
-```bash
-python3 -m http.server   # serve from repo root
-# then open test/preview.html
-```
-
-- Load `theme.css` via the file picker (or use the Reload button with the local server)
-- Try stress-test presets: `#B51A00`, `#FFFFFF`, `#000000`, `#808080`, `#FFD700`, `#00008B`
-- Toggle Light / Dark mode
-- Inspect computed CSS variable values live
-
-## Customisation
-
-All colours are CSS custom properties. Override any variable in a snippet:
-
-```css
-.theme-light, .theme-dark {
-  --tag-size: 1em;
-}
-```
 
 ## Contributing
 
@@ -181,4 +172,4 @@ Pure CSS — no build step. Edit `theme.css` directly.
 
 ## License
 
-CC SA 4
+CC BY-SA 4.0
