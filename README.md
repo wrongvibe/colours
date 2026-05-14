@@ -1,20 +1,16 @@
 # COLOURS
 
-A minimal, monospace, accent-tinted Obsidian theme. The entire colour palette — backgrounds, text, headings, highlights, borders — is derived mathematically from your single chosen accent colour using CSS `oklch()` relative colour syntax.
+An accent colour oriented, minimal Obsidian theme. 
+The entire colour palette is derived mathematically from single chosen accent colour. No longer restricted in theme's Light and Dark preset. More options in Style Setting.
+An companion plugin [Folder Accents]() is available for changing accent colour when openning note in desinated folder.
 
 ## Features
 
 - **Single-accent palette** — Every colour derived from `--color-accent` via `oklch()`; change one colour, everything updates
-- **Auto-contrast** — Text automatically flips light/dark based on your accent's lightness
-- **Sharp edges** — Zero border radius throughout for a crisp, technical feel
-- **Monospace-first** — IBM Plex Mono preferred, with system monospace fallbacks
-- **Full dark mode** — Complete palette override with inverted backgrounds and fixed dark code blocks
-- **Stress-tested** — Works with extreme accent colours: white, black, gold, pure red
-- **Style Settings** — Typography, colour, layout, and Bases options via the Style Settings plugin
-- **Custom task checkboxes** — Styled alternates for `[*]`, `[!]`, `[?]`, `[i]`, `[>]`, `[<]`, `[-]`, `[b]`, `[l]`, `[k]`, `[u]`, `[d]`, `[p]`, `[c]`
-- **Canvas** — Themed node borders, edges, arrows, and controls
-- **Notebook Navigator** — Calendar and list pane theming
-- **Respects Obsidian font settings** — Interface/Text/Monospace font pickers override the theme when set
+- **Auto contrast** — Text automatically flips light/dark based on your accent's lightness
+- **Auto Dark mode** — Dim palette from your chosen accent colour; Option to save preferred colour in Style Setting without this dim intervention.
+- **Style Settings** — Colour, typography,layout options via the Style Settings plugin
+- **Alternates task checkboxes** — extra styled checkboxes for `important`, `star`, `bug`, `key`, `location` etc
 
 ## Requirements
 
@@ -33,11 +29,23 @@ Obsidian **1.5.0+** (required for `oklch(from …)` relative colour syntax — s
 2. Place both in `.obsidian/themes/COLOURS/` inside your vault
 3. **Settings → Appearance → Themes** → select **COLOURS**
 
+### Fonts
+The theme respects Obsidian's font settings, which will override theme setting.
+
+| Theme recommanded fonts |  |
+|-----------------|-----------|
+| Interface font | [IBM Plex Mono]() |
+| Text font | IBM Plex Mono |
+| Monospace font | IBM Plex Mono |
+| Title and Heading | [Overused]() |
+
+Title and Heading font can be customized via Style Settings → Typography → Heading Font.
+
+You will need to install the fonts, they are not included in the theme.
+
 ## Style Settings
 
-Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options.
-
----
+Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options:
 
 ### Colours
 
@@ -130,9 +138,6 @@ Toggles off the theme's `text-transform: uppercase` on note titles, buttons, and
 #### Auto-hide Scrollbar
 Uses the OS overlay scrollbar — appears on hover/scroll, hidden otherwise. Replaces the theme's custom thin scrollbar.
 
----
-
-### Bases
 
 #### Base Embed Width Multiplier
 Controls how wide embedded Bases (`![[Base.base]]`) are relative to the readable line width.
@@ -143,18 +148,6 @@ Only has a visible effect when readable line length is enabled.
 
 ---
 
-## Fonts
-
-The theme respects Obsidian's official font settings:
-
-| Obsidian setting | Overrides |
-|-----------------|-----------|
-| Interface font | Theme's IBM Plex Mono interface stack |
-| Text font | Theme's IBM Plex Mono text stack |
-| Monospace font | Theme's IBM Plex Mono monospace stack |
-| *(leave empty)* | Theme's font stack applies |
-
-Heading font is controlled separately via Style Settings → Typography → Heading Font.
 
 ## Browser Preview Tool
 
@@ -186,4 +179,4 @@ Pure CSS — no build step. Edit `theme.css` directly.
 
 ## License
 
-MIT
+CC SA 4
