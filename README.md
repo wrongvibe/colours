@@ -1,7 +1,9 @@
 # COLOURS
 
 An accent colour oriented, minimal Obsidian theme. 
+
 The entire colour palette is derived mathematically from single chosen accent colour. No longer restricted in theme's Light and Dark preset. More options in Style Setting.
+
 An companion plugin [Folder Accents]() is available for changing accent colour when openning note in desinated folder.
 
 ## Features
@@ -34,10 +36,10 @@ The theme respects Obsidian's font settings, which will override theme setting.
 
 | Theme recommanded fonts |  |
 |-----------------|-----------|
-| Interface font | [IBM Plex Mono]() |
+| Interface font | [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono) |
 | Text font | IBM Plex Mono |
 | Monospace font | IBM Plex Mono |
-| Title and Heading | [Overused]() |
+| Title and Heading | [Overused Grotesk](https://github.com/RandomMaerks/Overused-Grotesk) |
 
 Title and Heading font can be customized via Style Settings → Typography → Heading Font.
 
@@ -45,7 +47,7 @@ You will need to install the fonts, they are not included in the theme.
 
 ## Style Settings
 
-Install the [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options:
+Install [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options:
 
 ### Colours
 
