@@ -1,18 +1,40 @@
 # COLOURS
 
-Accent colour is the theme colour, a minimal Obsidian theme. 
+Accent-driven colour. A minimal Obsidian theme.
+
+![accent colour picker demo](assets/COLOURS_picker.gif)
 
 The entire colour palette is derived mathematically from single chosen accent colour. No longer restricted by theme's Light and Dark preset. More options in [Style Settings](#style-settings).
 
-A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents) is available for changing accent colour when openning note in desinated folder.
+   <table border="0">
+    <tr>
+      <td><img src="assets/COLOURS_light.gif" width="100%"></td>
+      <td><img src="assets/COLOURS_dark.gif" width="100%"></td>
+      <td><img src="assets/COLOURS_greyscale.gif" width="100%"></td>
+    </tr>
+  </table>
+
+A companion plugin **[Folder Accents](https://github.com/wrongvibe/folder-accents)** is available for changing accent colour when opening note in designated folder.
+
+   <table border="0">
+    <tr>
+      <td><img src="assets/folder-accents.gif" width="100%"></td>
+      <td><img src="assets/folder-accents.png" width="100%"></td>
+    </tr>
+  </table>
 
 ## Features
 
 - **Single-accent palette** — Every colour derived from `--color-accent` via `oklch()`; change one colour, everything updates
 - **Auto contrast** — Text automatically flips light/dark based on your accent's lightness
-- **Auto Dark mode** — Dim palette from your chosen accent colour; Option to save preferred colour in Style Setting without this dim intervention.
-- **Style Settings** — Colour, typography,layout options via the Style Settings plugin
+- **Auto Dark mode** — Dim palette from your chosen accent colour; [Option to save preferred colour](#accent-colour) in Style Setting without this dim intervention.
+
+![mode switch demo](assets/COLOURS_light_dark_mode.gif)
+
+- **[Style Settings](#style-settings)** — Colour, typography, layout options via the Style Settings plugin
 - **Alternates task checkboxes** — extra styled checkboxes for `important`, `star`, `bug`, `key`, `location` etc
+
+<img src="assets/COLOURS_alt_cb.png" width="500">
 
 ## Requirements
 
@@ -20,7 +42,7 @@ Obsidian **1.5.0+** (required for `oklch(from …)` relative colour syntax — s
 
 ## Installation
 
-### Community Themes (when published)
+### Community Themes
 
 1. **Settings → Appearance → Themes → Browse**
 2. Search **COLOURS** → Install
@@ -36,8 +58,8 @@ The theme respects Obsidian's font settings, which will override theme setting.
 
 Title and Heading font can be customized via Style Settings → Typography → Heading Font.
 
-| Recommanded fonts | Theme default |
-|-----------------|-----------|
+| Area | Recommended fonts |
+|------|-------------------|
 | Interface font | [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono) |
 | Text font | IBM Plex Mono |
 | Monospace font | IBM Plex Mono |
@@ -46,6 +68,8 @@ Title and Heading font can be customized via Style Settings → Typography → H
 You will need to install the fonts, they are not included in the theme.
 
 ## Style Settings
+
+![styles demo](assets/COLOURS_styles.png)
 
 Install [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options:
 
@@ -56,8 +80,11 @@ When off (default), Obsidian's built-in accent colour picker drives the theme.
 Turn **on** to use the per-mode colours below instead of the system accent.
 
 #### Accent Colour
-*(Only active when Override System Accent is on.)*
+*(Only active when [Override System Accent](#override-system-accent) is on.)*
+
 Set separate accent colours for light and dark mode. Defaults: `#0d0d73` (light) / `#0f0f3d` (dark).
+
+<img src="assets/COLOURS_style_settings.png" width="800">
 
 #### Heading Style
 How `# H1` through `###### H6` are coloured:
@@ -115,7 +142,7 @@ Scale all heading sizes up or down:
 Applies `text-transform: uppercase` to the note title, table headers, and UI buttons (modals, settings, ribbon, view actions). Off by default.
 
 #### Font Brightness
-Scales text opacity. Lower values give a softer, more muted look. Range: 0–1, default: 1.
+Scales text opacity. Lower values give a softer, more muted look. Range: 0.5–1, default: 1.
 
 ---
 
@@ -165,6 +192,10 @@ Only has a visible effect when readable line length is enabled.
 
 ---
 
+## On phone
+
+<img src="assets/COLOURS_phone.gif" width="300">
+
 
 ## Contributing
 
@@ -172,4 +203,4 @@ Pure CSS — no build step. Edit `theme.css` directly.
 
 ## License
 
-CC BY-SA 4.0
+GPL-3.0

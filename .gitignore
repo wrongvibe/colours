@@ -13,3 +13,10 @@ node_modules
 
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store
+
+archive/
+
+# Dev/AI context files
+CLAUDE.md
+AGENTS.md
+.claude/
