@@ -142,7 +142,7 @@ Scale all heading sizes up or down:
 Applies `text-transform: uppercase` to the note title, table headers, and UI buttons (modals, settings, ribbon, view actions). Off by default.
 
 #### Font Brightness
-Scales text opacity. Lower values give a softer, more muted look. Range: 0–1, default: 1.
+Scales text opacity. Lower values give a softer, more muted look. Range: 0.5–1, default: 1.
 
 ---
 
@@ -194,7 +194,7 @@ Only has a visible effect when readable line length is enabled.
 
 ## On phone
 
-<img src="assets/COLOURS_phone.gif" width="500">
+<img src="assets/COLOURS_phone.gif" width="300">
 
 
 ## Contributing
