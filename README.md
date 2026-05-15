@@ -84,7 +84,7 @@ Turn **on** to use the per-mode colours below instead of the system accent.
 
 Set separate accent colours for light and dark mode. Defaults: `#0d0d73` (light) / `#0f0f3d` (dark).
 
-<img src="assets/COLOURS_style_settings.png" width="500">
+<img src="assets/COLOURS_style_settings.png" width="800">
 
 #### Heading Style
 How `# H1` through `###### H6` are coloured:
@@ -191,6 +191,10 @@ Controls how wide embedded Bases (`![[Base.base]]`) are relative to the readable
 Only has a visible effect when readable line length is enabled.
 
 ---
+
+## On phone
+
+<img src="assets/COLOURS_phone.gif" width="800">
 
 
 ## Contributing
