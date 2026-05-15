@@ -27,7 +27,7 @@ A companion plugin **[Folder Accents](https://github.com/wrongvibe/folder-accent
 
 - **Single-accent palette** — Every colour derived from `--color-accent` via `oklch()`; change one colour, everything updates
 - **Auto contrast** — Text automatically flips light/dark based on your accent's lightness
-- **Auto Dark mode** — Dim palette from your chosen accent colour; Option to save preferred colour in Style Setting without this dim intervention.
+- **Auto Dark mode** — Dim palette from your chosen accent colour; [Option to save preferred colour](#accent-colour) in Style Setting without this dim intervention.
 
 ![accent colour picker demo](assets/COLOURS_light_dark_mode.gif)
 
@@ -194,7 +194,7 @@ Only has a visible effect when readable line length is enabled.
 
 ## On phone
 
-<img src="assets/COLOURS_phone.gif" width="800">
+<img src="assets/COLOURS_phone.gif" width="500">
 
 
 ## Contributing
