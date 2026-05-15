@@ -4,6 +4,9 @@
 
    Github:  https://github.com/wrongvibe/
    Support: https://buymeacoffee.com/wrongvibe/
+
+   Copyright (C) 2026 Emma
+   SPDX-License-Identifier: GPL-3.0-only
    ============================================= */
 
 /* @settings
@@ -459,7 +462,7 @@ svg * {
 
 	/* --- Code blocks: step function --------------------------------- */
 	--code-bg-bias:      0;
-	--code-bg-threshold: 0.74;
+	--code-bg-threshold: 0.75;
 	--code-bg-light:     0.95;
 	--code-bg-dark:      0.2;
 	--code-bg-range:     calc(var(--code-bg-light) - var(--code-bg-dark));

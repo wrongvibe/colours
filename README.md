@@ -2,17 +2,36 @@
 
 Accent colour is the theme colour, a minimal Obsidian theme. 
 
+![accent colour picker demo](assets/COLOURS_picker.gif)
+
 The entire colour palette is derived mathematically from single chosen accent colour. No longer restricted by theme's Light and Dark preset. More options in [Style Settings](#style-settings).
 
+   <table>
+    <tr>
+      <td><img src="assets/COLOURS_light.gif" width="100%"></td>
+      <td><img src="assets/COLOURS_dark.gif" width="100%"></td>
+      <td><img src="assets/COLOURS_greyscale.gif" width="100%"></td>
+    </tr>
+  </table>
+
 A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents) is available for changing accent colour when openning note in desinated folder.
+
+![accent colour picker demo](assets/folder-accents.gif)
+
+![accent colour picker demo](assets/folder-accents.png)
 
 ## Features
 
 - **Single-accent palette** — Every colour derived from `--color-accent` via `oklch()`; change one colour, everything updates
 - **Auto contrast** — Text automatically flips light/dark based on your accent's lightness
 - **Auto Dark mode** — Dim palette from your chosen accent colour; Option to save preferred colour in Style Setting without this dim intervention.
+
+![accent colour picker demo](assets/COLOURS_light_dark_mode.gif)
+
 - **Style Settings** — Colour, typography,layout options via the Style Settings plugin
 - **Alternates task checkboxes** — extra styled checkboxes for `important`, `star`, `bug`, `key`, `location` etc
+
+![accent colour picker demo](assets/COLOURS_alt_cb.png)
 
 ## Requirements
 
@@ -36,8 +55,8 @@ The theme respects Obsidian's font settings, which will override theme setting.
 
 Title and Heading font can be customized via Style Settings → Typography → Heading Font.
 
-| Recommanded fonts | Theme default |
-|-----------------|-----------|
+| Area | Recommanded fonts |
+|------|-------------------|
 | Interface font | [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono) |
 | Text font | IBM Plex Mono |
 | Monospace font | IBM Plex Mono |
@@ -172,4 +191,4 @@ Pure CSS — no build step. Edit `theme.css` directly.
 
 ## License
 
-CC BY-SA 4.0
+GPL-3.0
