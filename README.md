@@ -14,7 +14,7 @@ The entire colour palette is derived mathematically from single chosen accent co
     </tr>
   </table>
 
-A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents) is available for changing accent colour when openning note in desinated folder.
+A companion plugin **[Folder Accents](https://github.com/wrongvibe/folder-accents)** is available for changing accent colour when openning note in designated folder.
 
    <table border="0">
     <tr>
