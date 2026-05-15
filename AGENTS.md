@@ -53,22 +53,25 @@ The `/* @settings ... */` YAML block drives the Style Settings plugin. Current s
 - `accent-override` — class-toggle → `.accent-override` on body
 - `accent-colour` — variable-themed-color → `--accent-colour` CSS var
 - `heading-preset` — class-select → `.heading-monochrome` (default, no CSS) / `.heading-colour` / `.heading-colourful`
+- `checkbox-coloured` — class-toggle → `.checkbox-coloured` on body (default: true)
 - `highlight-preset` — class-select → `.highlight-default` (default) / `.highlight-subtle` / `.highlight-monochrome-high` / `.highlight-monochrome-low`
 
 **Typography** (heading level 2)
 - `font-heading-override` — variable-text → `--font-heading-override` CSS var
 - `heading-size-preset` — class-select → `.heading-size-default` (no CSS) / `.heading-size-compact` / `.heading-size-large`
 - `line-height-style` — class-select → `.line-height-default` (no CSS) / `.line-height-relaxed` / `.line-height-compact`
-- `disable-uppercase` — class-toggle → `.disable-uppercase` on body
+- `enable-uppercase` — class-toggle → `.enable-uppercase` on body
+- `font-brightness` — variable-number-slider (0.5–1, default 1) → `--font-brightness` CSS var
 
 **Layout** (heading level 2)
 - `table-style` — class-select → `.table-default` (no CSS) / `.table-alternate-rows`
 - `folder-style` — class-select → `.folder-default` (no CSS) / `.folder-inverted` / `.folder-plain`
 - `internal-link-style` — class-select → `.link-wavy` (default) / `.link-underline` / `.link-none`
 - `auto-hide-scrollbar` — class-toggle → `.auto-hide-scrollbar` on body
-
-**Bases** (heading level 2)
-- `bases-embed-width-override` — variable-number-slider (1–5, default 1.5) → `--bases-embed-width-override` CSS var
+- `no-cursor-line` — class-toggle → `.no-cursor-line` on body
+- `canvas-hide-title` — class-toggle → `.canvas-hide-title` on body
+- `readable-line-width` — variable-number-slider (400–1400px, default 700) → `--readable-line-width` CSS var
+- `bases-embed-width-override` — variable-number-slider (1–5, default 1) → `--bases-embed-width-override` CSS var
 
 **Rule for default values**: The default option in a class-select never needs its own CSS class — the base component styles already implement the default appearance. Only non-default options get CSS rules.
 
@@ -100,7 +103,7 @@ li[data-task="X"] > p > input:checked { }
 
 ## Bases Embed Width
 
-Controlled via the `--bases-embed-width-override` CSS variable (set by Style Settings slider, default `1.5`).
+Controlled via the `--bases-embed-width-override` CSS variable (set by Style Settings slider, default `1`).
 
 The implementation in `theme.css` calculates embed width and centering transform dynamically:
 ```css
