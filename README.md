@@ -16,9 +16,12 @@ The entire colour palette is derived mathematically from single chosen accent co
 
 A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents) is available for changing accent colour when openning note in desinated folder.
 
-![accent colour picker demo](assets/folder-accents.gif)
-
-![accent colour picker demo](assets/folder-accents.png)
+   <table>
+    <tr>
+      <td><img src="assets/folder-accents.gif" width="100%"></td>
+      <td><img src="assets/folder-accents.png" width="100%"></td>
+    </tr>
+  </table>
 
 ## Features
 
@@ -28,10 +31,10 @@ A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents)
 
 ![accent colour picker demo](assets/COLOURS_light_dark_mode.gif)
 
-- **Style Settings** — Colour, typography,layout options via the Style Settings plugin
+- **[Style Settings](#style-settings)** — Colour, typography,layout options via the Style Settings plugin
 - **Alternates task checkboxes** — extra styled checkboxes for `important`, `star`, `bug`, `key`, `location` etc
 
-![accent colour picker demo](assets/COLOURS_alt_cb.png)
+![accent colour picker demo](assets/COLOURS_alt_cb.png) | 500
 
 ## Requirements
 
@@ -77,6 +80,8 @@ Turn **on** to use the per-mode colours below instead of the system accent.
 #### Accent Colour
 *(Only active when Override System Accent is on.)*
 Set separate accent colours for light and dark mode. Defaults: `#0d0d73` (light) / `#0f0f3d` (dark).
+
+![accent colour picker demo](assets/COLOURS_style_settings.png) | 500
 
 #### Heading Style
 How `# H1` through `###### H6` are coloured:
