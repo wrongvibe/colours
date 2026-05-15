@@ -1,6 +1,6 @@
 # COLOURS
 
-Accent colour is the theme colour, a minimal Obsidian theme. 
+Accent-driven colour. A minimal Obsidian theme.
 
 ![accent colour picker demo](assets/COLOURS_picker.gif)
 
@@ -14,7 +14,7 @@ The entire colour palette is derived mathematically from single chosen accent co
     </tr>
   </table>
 
-A companion plugin **[Folder Accents](https://github.com/wrongvibe/folder-accents)** is available for changing accent colour when openning note in designated folder.
+A companion plugin **[Folder Accents](https://github.com/wrongvibe/folder-accents)** is available for changing accent colour when opening note in designated folder.
 
    <table border="0">
     <tr>
@@ -29,9 +29,9 @@ A companion plugin **[Folder Accents](https://github.com/wrongvibe/folder-accent
 - **Auto contrast** — Text automatically flips light/dark based on your accent's lightness
 - **Auto Dark mode** — Dim palette from your chosen accent colour; [Option to save preferred colour](#accent-colour) in Style Setting without this dim intervention.
 
-![accent colour picker demo](assets/COLOURS_light_dark_mode.gif)
+![mode switch demo](assets/COLOURS_light_dark_mode.gif)
 
-- **[Style Settings](#style-settings)** — Colour, typography,layout options via the Style Settings plugin
+- **[Style Settings](#style-settings)** — Colour, typography, layout options via the Style Settings plugin
 - **Alternates task checkboxes** — extra styled checkboxes for `important`, `star`, `bug`, `key`, `location` etc
 
 <img src="assets/COLOURS_alt_cb.png" width="500">
@@ -42,7 +42,7 @@ Obsidian **1.5.0+** (required for `oklch(from …)` relative colour syntax — s
 
 ## Installation
 
-### Community Themes (when published)
+### Community Themes
 
 1. **Settings → Appearance → Themes → Browse**
 2. Search **COLOURS** → Install
@@ -58,7 +58,7 @@ The theme respects Obsidian's font settings, which will override theme setting.
 
 Title and Heading font can be customized via Style Settings → Typography → Heading Font.
 
-| Area | Recommanded fonts |
+| Area | Recommended fonts |
 |------|-------------------|
 | Interface font | [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono) |
 | Text font | IBM Plex Mono |
@@ -69,7 +69,7 @@ You will need to install the fonts, they are not included in the theme.
 
 ## Style Settings
 
-![accent colour picker demo](assets/COLOURS_styles.png)
+![styles demo](assets/COLOURS_styles.png)
 
 Install [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options:
 
