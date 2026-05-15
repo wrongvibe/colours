@@ -6,7 +6,7 @@ Accent colour is the theme colour, a minimal Obsidian theme.
 
 The entire colour palette is derived mathematically from single chosen accent colour. No longer restricted by theme's Light and Dark preset. More options in [Style Settings](#style-settings).
 
-   <table>
+   <table border="0">
     <tr>
       <td><img src="assets/COLOURS_light.gif" width="100%"></td>
       <td><img src="assets/COLOURS_dark.gif" width="100%"></td>
@@ -16,7 +16,7 @@ The entire colour palette is derived mathematically from single chosen accent co
 
 A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents) is available for changing accent colour when openning note in desinated folder.
 
-   <table>
+   <table border="0">
     <tr>
       <td><img src="assets/folder-accents.gif" width="100%"></td>
       <td><img src="assets/folder-accents.png" width="100%"></td>
@@ -34,7 +34,7 @@ A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents)
 - **[Style Settings](#style-settings)** — Colour, typography,layout options via the Style Settings plugin
 - **Alternates task checkboxes** — extra styled checkboxes for `important`, `star`, `bug`, `key`, `location` etc
 
-![accent colour picker demo](assets/COLOURS_alt_cb.png) | 500
+![accent colour picker demo](assets/COLOURS_alt_cb.png | 500) 
 
 ## Requirements
 
@@ -69,6 +69,8 @@ You will need to install the fonts, they are not included in the theme.
 
 ## Style Settings
 
+![accent colour picker demo](assets/COLOURS_styles.png)
+
 Install [**Style Settings**](https://github.com/mgmeyers/obsidian-style-settings) community plugin to access these options:
 
 ### Colours
@@ -78,10 +80,11 @@ When off (default), Obsidian's built-in accent colour picker drives the theme.
 Turn **on** to use the per-mode colours below instead of the system accent.
 
 #### Accent Colour
-*(Only active when Override System Accent is on.)*
+*(Only active when [Override System Accent](#Override System Accent) is on.)*
+
 Set separate accent colours for light and dark mode. Defaults: `#0d0d73` (light) / `#0f0f3d` (dark).
 
-![accent colour picker demo](assets/COLOURS_style_settings.png) | 500
+![accent colour picker demo](assets/COLOURS_style_settings.png | 500) 
 
 #### Heading Style
 How `# H1` through `###### H6` are coloured:
