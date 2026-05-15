@@ -34,7 +34,7 @@ A companion plugin [Folder Accents](https://github.com/wrongvibe/folder-accents)
 - **[Style Settings](#style-settings)** — Colour, typography,layout options via the Style Settings plugin
 - **Alternates task checkboxes** — extra styled checkboxes for `important`, `star`, `bug`, `key`, `location` etc
 
-![accent colour picker demo](assets/COLOURS_alt_cb.png | 500) 
+<img src="assets/COLOURS_alt_cb.png" width="500">
 
 ## Requirements
 
@@ -80,11 +80,11 @@ When off (default), Obsidian's built-in accent colour picker drives the theme.
 Turn **on** to use the per-mode colours below instead of the system accent.
 
 #### Accent Colour
-*(Only active when [Override System Accent](#Override System Accent) is on.)*
+*(Only active when [Override System Accent](#override-system-accent) is on.)*
 
 Set separate accent colours for light and dark mode. Defaults: `#0d0d73` (light) / `#0f0f3d` (dark).
 
-![accent colour picker demo](assets/COLOURS_style_settings.png | 500) 
+<img src="assets/COLOURS_style_settings.png" width="500">
 
 #### Heading Style
 How `# H1` through `###### H6` are coloured:
