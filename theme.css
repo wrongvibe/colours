@@ -1660,7 +1660,7 @@ table {
 .markdown-rendered td,
 .cm-content th,
 .cm-content td {
-	border: 1px solid var(--text-normal);
+	border: 1px solid var(--code-border);
 	padding: 4px 8px;
 	text-align: left;
 }
