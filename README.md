@@ -95,6 +95,10 @@ How `# H1` through `###### H6` are coloured:
 | **A little bit colour** | Slightly more chroma |
 | **Go Crazy** | Full chroma, different hue per heading level |
 
+#### Heading Hue Rotate
+*(Only active with "A little bit colour" heading style.)*
+Shifts the base hue for headings. `0` = accent hue. Positive values rotate warm, negative rotate cool. Range: −180 to 180, default: 0.
+
 #### Coloured Alternate Checkboxes
 *(Default: on)*
 Applies the Go Crazy hue palette to alternate checkbox backgrounds. Turn off to fall back to the Heading Style setting.
@@ -141,8 +145,8 @@ Scale all heading sizes up or down:
 #### Enable Uppercase
 Applies `text-transform: uppercase` to the note title, table headers, and UI buttons (modals, settings, ribbon, view actions). Off by default.
 
-#### Font Brightness
-Scales text opacity. Lower values give a softer, more muted look. Range: 0.5–1, default: 1.
+#### Font Brightness (Light) / Font Brightness (Dark)
+Independent opacity scales for light and dark mode. Lower values give a softer, more muted look — affects text, headings, and callouts. Range: 0.5–1, default: 1.
 
 ---
 
