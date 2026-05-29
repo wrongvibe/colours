@@ -120,9 +120,18 @@ settings:
       type: class-toggle
       default: false
 
-    - id: font-brightness
-      title: Font Brightness
-      description: "Scales text opacity. Lower values give a softer, more muted look."
+    - id: font-brightness-light
+      title: Font Brightness (Light)
+      description: "Scales text opacity in light mode. Lower values give a softer, more muted look."
+      type: variable-number-slider
+      default: 1
+      min: 0.5
+      max: 1
+      step: 0.05
+
+    - id: font-brightness-dark
+      title: Font Brightness (Dark)
+      description: "Scales text opacity in dark mode. Lower values give a softer, more muted look."
       type: variable-number-slider
       default: 1
       min: 0.5
@@ -449,6 +458,8 @@ svg * {
    ============================================= */
 
 .theme-light {
+	--font-brightness: var(--font-brightness-light, 1);
+
 	/* --- Accent lightness detection --------------------------------- */
 	--contrast-threshold: 1.11;
 	--dynamic-switch:     round(calc(var(--contrast-threshold) - l));
@@ -563,6 +574,7 @@ svg * {
    DARK MODE PALETTE
    ============================================= */
 .theme-dark {
+	--font-brightness: var(--font-brightness-dark, 1);
 
 	/* --- Accent lightness detection --------------------------------- */
 	--dynamic-switch: 1;
@@ -1900,21 +1912,25 @@ body {
 
 .callout {
 	--callout-blend-mode: normal;
-	background-color: rgba(var(--callout-color), 0.25) !important;
-	border-radius: 0 !important;
-	padding: 0 !important;
-	border: 1px solid rgba(var(--callout-color), 0.5);
+	background-color: oklch(from var(--callout-color) l c h / calc(0.25 * var(--font-brightness)));
+	border-radius: 0;
+	padding: 0;
+	border: 1px solid oklch(from var(--callout-color) l c h / calc(0.5 * var(--font-brightness)));
+	font-size: 0.95em;
 }
 
 .callout-title {
-  color: var(--text-muted) !important;
+  color:  oklch(from var(--callout-color) clamp(0.5, l * 1.2, 0.75) c calc(h + 60) / var(--font-brightness));
  	padding: 5px;
- 	background-color: var(--callout-color) !important;
-	border-bottom: 1px solid rgba(var(--callout-color), 0.3);
+	border-bottom: 1px solid oklch(from var(--callout-color) l c h / calc(0.5 * var(--font-brightness)));
 }
 
 .callout-icon {
   padding: 0px 5px;
+}
+
+.callout-icon .svg-icon {
+  color: oklch(from var(--callout-color) l c calc(h + 60) / var(--font-brightness));
 }
 
 .callout-content {
